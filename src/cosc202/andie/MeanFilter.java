@@ -89,9 +89,6 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
         return output;
     }
 
-    public static void NewtonEasterEgg() {
-        System.out.println("Getoffmeswamp!");
-    }
 
 
 
