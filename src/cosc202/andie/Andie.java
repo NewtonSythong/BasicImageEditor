@@ -7,8 +7,11 @@ import javax.imageio.*;
 /**
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
- * ANDIE BETTER WORK FOR TEAM X
+* ANDIE BETTER WORK FOR TEAM X
  * CAN EVERYONE SEE THIS COMMENT?!
+ * 
+ * Does my comment work on this file
+ * 
  * 
  * </p>
  * 
