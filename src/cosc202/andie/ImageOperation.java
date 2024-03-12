@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 /**
  * <p>
  * Interface for operations to be applied to images.
+ * Coooommmmeeenntttt!!
  * </p>
  * 
  * <p>
