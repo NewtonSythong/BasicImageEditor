@@ -1,7 +1,9 @@
 package cosc202.andie;
 
-import java.awt.image.*;
-import java.util.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.ConvolveOp;
+import java.awt.image.Kernel;
+import java.util.Arrays;
 
 /**
  * <p>
@@ -86,6 +88,11 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
 
         return output;
     }
+
+    public static void NewtonEasterEgg() {
+        System.out.println("Getoffmeswamp!");
+    }
+
 
 
 }
