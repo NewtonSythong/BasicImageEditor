@@ -21,7 +21,6 @@ import java.awt.image.*;
  * @version 1.0
  */
 public class ConvertToGrey implements ImageOperation, java.io.Serializable {
-
     //Katrina was here!
     //please work this time
 
