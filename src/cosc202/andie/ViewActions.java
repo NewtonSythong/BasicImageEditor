@@ -7,6 +7,7 @@ import javax.swing.*;
 /**
  * <p>
  * Actions provided by the View menu.
+ * this is a non Destructive change 
  * </p>
  * 
  * <p>
