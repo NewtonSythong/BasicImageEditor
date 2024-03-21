@@ -2,19 +2,14 @@ package cosc202.andie;
 
 import java.awt.image.*;
 
-/* Blurs when radius is set to 3 or higher 
- * 
-*/
 public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
     private int radius;
 
-    // construction Code
     GaussianBlur() {
         this(1);
     }
 
-    // parameters
     GaussianBlur(int radius) {
         this.radius = radius;
     }
@@ -25,29 +20,20 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         float sigma = size / 3;
 
         float[] array = new float[size * size];
-
-        float denom1 = (2 * (float) Math.PI * sigma * sigma);
-        float denom2 = 2 * sigma * sigma;
-        int i = 0;
-        float centre = size / 2;
-        for (int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
-                float xOffset = x - centre;
-                float yOffset = y - centre;
-                float distance = (xOffset * xOffset + yOffset * yOffset);
-                array[i] = (float) (Math.exp(-distance / denom2) / denom1);
-                i++;
+        float kernelSum = 0;
+        int index = 0;
+        for (int x = -radius; x <= radius; x++) {
+            for (int y = -radius; y <= radius; y++) {
+                float distance = x * x + y * y;
+                array[index] = (float) (Math.exp(-distance / (2 * sigma * sigma)) / (2 * Math.PI * sigma * sigma));
+                kernelSum += array[index];
+                index++;
             }
         }
 
-
-        // Normalize the kernel values
-        float sum = 0;
-        for (float value : array) {
-            sum += value;
-        }
-        for (int j = 0; j < array.length; j++) {
-            array[j] /= sum;
+        // Normalise the kernal values
+        for (int i = 0; i < array.length; i++) {
+            array[i] /= kernelSum;
         }
 
         Kernel kernel = new Kernel(size, size, array);
