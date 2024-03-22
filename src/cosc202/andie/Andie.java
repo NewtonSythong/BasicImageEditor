@@ -1,8 +1,12 @@
 package cosc202.andie;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.imageio.*;
+import java.awt.BorderLayout;
+import java.awt.Image;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JScrollPane;
 
 /**
  * <p>
@@ -47,7 +51,7 @@ public class Andie {
      * @see ImageOperation
      * @see FileActions
      * @see EditActions
-     * @see ViewActions
+     * @see ImageActions
      * @see FilterActions
      * @see ColourActions
      * 
@@ -90,6 +94,9 @@ public class Andie {
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
         
+        ImageActions imageActions = new ImageActions();
+        menuBar.add(imageActions.createMenu());
+
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
