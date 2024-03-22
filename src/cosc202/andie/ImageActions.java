@@ -43,6 +43,8 @@ public class ImageActions {
         actions = new ArrayList<Action>();
         actions.add(new RotateClockwiseAction("Rotate Clockwise", null, "Rotate Clockwise", Integer.valueOf(KeyEvent.VK_R)));
         actions.add(new RotateAntiClockwiseAction("Rotate Anti-Clockwise", null, "Rotate Anti-Clockwise", Integer.valueOf(KeyEvent.VK_L)));
+        actions.add(new ImageFlipAction("Flip Image", null, "Flip Image", Integer.valueOf(KeyEvent.VK_F)));
+        actions.add(new MirrorFlipImageAction("Mirror Image", null, "Mirror Image", Integer.valueOf(KeyEvent.VK_M)));
     }
 
     /**
@@ -84,4 +86,29 @@ public class ImageActions {
             target.getParent().revalidate();
         }
     }
+
+
+public class ImageFlipAction extends ImageAction{
+        ImageFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new ImageFlip(true));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+
+public class MirrorFlipImageAction extends ImageAction{
+        MirrorFlipImageAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new ImageFlip(false));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
 }
