@@ -41,7 +41,8 @@ public class ImageActions {
      */
     public ImageActions() {
         actions = new ArrayList<Action>();
-        actions.add(new ImageRotationAction("Rotate", null, "Rotate", Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new RotateClockwiseAction("Rotate Clockwise", null, "Rotate Clockwise", Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new RotateAntiClockwiseAction("Rotate Anti-Clockwise", null, "Rotate Anti-Clockwise", Integer.valueOf(KeyEvent.VK_L)));
     }
 
     /**
@@ -62,13 +63,23 @@ public class ImageActions {
     }
 
 
-
-    public class ImageRotationAction extends ImageAction{
-        ImageRotationAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+    public class RotateClockwiseAction extends ImageAction{
+        RotateClockwiseAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new ImageRotation());
+            target.getImage().apply(new ImageRotation(true));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    public class RotateAntiClockwiseAction extends ImageAction{
+        RotateAntiClockwiseAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new ImageRotation(false));
             target.repaint();
             target.getParent().revalidate();
         }
