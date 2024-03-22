@@ -43,9 +43,10 @@ public class ImageActions {
         actions = new ArrayList<Action>();
         actions.add(new RotateClockwiseAction("Rotate Clockwise", null, "Rotate Clockwise", Integer.valueOf(KeyEvent.VK_R)));
         actions.add(new RotateAntiClockwiseAction("Rotate Anti-Clockwise", null, "Rotate Anti-Clockwise", Integer.valueOf(KeyEvent.VK_L)));
-        actions.add(new ImageFlipAction("Flip Image", null, "Flip Image", Integer.valueOf(KeyEvent.VK_F)));
-        actions.add(new MirrorFlipImageAction("Mirror Image", null, "Mirror Image", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new FlipHorizontalAction("Flip Horizontal", null, "Flip Horizontal", Integer.valueOf(KeyEvent.VK_H)));
+        actions.add(new FlipVerticalAction("Flip Vertical", null, "Flip Vertical", Integer.valueOf(KeyEvent.VK_V)));
     }
+
 
     /**
      * <p>
@@ -88,8 +89,8 @@ public class ImageActions {
     }
 
 
-public class ImageFlipAction extends ImageAction{
-        ImageFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+public class FlipHorizontalAction extends ImageAction{
+    FlipHorizontalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
         public void actionPerformed(ActionEvent e) {
@@ -100,8 +101,8 @@ public class ImageFlipAction extends ImageAction{
     }
 
 
-public class MirrorFlipImageAction extends ImageAction{
-        MirrorFlipImageAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+public class FlipVerticalAction  extends ImageAction{
+    FlipVerticalAction (String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
         public void actionPerformed(ActionEvent e) {
