@@ -35,11 +35,10 @@ public class InvertColour implements ImageOperation, java.io.Serializable{
 
                 int argb = input.getRGB(x, y);
                 
-                int a = ((255-argb) & 0xFF000000) >> 24; // the opacity of the colour
+                int a = ((argb) & 0xFF000000) >> 24; // the opacity of the colour
                 int r = ((255-argb) & 0x00FF0000) >> 16 ;
                 int g = ((255-argb) & 0x0000FF00) >> 8;
                 int b = ((255-argb) & 0x000000FF);
-
                 argb = (a << 24) | (r << 16 ) | (g << 8) | b;
                 input.setRGB(x, y, argb);
             }
