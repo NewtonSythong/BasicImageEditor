@@ -1,10 +1,16 @@
 package cosc202.andie;
 
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
-import java.awt.event.*;
-
-import javax.swing.*;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 /**
  * 
@@ -76,8 +82,8 @@ public class FilterActions {
         actions.add(new GaussianFilterAction("Gaussian blur", null, "Apply a Gaussian filter",
                 Integer.valueOf(KeyEvent.VK_G)));
 
-        actions.add(new MedianFilterAction("Median Filter", null, "Apply a median filter",
-                Integer.valueOf(KeyEvent.VK_M)));
+        // actions.add(new MedianFilterAction("Median Filter", null, "Apply a median filter",
+        //         Integer.valueOf(KeyEvent.VK_M)));
 
     }
 
