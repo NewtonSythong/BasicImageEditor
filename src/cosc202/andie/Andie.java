@@ -97,6 +97,10 @@ public class Andie {
         ImageActions imageActions = new ImageActions();
         menuBar.add(imageActions.createMenu());
 
+        // Language menu
+        // LanguageActions LanguageActions = new LanguageActions();
+        // menuBar.add(LanguageActions.createMenu());
+
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);

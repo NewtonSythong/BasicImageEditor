@@ -14,7 +14,6 @@ import javax.swing.JMenuItem;
  * It contains actions for rotating and flipping an image.
  */
 public class ImageActions {
-
     /**
      * A list of actions for manipulating an image.
      * These actions can be added to a View menu.
@@ -41,7 +40,6 @@ public class ImageActions {
      * This method creates a menu containing the list of image manipulation actions.
      * It can be used to add these actions to a View menu.
      */
-    // Method to create the menu goes here
 
     public JMenu createMenu() {
         JMenu viewMenu = new JMenu("Image");
