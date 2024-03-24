@@ -31,9 +31,9 @@ public class ImageActions {
                 Integer.valueOf(KeyEvent.VK_C)));
         actions.add(new RotateAntiClockwiseAction("Rotate Anti-Clockwise", null, "Rotate Anti-Clockwise",
                 Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(
-                new FlipHorizontalAction("Flip Horizontal", null, "Flip Horizontal", Integer.valueOf(KeyEvent.VK_H)));
-        actions.add(new FlipVerticalAction("Flip Vertical", null, "Flip Vertical", Integer.valueOf(KeyEvent.VK_V)));
+        actions.add(new FlipHorizontalAction("Flip Horizontal", null, "Flip Horizontal", Integer.valueOf(KeyEvent.VK_H)));
+        actions.add(new ResizeBiggerAction("Resize Bigger", null, "Resize the image twice the size", KeyEvent.VK_B));
+        actions.add(new ResizeSmallerAction("Resize Smaller", null, "Resize the image half it's size", KeyEvent.VK_S));
     }
 
     /**
@@ -166,6 +166,38 @@ public class ImageActions {
          */
         public void actionPerformed(ActionEvent e) {
             target.getImage().apply(new ImageFlip(false));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * This class represents an action that resizes an image to be 100% bigger.
+     * It extends the ImageAction class.
+     */
+    public class ResizeBiggerAction extends ImageAction {
+        ResizeBiggerAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new ImageResize(200)); // 100% bigger means doubling the size (scale factor 2.0)
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+     /**
+     * This class represents an action that resizes an image to be 50% smaller.
+     * It extends the ImageAction class.
+     */
+    public class ResizeSmallerAction extends ImageAction {
+        ResizeSmallerAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new ImageResize(50)); // 50% smaller means half of the original size (scale factor 0.5)
             target.repaint();
             target.getParent().revalidate();
         }
