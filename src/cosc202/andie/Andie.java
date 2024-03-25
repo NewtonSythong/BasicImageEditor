@@ -98,8 +98,8 @@ public class Andie {
         menuBar.add(imageActions.createMenu());
 
         // Language menu
-        // LanguageActions LanguageActions = new LanguageActions();
-        // menuBar.add(LanguageActions.createMenu());
+        LanguageActions LanguageActions = new LanguageActions();
+        menuBar.add(LanguageActions.createMenu());
 
         frame.setJMenuBar(menuBar);
         frame.pack();
