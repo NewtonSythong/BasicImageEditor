@@ -32,6 +32,7 @@ public class ImageActions {
         actions.add(new RotateAntiClockwiseAction("Rotate Anti-Clockwise", null, "Rotate Anti-Clockwise",
                 Integer.valueOf(KeyEvent.VK_A)));
         actions.add(new FlipHorizontalAction("Flip Horizontal", null, "Flip Horizontal", Integer.valueOf(KeyEvent.VK_H)));
+        actions.add(new FlipVerticalAction("Flip Vertical", null,"Flip Vertical", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new ResizeBiggerAction("Resize Bigger", null, "Resize the image twice the size", KeyEvent.VK_B));
         actions.add(new ResizeSmallerAction("Resize Smaller", null, "Resize the image half it's size", KeyEvent.VK_S));
     }

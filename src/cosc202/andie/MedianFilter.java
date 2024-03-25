@@ -65,9 +65,6 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
         int[] medianArrayR = new int[size];
         int[] medianArrayG = new int[size];
         int[] medianArrayB = new int[size];
-        System.out.println(medianArrayB.length);
-        System.out.println(input.getHeight());
-        System.out.println(input.getWidth());
 
         for (int y = 0; y < input.getHeight(); y++) {
             for (int x = 0; x < input.getWidth(); x++) {
