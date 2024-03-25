@@ -82,8 +82,8 @@ public class FilterActions {
         actions.add(new GaussianFilterAction("Gaussian blur", null, "Apply a Gaussian filter",
                 Integer.valueOf(KeyEvent.VK_G)));
 
-        // actions.add(new MedianFilterAction("Median Filter", null, "Apply a median filter",
-        //         Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new MedianFilterAction("Median Filter", null, "Apply a median filter",
+                Integer.valueOf(KeyEvent.VK_M)));
 
     }
 
@@ -303,39 +303,39 @@ public class FilterActions {
 
     }
 
-    // public class MedianFilterAction extends ImageAction {
+    public class MedianFilterAction extends ImageAction {
 
-    //     MedianFilterAction(String name, ImageIcon icon, String desc,
+        MedianFilterAction(String name, ImageIcon icon, String desc,
 
-    //             Integer mnemonic) {
+                Integer mnemonic) {
 
-    //         super(name, icon, desc, mnemonic);
+            super(name, icon, desc, mnemonic);
 
-    //     }
+        }
 
-    //     public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
 
-    //         // create and apply filter
+            // create and apply filter
 
-    //         // determine radius - ask user.
+            // determine radius - ask user.
 
-    //         int radius = 1;
+            int radius = 1;
 
-    //         // Pop-up dialog box to ask for radius value.
+            // Pop-up dialog box to ask for radius value.
 
-    //         SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
-    //         JSpinner radiusSpinner = new JSpinner(radiusModel);
-    //         int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
-    //                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-    //         // Check the return value from the dialog box.
-    //         if (option == JOptionPane.CANCEL_OPTION) {
-    //             return;
-    //         } else if (option == JOptionPane.OK_OPTION) {
-    //             radius = radiusModel.getNumber().intValue();
-    //         }
-    //         target.getImage().apply(new MedianFilter(radius));
-    //         target.repaint();
-    //         target.getParent().revalidate();
-    //     }
-    // }
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+            JSpinner radiusSpinner = new JSpinner(radiusModel);
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                radius = radiusModel.getNumber().intValue();
+            }
+            target.getImage().apply(new MedianFilter(radius));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
 }
