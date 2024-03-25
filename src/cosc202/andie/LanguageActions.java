@@ -14,7 +14,8 @@ public class LanguageActions {
 
     /** A list of actions for the Language menu. */
     protected ArrayList<Action> actions;
-
+    // Remove the unused variable declaration
+    // private ChangeLanguage changeLanguage;
     /**
      * <p>
      * Create a set of Language menu actions.
@@ -24,6 +25,8 @@ public class LanguageActions {
         actions = new ArrayList<Action>();
         actions.add(new ChangeLanguageAction("Korean", null, "Change the language",
                 Integer.valueOf(KeyEvent.VK_K), "ko", "KR"));
+        actions.add(new ChangeLanguageAction("English", null, "Change the language",
+                Integer.valueOf(KeyEvent.VK_N), "en", "NZ"));
     }
 
     /**
@@ -46,6 +49,7 @@ public class LanguageActions {
         private static final long serialVersionUID = 1L;
         private String languageCode;
         private String countryCode;
+        private ChangeLanguage changeLanguage; // Create an instance of the ChangeLanguage class
 
         public ChangeLanguageAction(String text, ImageIcon icon, String desc, Integer mnemonic, String languageCode, String countryCode) {
             super(text);
@@ -54,10 +58,10 @@ public class LanguageActions {
             putValue(Action.MNEMONIC_KEY, mnemonic);
             this.languageCode = languageCode;
             this.countryCode = countryCode;
+            this.changeLanguage = new ChangeLanguage(); // Initialize the instance of the ChangeLanguage class
         }
 
         public void actionPerformed(ActionEvent e) {
-            ChangeLanguage changeLanguage = new ChangeLanguage(); // Create an instance of the ChangeLanguage class
             changeLanguage.changeLanguage(languageCode, countryCode); // Invoke the changeLanguage method on the instance
         }
     }
