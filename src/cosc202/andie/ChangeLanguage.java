@@ -9,12 +9,12 @@ public class ChangeLanguage implements java.io.Serializable{
 
     public ChangeLanguage() {
         this.currentLocale = Locale.getDefault();
-        this.messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
+        this.messages = ResourceBundle.getBundle("cosc202.andie.MessagesBundle", currentLocale);
     }
 
     public void changeLanguage(String languageCode, String countryCode) {
-        this.currentLocale = new Locale.Builder().setLanguage(languageCode).setRegion(countryCode).build();
-        this.messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
+        currentLocale = new Locale(languageCode, countryCode);
+        messages = ResourceBundle.getBundle("cosc202.andie.MessagesBundle", currentLocale);
     }
 
     public ResourceBundle getMessages() {
