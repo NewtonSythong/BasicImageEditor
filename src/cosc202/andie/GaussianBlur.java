@@ -29,7 +29,8 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
     /**
      * Apply Gaussian blur to an image.
      *
-     * @param input The image to be blurred using the 2-dimensional Gaussian equation.
+     * @param input The image to be blurred using the 2-dimensional Gaussian
+     *              equation.
      * 
      * @return The resulting Gaussian blur version of the image.
      * 
@@ -61,12 +62,21 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
         ConvolveOp convOp = new ConvolveOp(kernel);
 
-        BufferedImage output = new BufferedImage(
-                input.getColorModel(),
-                input.copyData(null),
-                input.isAlphaPremultiplied(), null);
-        convOp.filter(input, output);
-        
-        return output;
+        try {
+            if (input != null) {
+                BufferedImage output = new BufferedImage(
+                        input.getColorModel(),
+                        input.copyData(null),
+                        input.isAlphaPremultiplied(), null);
+                convOp.filter(input, output);
+                return output;
+            } else {
+                throw new NullPointerException();
+
+            }
+        } catch (NullPointerException e) {
+            System.out.println("No image selected");
+            return null;
+        }
     }
 }
