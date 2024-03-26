@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.awt.image.BufferedImage;
 
+import javax.swing.JOptionPane;
+
 /**
  * This class represents an operation that flips an image.
  * It implements the ImageOperation interface and is serializable.
@@ -25,6 +27,9 @@ public class ImageFlip implements ImageOperation, java.io.Serializable {
      * @return The output image after the flip operation.
      */
     public BufferedImage apply(BufferedImage input) {
+    try{
+        if(input !=null){
+    
         int width = input.getWidth();
         int height = input.getHeight();
         BufferedImage output = new BufferedImage(width, height, input.getType());
@@ -38,5 +43,13 @@ public class ImageFlip implements ImageOperation, java.io.Serializable {
             }
         }
         return output;
+            }else{
+        throw new NullPointerException();
+    }
+  }catch ( NullPointerException e){
+        JOptionPane.showMessageDialog(null, "Please select a image file before trying to flip image");
+return null;
+  }
     }
 }
+

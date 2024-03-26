@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.awt.image.*;
 
+import javax.swing.JOptionPane;
+
 public class SoftBlur implements ImageOperation, java.io.Serializable{
     
 SoftBlur(){
@@ -17,13 +19,22 @@ public BufferedImage apply (BufferedImage input){
     Kernel kernel = new Kernel(3, 3, array);
     // Apply this as a convolution - same code as in MeanFilter
     ConvolveOp convOp = new ConvolveOp(kernel);
-
-    BufferedImage output = new BufferedImage(input.getColorModel(),
-            input.copyData(null),
-            input.isAlphaPremultiplied(), null);
-    convOp.filter(input, output);
-    // And we're done
-    return output;
+try{
+    if(input != null){
+        BufferedImage output = new BufferedImage(input.getColorModel(),
+        input.copyData(null),
+        input.isAlphaPremultiplied(), null);
+convOp.filter(input, output);
+// And we're done
+return output;
+    }else{
+        throw new NullPointerException();
+    }
+    } catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null, "Please select image before filter");
+return null;
+    }
 }
 
-}   
+}
+

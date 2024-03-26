@@ -1,5 +1,6 @@
 package cosc202.andie;
 
+import javax.swing.JOptionPane;
 import java.awt.image.*;
 
 /**
@@ -16,7 +17,8 @@ public class CycleColour implements ImageOperation, java.io.Serializable{
      * 
      */
     public BufferedImage apply(BufferedImage input){
-
+        try{
+            if(input != null){
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {//cycles through each pixel
 
@@ -41,5 +43,12 @@ public class CycleColour implements ImageOperation, java.io.Serializable{
         }
         
         return input;
+    }else{
+        throw new NullPointerException();
     }
-}  
+}catch(NullPointerException e){
+    JOptionPane.showMessageDialog(null, "Please select a image file before trying to cycle colours");
+    return null;
+}
+    }
+}
