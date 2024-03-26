@@ -1,7 +1,8 @@
- package cosc202.andie;
+package cosc202.andie;
 
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
+import javax.swing.*;
 
 public class MedianFilter implements ImageOperation, java.io.Serializable {
 
@@ -53,58 +54,66 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      */
 
     public BufferedImage apply(BufferedImage input) {
+        try {
+            if (input != null) {
+                BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
+                        input.isAlphaPremultiplied(), null);
+                int newA;
+                int newR;
+                int newG;
+                int newB;
+                int size = (2 * radius + 1) * (2 * radius + 1);
+                int[] medianArrayA = new int[size];
+                int[] medianArrayR = new int[size];
+                int[] medianArrayG = new int[size];
+                int[] medianArrayB = new int[size];
 
-        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
-                input.isAlphaPremultiplied(), null);
-        int newA;
-        int newR;
-        int newG;
-        int newB;
-        int size = (2 * radius + 1) * (2 * radius + 1);
-        int[] medianArrayA = new int[size];
-        int[] medianArrayR = new int[size];
-        int[] medianArrayG = new int[size];
-        int[] medianArrayB = new int[size];
+                for (int y = 0; y < input.getHeight(); y++) {
+                    for (int x = 0; x < input.getWidth(); x++) {
+                        int count = 0;
 
-        for (int y = 0; y < input.getHeight(); y++) {
-            for (int x = 0; x < input.getWidth(); x++) {
-                int count = 0;
+                        for (int offsetY = -radius; offsetY <= radius; offsetY++) {
+                            for (int offsetX = -radius; offsetX <= radius; offsetX++) {
 
-                for (int offsetY = -radius; offsetY <= radius; offsetY++) {
-                    for (int offsetX = -radius; offsetX <= radius; offsetX++) {
+                                int pixelX = Math.min(Math.max(x + offsetX, 0), input.getWidth() - 1);
+                                int pixelY = Math.min(Math.max(y + offsetY, 0), input.getHeight() - 1);
+                                int argbV1 = input.getRGB(pixelX, pixelY);
 
-                        int pixelX = Math.min(Math.max(x + offsetX, 0), input.getWidth() - 1);
-                        int pixelY = Math.min(Math.max(y + offsetY, 0), input.getHeight() - 1);
-                        int argbV1 = input.getRGB(pixelX, pixelY);
+                                int a = (argbV1 >> 24) & 0xFF;
+                                int r = (argbV1 >> 16) & 0xFF;
+                                int g = (argbV1 >> 8) & 0xFF;
+                                int b = argbV1 & 0xFF;
 
-                        int a = (argbV1 >> 24) & 0xFF;
-                        int r = (argbV1 >> 16) & 0xFF;
-                        int g = (argbV1 >> 8) & 0xFF;
-                        int b = argbV1 & 0xFF;
-                        
-                         if (count < size) {
-                            medianArrayA[count] = a;
-                            medianArrayR[count] = r;
-                            medianArrayG[count] = g;
-                            medianArrayB[count] = b;
-                            count++;
-                         }
+                                if (count < size) {
+                                    medianArrayA[count] = a;
+                                    medianArrayR[count] = r;
+                                    medianArrayG[count] = g;
+                                    medianArrayB[count] = b;
+                                    count++;
+                                }
+                            }
+
+                        }
+                        newA = medianValue(medianArrayA, medianArrayA.length);
+                        newR = medianValue(medianArrayR, medianArrayR.length);
+                        newG = medianValue(medianArrayG, medianArrayG.length);
+                        newB = medianValue(medianArrayB, medianArrayB.length);
+                        int argbV2 = (newA << 24) | (newR << 16) | (newG << 8) | newB;
+                        output.setRGB(x, y, argbV2);
 
                     }
 
                 }
-                newA = medianValue(medianArrayA, medianArrayA.length);
-                newR = medianValue(medianArrayR, medianArrayR.length);
-                newG = medianValue(medianArrayG, medianArrayG.length);
-                newB = medianValue(medianArrayB, medianArrayB.length);
-                int argbV2 = (newA << 24) | (newR << 16) | (newG << 8) | newB;
-                output.setRGB(x, y, argbV2);
-               
-            }
+                return output;
+            } else {
+                throw new NullPointerException();
 
+            }
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Please select image before filter");
+            return null;
         }
 
-        return output;
 
     }
 
