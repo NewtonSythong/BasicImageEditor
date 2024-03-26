@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.awt.image.*;
 
+import javax.swing.JOptionPane;
+
 /**
  * Class
  */
@@ -29,7 +31,8 @@ public class InvertColour implements ImageOperation, java.io.Serializable{
      * @return The resulting inverted colour image
      */
     public BufferedImage apply(BufferedImage input) {
-  
+        try{
+            if(input != null){
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
 
@@ -44,9 +47,15 @@ public class InvertColour implements ImageOperation, java.io.Serializable{
             }
         }
         
-        return input;
+         return input;
+    }else{
+        throw new NullPointerException();
     }
+  }catch ( NullPointerException e){
+        JOptionPane.showMessageDialog(null, "Please select a image file before trying to invert colour");
+return null;
+  }
 
-
+    }
 
 }

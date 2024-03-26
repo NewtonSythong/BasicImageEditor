@@ -5,6 +5,8 @@ import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 import java.util.Arrays;
 
+import javax.swing.JOptionPane;
+
 /**
  * <p>
  * ImageOperation to apply a Mean (simple blur) filter.
@@ -83,10 +85,20 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
 
         Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
         ConvolveOp convOp = new ConvolveOp(kernel);
-        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-        convOp.filter(input, output);
+       try{
+        if(input != null){
+            BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
+            convOp.filter(input, output);
+    
+            return output;
+        }else{
+            throw new NullPointerException();
+        }
+       } catch (NullPointerException e){
+        JOptionPane.showMessageDialog(null, "Please select a image file before trying to apply mean filter");
+    return null;
+       }
 
-        return output;
     }
 
 

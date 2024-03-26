@@ -2,13 +2,15 @@ package cosc202.andie;
 
 import java.awt.image.*;
 
+import javax.swing.JOptionPane;
+
 /**
  * Katrina's job >:3
  */
-public class SharpenFilter implements ImageOperation, java.io.Serializable{
-    
-    SharpenFilter(){
-        //construction Code
+public class SharpenFilter implements ImageOperation, java.io.Serializable {
+
+    SharpenFilter() {
+        // construction Code
     }
 
     public BufferedImage apply(BufferedImage input) {
@@ -21,13 +23,21 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable{
         Kernel kernel = new Kernel(3, 3, array);
         // Apply this as a convolution - same code as in MeanFilter
         ConvolveOp convOp = new ConvolveOp(kernel);
-
-        BufferedImage output = new BufferedImage(input.getColorModel(),
-                input.copyData(null),
-                input.isAlphaPremultiplied(), null);
-        convOp.filter(input, output);
-        // And we're done
-        return output;
-       
+try{
+    if(input !=  null){
+    BufferedImage output = new BufferedImage(input.getColorModel(),
+    input.copyData(null),
+    input.isAlphaPremultiplied(), null);
+convOp.filter(input, output);
+// And we're done
+return output;
+}else{
+    throw new NullPointerException();
+}
+} catch (NullPointerException e){
+    JOptionPane.showMessageDialog(null, "Please select image before filter");
+return null;
+}
+ 
     }
 }

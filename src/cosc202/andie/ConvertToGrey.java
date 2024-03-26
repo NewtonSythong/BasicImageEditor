@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.awt.image.*;
 
+import javax.swing.JOptionPane;
+
 /**
  * <p>
  * ImageOperation to convert an image from colour to greyscale.
@@ -47,7 +49,8 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
      * @return The resulting greyscale image.
      */
     public BufferedImage apply(BufferedImage input) {
-  
+  try{
+    if(input != null){
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
                 int argb = input.getRGB(x, y);
@@ -64,6 +67,14 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
         }
         
         return input;
+    }else{
+        throw new NullPointerException();
     }
+  }catch ( NullPointerException e){
+        JOptionPane.showMessageDialog(null, "Please select a image file before trying to convert to greyscale");
+return null;
+  }
+
     
+}
 }
