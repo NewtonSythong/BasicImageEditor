@@ -77,7 +77,6 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
             }
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Please select an image before filter");
-            System.out.println("No image selected");
             return null;
         }
     }

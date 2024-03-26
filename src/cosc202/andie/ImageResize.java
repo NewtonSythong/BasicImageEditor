@@ -57,7 +57,7 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
         throw new NullPointerException();
     }
   }catch ( NullPointerException e){
-        JOptionPane.showMessageDialog(null, "Please select a image file before trying to resize");
+        JOptionPane.showMessageDialog(null, "Please select an image file before trying to resize");
 return null;
   }
 }
