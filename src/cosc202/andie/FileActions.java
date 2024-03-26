@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-
+import javax.swing.*;
 /**
  * <p>
  * Actions provided by the File menu.
@@ -110,7 +110,9 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open(imageFilepath);
                 } catch (Exception ex) {
-                    System.exit(1);
+                    JOptionPane.showMessageDialog(null, "You opened the wrong file-type sole!", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                    //System.exit(1);
                 }
             }
 
