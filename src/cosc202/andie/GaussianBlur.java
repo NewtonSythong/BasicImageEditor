@@ -4,16 +4,37 @@ import java.awt.image.*;
 
 public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
+    /**
+     * The size of the filter to apply
+     */
     private int radius;
 
+    /**
+     * Construct a Gaussian blur with a default radius of 1
+     */
     GaussianBlur() {
         this(1);
     }
 
+    /**
+     * Construct a Gaussian blur with a specified radius
+     * 
+     * @param radius
+     */
     GaussianBlur(int radius) {
         this.radius = radius;
     }
 
+
+    /**
+     * Apply Gaussian blur to an image.
+     *
+     * @param input The image to be blurred using the 2-dimensional Gaussian
+     *              equation.
+     * 
+     * @return The resulting Gaussian blur version of the image.
+     * 
+     */
     public BufferedImage apply(BufferedImage input) {
         // The values for the kernel as a 9-element array
         int size = 2 * radius + 1;
@@ -38,15 +59,24 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
         Kernel kernel = new Kernel(size, size, array);
 
-        // Apply this as a convolution - same code as in MeanFilter
+
         ConvolveOp convOp = new ConvolveOp(kernel);
 
-        BufferedImage output = new BufferedImage(
-                input.getColorModel(),
-                input.copyData(null),
-                input.isAlphaPremultiplied(), null);
-        convOp.filter(input, output);
-        // And we're done
-        return output;
+        try {
+            if (input != null) {
+                BufferedImage output = new BufferedImage(
+                        input.getColorModel(),
+                        input.copyData(null),
+                        input.isAlphaPremultiplied(), null);
+                convOp.filter(input, output);
+                return output;
+            } else {
+                throw new NullPointerException();
+
+            }
+        } catch (NullPointerException e) {
+            System.out.println("No image selected");
+            return null;
+        }
     }
 }
