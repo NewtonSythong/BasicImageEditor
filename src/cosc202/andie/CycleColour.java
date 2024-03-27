@@ -4,17 +4,41 @@ import javax.swing.JOptionPane;
 import java.awt.image.*;
 
 /**
- * Class
+ * <p>
+ * ImageOperation to convert an image from an RGB colour cycle to an alternative.
+ * </p>
+ * 
+ * <p>
+ * The images produced by this operation are still colour images,
+ * Colour cycling an image involves swapping the colour channels around
+ * and updating the red, green, and blue value ordering
+ * </p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * </p>
  */
 public class CycleColour implements ImageOperation, java.io.Serializable{
 
     /**
-     * 
+     * <p>
+     * Create a new CycleColour operation.
+     * </p>
      */
     CycleColour(){}
 
-    /**
+     /**
+     * <p>
+     * Apply colour channel cycling to an image.
+     * </p>
      * 
+     * <p>
+     * Colour cycling an image involves swapping the colour channels around
+     * and updating the red, green, and blue value ordering
+     * </p>
+     * 
+     * @param input The image to have its colour channels cycled
+     * @return The resulting colour cycled image
      */
     public BufferedImage apply(BufferedImage input){
         try{

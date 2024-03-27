@@ -5,11 +5,23 @@ import java.awt.image.*;
 import javax.swing.JOptionPane;
 
 /**
- * Class
+ * <p>
+ * ImageOperation to convert an image from colour to greyscale.
+ * </p>
+ * 
+ * <p>
+ * The images produced by this operation are still colour images,
+ * Inverting an image involves iterating over the pixels in the image 
+ * and updating the red, green, and blue values to 255 minus their original values
+ * </p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * </p>
  */
 public class InvertColour implements ImageOperation, java.io.Serializable{
 
-/**
+    /**
      * <p>
      * Create a new InvertColour operation.
      * </p>
@@ -18,13 +30,14 @@ public class InvertColour implements ImageOperation, java.io.Serializable{
 
     }
 
-/**
+    /**
      * <p>
      * Apply inversion conversion to an image.
      * </p>
      * 
      * <p>
-     * Write descriptor of logic behind image colour inversion
+     * Inverting an image involves iterating over the pixels in the image and updating the red, green, and
+     * blue values to 255 minus their original values
      * </p>
      * 
      * @param input The image to have its colour values inverted

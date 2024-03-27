@@ -5,7 +5,15 @@ import java.awt.image.*;
 import javax.swing.JOptionPane;
 
 /**
- * Katrina's job >:3
+ * <p>
+ * ImageOperation to apply a sharpen filter.
+ * </p>
+ * 
+ * <p>
+ * A sharpen filter enhances the color contrast around edges in the image 
+ * by enhancing the differences between neighbouring pixel values
+ * </p>
+ * 
  */
 public class SharpenFilter implements ImageOperation, java.io.Serializable {
 

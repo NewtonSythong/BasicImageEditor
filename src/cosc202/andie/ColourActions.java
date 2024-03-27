@@ -101,19 +101,39 @@ public class ColourActions {
     }
 
     /**
+     * <p>
+     * Action to converts image colour values
+     * </p>
      * 
+     * @see InvertColour
      */
     public class InvertColourAction extends ImageAction{
 
         /**
+         * <p>
+         * Create a new invert-colour action.
+         * </p>
          * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
         InvertColourAction(String name, ImageIcon icon, String desc, Integer mnemonic){
             super(name, icon, desc, mnemonic);
         }
 
         /**
+         * <p>
+         * Callback for when the invert-colour action is triggered.
+         * </p>
          * 
+         * <p>
+         * This method is called whenever the InvertColourAction is triggered.
+         * It changes the image by inverting the colour values
+         * </p>
+         * 
+         * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e){
             target.getImage().apply(new InvertColour());
@@ -123,18 +143,38 @@ public class ColourActions {
     }
 
     /**
+     * <p>
+     * Action to cycle between re-ordering of colour channels
+     * </p>
      * 
+     * @see CycleColour
      */
     public class CycleColourAction extends ImageAction{
-        /**
+        /** 
+         * <p>
+         * Create a new cycle-colour action.
+         * </p>
          * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
         CycleColourAction(String name, ImageIcon icon, String desc, Integer mnemonic){
             super(name, icon, desc, mnemonic);
         }
 
         /**
+         * <p>
+         * Callback for when the cycle-colour action is triggered.
+         * </p>
          * 
+         * <p>
+         * This method is called whenever the CycleColourAction is triggered.
+         * It changes the image by re-ordering the RGB colour channels
+         * </p>
+         * 
+         * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e){
             target.getImage().apply(new CycleColour());
