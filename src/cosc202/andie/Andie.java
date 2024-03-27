@@ -116,8 +116,8 @@ public class Andie {
         menuBar.add(imageActions.createMenu());
 
         // Language menu
-        LanguageActions2 LanguageActions2 = new LanguageActions2(bundle, frame);
-        menuBar.add(LanguageActions2.createMenu());
+        LanguageActions LanguageActions = new LanguageActions(bundle, frame);
+        menuBar.add(LanguageActions.createMenu());
 
         frame.setJMenuBar(menuBar);
         frame.pack();
