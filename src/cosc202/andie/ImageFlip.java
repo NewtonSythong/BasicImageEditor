@@ -47,7 +47,7 @@ public class ImageFlip implements ImageOperation, java.io.Serializable {
         throw new NullPointerException();
     }
   }catch ( NullPointerException e){
-        JOptionPane.showMessageDialog(null, "Please select a image file before trying to flip image");
+        JOptionPane.showMessageDialog(null, "Please select an image file before trying to flip image");
 return null;
   }
     }

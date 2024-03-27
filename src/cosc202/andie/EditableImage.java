@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.*;
 import java.awt.image.*;
 import javax.imageio.*;
-import javax.swing.*;
+
 /**
  * <p>
  * An image with a set of operations applied to it.
@@ -150,17 +150,20 @@ class EditableImage {
      * @param filePath The file to open the image from.
      * @throws Exception If something goes wrong.
      */
-    public void open(String filePath) {
-        try{
+    public void open(String filePath) throws Exception {
         imageFilename = filePath;
         opsFilename = imageFilename + ".ops";
         File imageFile = new File(imageFilename);
         original = ImageIO.read(imageFile);
         current = deepCopy(original);
+<<<<<<< HEAD
         }catch (IOException e){
             JOptionPane.showMessageDialog(null, "You opened the wrong file-type!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+=======
+
+>>>>>>> 8fdf686be1023321ae1353b8a5549c53dd8c8ab1
         try {
             FileInputStream fileIn = new FileInputStream(this.opsFilename);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);

@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.awt.image.*;
+import javax.swing.*;
 
 public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
@@ -75,7 +76,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
             }
         } catch (NullPointerException e) {
-            System.out.println("No image selected");
+            JOptionPane.showMessageDialog(null, "Please select an image before filter");
             return null;
         }
     }

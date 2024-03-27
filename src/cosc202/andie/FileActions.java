@@ -253,9 +253,7 @@ public class FileActions {
 
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
-                    // String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    // EditableImage ei = target.getImage();
-                    // ei.export(imageFilepath);
+                    
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().export(imageFilepath);
                 } catch (Exception ex) {
