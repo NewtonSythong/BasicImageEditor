@@ -118,9 +118,8 @@ public class FileActions {
                     
 ;
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "You opened the wrong file-type sole!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Wrong file type");
                     return;
-                    //System.exit(1);
                 }
             }
 
@@ -169,7 +168,7 @@ public class FileActions {
             try {
                 target.getImage().save();
             } catch (Exception ex) {
-                System.exit(1);
+                JOptionPane.showMessageDialog(null, "No image to save");
             }
         }
 
@@ -219,9 +218,8 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().saveAs(imageFilepath);
                     imageOpen = false;
-
                 } catch (Exception ex) {
-                    System.exit(1);
+                    JOptionPane.showMessageDialog(null, "No image to save");
                 }
             }
         }
@@ -266,7 +264,7 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().export(imageFilepath);
                 } catch (Exception ex) {
-                    System.exit(1);
+                    JOptionPane.showMessageDialog(null, "No image to export");
                 }
             }
         }
