@@ -4,14 +4,24 @@ import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import javax.swing.*;
 
+/**
+ * <p>
+ * ImageOperation to apply a Median filter 
+ * </p>
+ * 
+ * <p>
+ * A median filter takes an image  takes all of the pixel values in a local
+neighbourhood and sorts them. The new pixel value is then the middle value (the median) from the
+sorted list.
+ * </p>
+*/
 public class MedianFilter implements ImageOperation, java.io.Serializable {
 
     /**
      * 
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a
-     * 
      * 5x5 filter, and so forth.
-     * 
+     * @param radius The radius of the newly constructed MedianFilter
      */
 
     private int radius;
@@ -40,16 +50,16 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Apply median filter conversion to an image.
+     * Apply Median filter conversion to an image.
      * </p>
      * <p>
      * The conversion from red, green, and blue values to a median colour, uses a
-     * weighted average of RGB
+     * weighted average of RGBA.  The size of the array to sort to find the median colour 
      * </p>
      *
      * @param input The image to be converted to a median colour.
      * 
-     * @return The resulting median colour version of the image.
+     * @return The resulting median colour (blurred) version of the image.
      * 
      */
 
@@ -116,7 +126,13 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
 
 
     }
-
+/**
+ * method which takes the unsorted array of values for RGBA and sorts them
+ * Then returning the median value of each array.
+ * @param unsortedArray the array to be sorted
+ * @param n the size of the array 
+ * @return The median value of the array.
+ */
     public int medianValue(int[] unsortedArray, int n) {
 
         Arrays.sort(unsortedArray);
