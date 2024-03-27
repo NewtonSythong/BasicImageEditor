@@ -158,7 +158,7 @@ class EditableImage {
         original = ImageIO.read(imageFile);
         current = deepCopy(original);
         }catch (IOException e){
-            JOptionPane.showMessageDialog(null, "You opened the wrong file-type niggah!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You opened the wrong file-type!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
