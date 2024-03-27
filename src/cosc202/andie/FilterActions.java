@@ -207,7 +207,7 @@ public class FilterActions {
             target.repaint();
 
             target.getParent().revalidate();
-
+           
         }
 
     }
@@ -261,6 +261,8 @@ public class FilterActions {
             target.repaint();
 
             target.getParent().revalidate();
+
+            
 
         }
 
