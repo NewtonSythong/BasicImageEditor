@@ -186,7 +186,23 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new CycleColour());
+
+            String[] configOptions = {"RBG","GRB","GBR","BGR","BRG"};
+            JComboBox optionList = new JComboBox(configOptions);
+            String configSelected = "RGB"; 
+
+            int option = JOptionPane.showOptionDialog(null, optionList, "Choose a re-ordered RGB colour channel",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+           
+           // Check the return value from the dialog box.
+           if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                configSelected = (String) optionList.getSelectedItem();
+                System.out.println(configSelected);
+            }
+
+            target.getImage().apply(new CycleColour(configSelected));
             target.repaint();
             target.getParent().revalidate();
         }
