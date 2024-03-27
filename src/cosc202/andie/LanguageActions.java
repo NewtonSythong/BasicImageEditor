@@ -1,68 +1,58 @@
 package cosc202.andie;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.ImageIcon;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
+import java.util.*;
+import java.util.prefs.Preferences;
+import javax.swing.*;
 
 public class LanguageActions {
 
-    /** A list of actions for the Language menu. */
-    protected ArrayList<Action> actions;
-    // Remove the unused variable declaration
-    // private ChangeLanguage changeLanguage;
-    /**
-     * <p>
-     * Create a set of Language menu actions.
-     * </p>
-     */
-    public LanguageActions() {
-        actions = new ArrayList<Action>();
-        actions.add(new ChangeLanguageAction("Korean", null, "Change the language",
-                Integer.valueOf(KeyEvent.VK_K), "ko", "KR"));
-        actions.add(new ChangeLanguageAction("English", null, "Change the language",
-                Integer.valueOf(KeyEvent.VK_N), "en", "NZ"));
+    private ArrayList<Action> actions;
+    private ResourceBundle bundle;
+
+    public LanguageActions(ResourceBundle bundle) {
+        this.bundle = bundle;
+        this.actions = new ArrayList<Action>();
+        this.actions.add(new ChangeLanguage(bundle.getString("English"), null, null, "en", "NZ"));
+        this.actions.add(new ChangeLanguage(bundle.getString("Korean"), null, null, "ko", "KR"));
+
     }
 
-    /**
-     * <p>
-     * Create a menu containing the list of Language actions.
-     * </p>
-     * 
-     * @return The Language menu UI element.
-     */
     public JMenu createMenu() {
-        JMenu languageMenu = new JMenu("Language");
-        for (Action action : actions) {
-            JMenuItem item = new JMenuItem(action);
-            languageMenu.add(item);
+  
+        JMenu langMenu = new JMenu(bundle.getString("Language"));
+        for (Action a : actions) {
+            langMenu.add(new JMenuItem(a));
         }
-        return languageMenu;
+        return langMenu;
     }
-    public class ChangeLanguageAction extends AbstractAction {
 
-        private static final long serialVersionUID = 1L;
-        private String languageCode;
-        private String countryCode;
-        private ChangeLanguage changeLanguage; // Create an instance of the ChangeLanguage class
+    public class ChangeLanguage extends AbstractAction {
 
-        public ChangeLanguageAction(String text, ImageIcon icon, String desc, Integer mnemonic, String languageCode, String countryCode) {
-            super(text);
-            putValue(Action.SMALL_ICON, icon);
-            putValue(Action.SHORT_DESCRIPTION, desc);
-            putValue(Action.MNEMONIC_KEY, mnemonic);
-            this.languageCode = languageCode;
-            this.countryCode = countryCode;
-            this.changeLanguage = new ChangeLanguage(); // Initialize the instance of the ChangeLanguage class
+        private String language;
+
+        public ChangeLanguage(String name, ImageIcon icon, Integer mnemonic, String language, String country) {
+            super(name, icon);
+            this.language = language;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
-            changeLanguage.changeLanguage(languageCode, countryCode); // Invoke the changeLanguage method on the instance
+
+            Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+            System.out.println("action method called"); //test
+
+            if ("en".equals(this.language)) {
+                prefs.put("language", "en");
+                prefs.put("country", "NZ");
+                System.out.println("English"); // test
+
+            } else if ("ko".equals(this.language)) {
+                prefs.put("language", "ko");
+                prefs.put("country", "KR");
+                System.out.println("Korean"); // test
+            }
         }
+
     }
 }
