@@ -30,6 +30,8 @@ public class FileActions {
     /** A list of actions for the File menu. */
     protected ArrayList<Action> actions;
     private ResourceBundle bundle;
+    protected boolean imageOpen = false;
+    
 
     /**
      * <p>
@@ -71,7 +73,8 @@ public class FileActions {
      * @see EditableImage#open(String)
      */
     public class FileOpenAction extends ImageAction {
-
+       //datafield to check if image has already been opened, which is turned to true once image has been opened.
+        
         /**
          * <p>
          * Create a new file-open action.
@@ -99,13 +102,21 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            if(imageOpen == true){
+                JOptionPane.showMessageDialog(null, "Are you sure you want to open a new file, any changes to current file will not be saved.");
+            }
+
             JFileChooser fileChooser = new JFileChooser();
+            
             int result = fileChooser.showOpenDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open(imageFilepath);
+                    imageOpen =  true;
+                    
+;
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "You opened the wrong file-type sole!", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -207,6 +218,7 @@ public class FileActions {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().saveAs(imageFilepath);
+                    imageOpen = false;
 
                 } catch (Exception ex) {
                     System.exit(1);
