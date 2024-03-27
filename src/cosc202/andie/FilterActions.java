@@ -3,6 +3,7 @@ package cosc202.andie;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -57,6 +58,7 @@ public class FilterActions {
     /** A list of actions for the Filter menu. */
 
     protected ArrayList<Action> actions;
+    ResourceBundle bundle;
 
     /**
      * 
@@ -68,22 +70,19 @@ public class FilterActions {
      * 
      */
 
-    public FilterActions() {
-
+    public FilterActions(ResourceBundle bundle) {
+        this.bundle = bundle;
         actions = new ArrayList<Action>();
-
-        actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
-
-        actions.add(new SoftBlurAction("Soft blur", null, "Apply a soft blur", Integer.valueOf(KeyEvent.VK_B)));
-
-        actions.add(new SharpenFilterAction("Sharpen Filter", null, "Apply a sharpen filter",
-                Integer.valueOf(KeyEvent.VK_S)));
-
-        actions.add(new GaussianFilterAction("Gaussian blur", null, "Apply a Gaussian filter",
-                Integer.valueOf(KeyEvent.VK_G)));
-
-        actions.add(new MedianFilterAction("Median Filter", null, "Apply a median filter",
+        actions.add(new MeanFilterAction(bundle.getString("MeanFilter"), null, "Apply a mean filter",
                 Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new MedianFilterAction(bundle.getString("MedianFilter"), null, "Apply a median filter",
+                Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new SoftBlurAction(bundle.getString("SoftBlur"), null, "Apply a soft blur",
+                Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new GaussianFilterAction(bundle.getString("GaussianBlur"), null, "Apply a Gaussian filter",
+                Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new SharpenFilterAction(bundle.getString("SharpenFilter"), null, "Apply a sharpen filter",
+                Integer.valueOf(KeyEvent.VK_S)));
 
     }
 
@@ -102,7 +101,7 @@ public class FilterActions {
      */
 
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Filter");
+        JMenu fileMenu = new JMenu(bundle.getString("Filters"));
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
         }

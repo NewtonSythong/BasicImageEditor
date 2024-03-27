@@ -2,11 +2,13 @@ package cosc202.andie;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
+import java.util.Locale;
 
 /**
  * <p>
@@ -61,6 +63,11 @@ public class Andie {
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
 
+        Locale.setDefault(new Locale("en", "NZ"));
+
+        ResourceBundle bundle = ResourceBundle.getBundle("cosc202/andie/MessageBundle", Locale.getDefault());
+
+
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,31 +82,31 @@ public class Andie {
         JMenuBar menuBar = new JMenuBar();
 
         // File menus are pretty standard, so things that usually go in File menus go here.
-        FileActions fileActions = new FileActions();
+        FileActions fileActions = new FileActions(bundle);
         menuBar.add(fileActions.createMenu());
 
         // Likewise Edit menus are very common, so should be clear what might go here.
-        EditActions editActions = new EditActions();
+        EditActions editActions = new EditActions(bundle);
         menuBar.add(editActions.createMenu());
 
         // View actions control how the image is displayed, but do not alter its actual content
-        ViewActions viewActions = new ViewActions();
+        ViewActions viewActions = new ViewActions(bundle);
         menuBar.add(viewActions.createMenu());
 
         // Filters apply a per-pixel operation to the image, generally based on a local window
-        FilterActions filterActions = new FilterActions();
+        FilterActions filterActions = new FilterActions(bundle);
         menuBar.add(filterActions.createMenu());
 
         // Actions that affect the representation of colour in the image
-        ColourActions colourActions = new ColourActions();
+        ColourActions colourActions = new ColourActions(bundle);
         menuBar.add(colourActions.createMenu());
         
-        ImageActions imageActions = new ImageActions();
+        ImageActions imageActions = new ImageActions(bundle);
         menuBar.add(imageActions.createMenu());
 
         // Language menu
-        LanguageActions LanguageActions = new LanguageActions();
-        menuBar.add(LanguageActions.createMenu());
+        LanguageActions2 LanguageActions2 = new LanguageActions2(bundle);
+        menuBar.add(LanguageActions2.createMenu());
 
         frame.setJMenuBar(menuBar);
         frame.pack();

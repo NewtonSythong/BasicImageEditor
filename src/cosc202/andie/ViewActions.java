@@ -28,17 +28,19 @@ public class ViewActions {
      * A list of actions for the View menu.
      */
     protected ArrayList<Action> actions;
+    private ResourceBundle bundle;
 
     /**
      * <p>
      * Create a set of View menu actions.
      * </p>
      */
-    public ViewActions() {
+    public ViewActions(ResourceBundle bundle) {
+        this.bundle = bundle;
         actions = new ArrayList<Action>();
-        actions.add(new ZoomInAction("Zoom In", null, "Zoom In", Integer.valueOf(KeyEvent.VK_PLUS)));
-        actions.add(new ZoomOutAction("Zoom Out", null, "Zoom Out", Integer.valueOf(KeyEvent.VK_MINUS)));
-        actions.add(new ZoomFullAction("Zoom Full", null, "Zoom Full", Integer.valueOf(KeyEvent.VK_1)));
+        actions.add(new ZoomInAction(this.bundle.getString("ZoomIn"), null, "Zoom In", Integer.valueOf(KeyEvent.VK_PLUS)));
+        actions.add(new ZoomOutAction(this.bundle.getString("ZoomOut"), null, "Zoom Out", Integer.valueOf(KeyEvent.VK_MINUS)));
+        actions.add(new ZoomFullAction(this.bundle.getString("ZoomFull"), null, "Zoom Full", Integer.valueOf(KeyEvent.VK_1)));
     }
 
     /**
@@ -49,7 +51,7 @@ public class ViewActions {
      * @return The view menu UI element.
      */
     public JMenu createMenu() {
-        JMenu viewMenu = new JMenu("View");
+        JMenu viewMenu = new JMenu(this.bundle.getString("View"));
 
         for (Action action: actions) {
             viewMenu.add(new JMenuItem(action));
@@ -96,9 +98,19 @@ public class ViewActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.setZoom(target.getZoom()+10);
-            target.repaint();
-            target.getParent().revalidate();
+            // target.setZoom(target.getZoom()+10);
+            // target.repaint();
+            // target.getParent().revalidate();
+
+            try{
+                if(target != null) {
+                    target.setZoom(target.getZoom()+10);
+                    target.repaint();
+                    target.getParent().revalidate();
+                } else throw new NullPointerException();
+            }catch (NullPointerException exception) {
+                JOptionPane.showMessageDialog(null, "There is no image to zoom");
+            }
         }
 
     }
@@ -141,9 +153,19 @@ public class ViewActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.setZoom(target.getZoom()-10);
-            target.repaint();
-            target.getParent().revalidate();
+            // target.setZoom(target.getZoom()-10);
+            // target.repaint();
+            // target.getParent().revalidate();
+
+            try{
+                if(target != null) {
+                    target.setZoom(target.getZoom()-10);
+                    target.repaint();
+                    target.getParent().revalidate();
+                } else throw new NullPointerException();
+            }catch (NullPointerException exception) {
+                JOptionPane.showMessageDialog(null, "There is no image to zoom");
+            }
         }
 
     }
@@ -189,6 +211,16 @@ public class ViewActions {
             target.setZoom(100);
             target.repaint();
             target.getParent().revalidate();
+
+            try{
+                if(target != null) {
+                    target.setZoom(100);
+                    target.repaint();
+                    target.getParent().revalidate();
+                } else throw new NullPointerException();
+            }catch (NullPointerException exception) {
+                JOptionPane.showMessageDialog(null, "There is no image to zoom");
+            }
         }
 
     }
