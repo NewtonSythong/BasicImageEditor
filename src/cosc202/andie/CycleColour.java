@@ -24,9 +24,7 @@ import java.awt.image.*;
 public class CycleColour implements ImageOperation, java.io.Serializable{
 
     /**
-     * 
-     * The ordering of the colour channels in the image
-     * @param config The user requested order of the colour channels
+     * The user requested order of the colour channels
      */
      private String config;
     
@@ -35,8 +33,6 @@ public class CycleColour implements ImageOperation, java.io.Serializable{
       * Construct colour cycle with user input configuration
       * </p
       * >
-      * 
-      * @param config The user requested order of the colour channels
      */
      CycleColour(String config) {
          this.config = config;
