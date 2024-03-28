@@ -8,22 +8,22 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
+/** 
+ * This class creates a menu with language options
+ *
+ */
 public class LanguageActions {
 
     private ArrayList<Action> actions;
     private ResourceBundle bundle;
     private JFrame frame;
 
+    /** 
+     * Constructor for LanguageActions
+     * Adds menu items for English and Korean
+     */
     public LanguageActions(ResourceBundle bundle, JFrame frame) {
         this.bundle = bundle;
         this.frame = frame;
@@ -40,6 +40,10 @@ public class LanguageActions {
         return langMenu;
     }
 
+    /** 
+     * This class changes the language of the image editor
+     * based on user selection
+     */
     public class ChangeLanguage extends AbstractAction {
 
         private String language;
@@ -52,7 +56,7 @@ public class LanguageActions {
         @Override
         public void actionPerformed(ActionEvent e) {
             Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-            System.out.println("action method called"); 
+            //System.out.println("action method called"); 
 
             String language = null; 
             String country = null;
