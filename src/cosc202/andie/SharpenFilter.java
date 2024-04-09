@@ -17,6 +17,9 @@ import javax.swing.JOptionPane;
  */
 public class SharpenFilter implements ImageOperation, java.io.Serializable {
 
+    /**
+     * Sharpen filter constructor
+     */
     SharpenFilter() {
         // construction Code
     }

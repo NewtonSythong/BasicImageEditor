@@ -5,7 +5,9 @@ import java.awt.image.*;
 import javax.swing.JOptionPane;
 
 public class SoftBlur implements ImageOperation, java.io.Serializable{
-    
+    /**
+     * Soft blur filter constructor
+     */
 SoftBlur(){
     //construction Code
 }
