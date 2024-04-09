@@ -21,7 +21,6 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * 
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a
      * 5x5 filter, and so forth.
-     * @param radius The radius of the newly constructed MedianFilter
      */
 
     private int radius;
@@ -40,7 +39,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * By default, a Median filter has radius 1.
      * </p>
      * 
-     * @see MeanFilter(int)
+     * @see MedianFilter(int)
      * 
      */
 
