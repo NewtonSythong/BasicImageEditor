@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 import java.awt.image.*;
 import javax.imageio.*;
+import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -53,7 +54,7 @@ class EditableImage {
     private String imageFilename;
     /** The file where the operation sequence is stored. */
     private String opsFilename;
-    /**Check if Image has actions on it */ 
+    /** Check if Image has actions on it */
     private static boolean ImageEdited;
 
     /**
@@ -158,34 +159,27 @@ class EditableImage {
         File imageFile = new File(imageFilename);
         original = ImageIO.read(imageFile);
         current = deepCopy(original);
-        }catch (IOException e){
-            JOptionPane.showMessageDialog(null, "You opened the wrong file-type!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        try {
+        try{
             FileInputStream fileIn = new FileInputStream(this.opsFilename);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
-
-            // Silence the Java compiler warning about type casting.
-            // Understanding the cause of the warning is way beyond
-            // the scope of COSC202, but if you're interested, it has
-            // to do with "type erasure" in Java: the compiler cannot
-            // produce code that fails at this point in all cases in
-            // which there is actually a type mismatch for one of the
-            // elements within the Stack, i.e., a non-ImageOperation.
-            @SuppressWarnings("unchecked")
-            Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
-            ops = opsFromFile;
-            redoOps.clear();
-            objIn.close();
-            fileIn.close();
-        } catch (Exception ex) {
-            // Could be no file or something else. Carry on for now.
-            ops.clear();
-            redoOps.clear();
-        }
-        this.refresh();
+                // Silence the Java compiler warning about type casting.
+    // Understanding the cause of the warning is way beyond
+    // the scope of COSC202, but if you're interested, it has
+    // to do with "type erasure" in Java: the compiler cannot
+    // produce code that fails at this point in all cases in
+    // which there is actually a type mismatch for one of the
+    // elements within the Stack, i.e., a non-ImageOperation.
+    @SuppressWarnings("unchecked")
+    Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();ops=opsFromFile;redoOps.clear();objIn.close();fileIn.close();
+}catch(Exception ex){
+    JOptionPane.showMessageDialog(null, "You opened the wrong file-type!", "Error", JOptionPane.ERROR_MESSAGE);
+    // Could be no file or something else. Carry on for now.
+    ops.clear();
+    redoOps.clear();
+}
+this.refresh();  
     }
+
 
     /**
      * <p>
@@ -218,7 +212,6 @@ class EditableImage {
         fileOut.close();
     }
 
-
     /**
      * <p>
      * Save an image to a specified file.
@@ -241,7 +234,6 @@ class EditableImage {
         save();
     }
 
-
     /**
      * Creates a copy of the current image without the change history and exports it
      * 
@@ -254,7 +246,6 @@ class EditableImage {
         redoOps.clear();
         saveAs(fileName);
     }
-
 
     /**
      * <p>
@@ -320,7 +311,8 @@ class EditableImage {
             current = op.apply(current);
         }
     }
-    public static boolean GetimageEdited(){
+
+    public static boolean GetimageEdited() {
         return ImageEdited;
     }
 
