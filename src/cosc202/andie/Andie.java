@@ -13,13 +13,6 @@ import javax.swing.JScrollPane;
 /**
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
- * ANDIE BETTER WORK FOR TEAM X
- * CAN EVERYONE SEE THIS COMMENT?!
- * 
- * Does my comment work on this file
- * G'day from the other side
- * 
- * 
  * </p>
  * 
  * <p>

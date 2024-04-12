@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
  * by enhancing the differences between neighbouring pixel values
  * </p>
  * 
+ * @author Katrina Hogg
+ * @version 1.0
  */
 public class SharpenFilter implements ImageOperation, java.io.Serializable {
 

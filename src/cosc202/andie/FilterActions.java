@@ -14,43 +14,26 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 /**
- * 
  * <p>
- * 
  * Actions provided by the Filter menu.
- * 
  * </p>
  *
  * 
- * 
  * <p>
- * 
  * The Filter menu contains actions that update each pixel in an image based on
- * 
  * some small local neighbourhood.
- * 
  * This includes a mean filter (a simple blur) in the sample code, but more
- * 
  * operations will need to be added.
- * 
  * </p>
  *
- * 
  * 
  * <p>
- * 
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
- * 
  * 4.0</a>
- * 
  * </p>
  *
- * 
- * 
  * @author Steven Mills
- * 
  * @version 1.0
- * 
  */
 
 public class FilterActions {
@@ -63,9 +46,7 @@ public class FilterActions {
     /**
      * 
      * <p>
-     * 
      * Create a set of Filter menu actions.
-     * 
      * </p>
      * 
      */

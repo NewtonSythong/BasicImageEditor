@@ -11,8 +11,8 @@ import javax.swing.*;
  * 
  * <p>
  * A median filter takes an image  takes all of the pixel values in a local
-neighbourhood and sorts them. The new pixel value is then the middle value (the median) from the
-sorted list.
+ * neighbourhood and sorts them. The new pixel value is then the middle value (the median) from the
+ * sorted list.
  * </p>
 */
 public class MedianFilter implements ImageOperation, java.io.Serializable {
