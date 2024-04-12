@@ -3,11 +3,8 @@ package cosc202.andie;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-import javax.swing.Action;
-import javax.swing.ImageIcon;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 import javax.swing.*;
 /**
  * This class represents a collection of image actions.
@@ -19,22 +16,24 @@ public class ImageActions {
      * These actions can be added to a View menu.
      */
     protected ArrayList<Action> actions;
+    private ResourceBundle bundle;
 
     /**
      * Constructor for the ImageActions class.
      * It initializes the list of actions and adds the Rotate and Flip actions to
      * it.
      */
-    public ImageActions() {
+    public ImageActions(ResourceBundle bundle) {
+        this.bundle = bundle;
         actions = new ArrayList<Action>();
-        actions.add(new RotateClockwiseAction("Rotate Clockwise", null, "Rotate Clockwise",
+        actions.add(new RotateClockwiseAction(bundle.getString("RotateClockwise"), null, "Rotate Clockwise",
                 Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new RotateAntiClockwiseAction("Rotate Anti-Clockwise", null, "Rotate Anti-Clockwise",
+        actions.add(new RotateAntiClockwiseAction(bundle.getString("RotateAnti-Clockwise"), null, "Rotate Anti-Clockwise",
                 Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FlipHorizontalAction("Flip Horizontal", null, "Flip Horizontal", Integer.valueOf(KeyEvent.VK_H)));
-        actions.add(new FlipVerticalAction("Flip Vertical", null,"Flip Vertical", Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new ResizeBiggerAction("Resize Bigger", null, "Resize the image twice the size", KeyEvent.VK_B));
-        actions.add(new ResizeSmallerAction("Resize Smaller", null, "Resize the image half it's size", KeyEvent.VK_S));
+        actions.add(new FlipHorizontalAction(bundle.getString("FlipHorizontal"), null, "Flip Horizontal", Integer.valueOf(KeyEvent.VK_H)));
+        actions.add(new FlipVerticalAction(bundle.getString("FlipVertical"), null,"Flip Vertical", Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new ResizeBiggerAction(bundle.getString("ResizeBigger"), null, "Resize the image twice the size", KeyEvent.VK_B));
+        actions.add(new ResizeSmallerAction(bundle.getString("ResizeSmaller"), null, "Resize the image half it's size", KeyEvent.VK_S));
     }
 
     /**
@@ -43,7 +42,7 @@ public class ImageActions {
      */
 
     public JMenu createMenu() {
-        JMenu viewMenu = new JMenu("Image");
+        JMenu viewMenu = new JMenu(bundle.getString("Image"));
 
         for (Action action : actions) {
             viewMenu.add(new JMenuItem(action));

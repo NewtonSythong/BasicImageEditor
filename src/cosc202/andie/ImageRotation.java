@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.awt.image.BufferedImage;
 
+import javax.swing.JOptionPane;
+
 /**
  * This class represents an operation that rotates an image.
  * It implements the ImageOperation interface and is serializable.
@@ -25,6 +27,8 @@ public class ImageRotation implements ImageOperation, java.io.Serializable {
      * @return The output image after the rotation operation.
      */
     public BufferedImage apply(BufferedImage input) {
+        try{
+            if(input != null){  
         int width = input.getWidth();
         int height = input.getHeight();
         BufferedImage output = new BufferedImage(height, width, input.getType());
@@ -38,5 +42,12 @@ public class ImageRotation implements ImageOperation, java.io.Serializable {
             }
         }
         return output;
+    }else{
+        throw new NullPointerException();
+    }
+      }catch ( NullPointerException e){
+        JOptionPane.showMessageDialog(null, "Please select an image file before trying to rotate");
+return null;
+  }
     }
 }

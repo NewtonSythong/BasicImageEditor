@@ -2,6 +2,8 @@ package cosc202.andie;
 import java.awt.*;
 import java.awt.image.*;
 
+import javax.swing.JOptionPane;
+
 /**
  * Class to handle the resizing of an image as an ImageOperation.
  * This class implements the ImageOperation interface and is serializable
@@ -25,6 +27,8 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
      * @return The resized BufferedImage.
      */
     public BufferedImage apply(BufferedImage input) {
+        try{
+            if(input != null){
         //Calculating the new dimensions based on the scaleFactor
         int width = input.getWidth();
         int height = input.getHeight();
@@ -49,5 +53,12 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
         g.dispose();
 
         return input; //returns the resized image
+        }else{
+        throw new NullPointerException();
     }
+  }catch ( NullPointerException e){
+        JOptionPane.showMessageDialog(null, "Please select an image file before trying to resize");
+return null;
+  }
+}
 }

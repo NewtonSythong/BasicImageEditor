@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.*;
 import java.awt.image.*;
 import javax.imageio.*;
-import javax.swing.*;
+
 /**
  * <p>
  * An image with a set of operations applied to it.
@@ -152,8 +152,7 @@ class EditableImage {
      * @param filePath The file to open the image from.
      * @throws Exception If something goes wrong.
      */
-    public void open(String filePath) {
-        try{
+    public void open(String filePath) throws Exception {
         imageFilename = filePath;
         opsFilename = imageFilename + ".ops";
         File imageFile = new File(imageFilename);

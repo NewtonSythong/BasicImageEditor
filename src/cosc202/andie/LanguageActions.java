@@ -1,68 +1,121 @@
 package cosc202.andie;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.ImageIcon;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
+import javax.swing.*;
 
+/** 
+ * This class creates a menu with language options
+ *
+ */
 public class LanguageActions {
 
-    /** A list of actions for the Language menu. */
-    protected ArrayList<Action> actions;
-    // Remove the unused variable declaration
-    // private ChangeLanguage changeLanguage;
-    /**
-     * <p>
-     * Create a set of Language menu actions.
-     * </p>
+    private ArrayList<Action> actions;
+    private ResourceBundle bundle;
+    private JFrame frame;
+
+    /** 
+     * Constructor for LanguageActions
+     * Adds menu items for English and Korean
      */
-    public LanguageActions() {
-        actions = new ArrayList<Action>();
-        actions.add(new ChangeLanguageAction("Korean", null, "Change the language",
-                Integer.valueOf(KeyEvent.VK_K), "ko", "KR"));
-        actions.add(new ChangeLanguageAction("English", null, "Change the language",
-                Integer.valueOf(KeyEvent.VK_N), "en", "NZ"));
+    public LanguageActions(ResourceBundle bundle, JFrame frame) {
+        this.bundle = bundle;
+        this.frame = frame;
+        this.actions = new ArrayList<Action>();
+        this.actions.add(new ChangeLanguage(bundle.getString("English"), null, null, "en", "NZ"));
+        this.actions.add(new ChangeLanguage(bundle.getString("Korean"), null, null, "ko", "KR"));
     }
 
-    /**
-     * <p>
-     * Create a menu containing the list of Language actions.
-     * </p>
-     * 
-     * @return The Language menu UI element.
-     */
     public JMenu createMenu() {
-        JMenu languageMenu = new JMenu("Language");
-        for (Action action : actions) {
-            JMenuItem item = new JMenuItem(action);
-            languageMenu.add(item);
+        JMenu langMenu = new JMenu(bundle.getString("Language"));
+        for (Action a : actions) {
+            langMenu.add(new JMenuItem(a));
         }
-        return languageMenu;
+        return langMenu;
     }
-    public class ChangeLanguageAction extends AbstractAction {
 
-        private static final long serialVersionUID = 1L;
-        private String languageCode;
-        private String countryCode;
-        private ChangeLanguage changeLanguage; // Create an instance of the ChangeLanguage class
+    /** 
+     * This class changes the language of the image editor
+     * based on user selection
+     */
+    public class ChangeLanguage extends AbstractAction {
 
-        public ChangeLanguageAction(String text, ImageIcon icon, String desc, Integer mnemonic, String languageCode, String countryCode) {
-            super(text);
-            putValue(Action.SMALL_ICON, icon);
-            putValue(Action.SHORT_DESCRIPTION, desc);
-            putValue(Action.MNEMONIC_KEY, mnemonic);
-            this.languageCode = languageCode;
-            this.countryCode = countryCode;
-            this.changeLanguage = new ChangeLanguage(); // Initialize the instance of the ChangeLanguage class
+        private String language;
+
+        public ChangeLanguage(String name, ImageIcon icon, Integer mnemonic, String language, String country) {
+            super(name, icon);
+            this.language = language;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
-            changeLanguage.changeLanguage(languageCode, countryCode); // Invoke the changeLanguage method on the instance
+            Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+            //System.out.println("action method called"); 
+
+            String language = null; 
+            String country = null;
+
+            if ("en".equals(this.language)) {
+                language = "en";
+                country = "NZ";
+                System.out.println("English"); 
+            } else if ("ko".equals(this.language)) {
+                language = "ko";
+                country = "KR";
+                System.out.println("Korean"); 
+            }
+
+            if (language != null && country != null) {
+                prefs.put("language", language);
+                prefs.put("country", country);
+
+              
+                Locale.setDefault(new Locale(language, country));
+
+               
+                ResourceBundle bundle = ResourceBundle.getBundle("cosc202/andie/MessageBundle", Locale.getDefault());
+
+                updateUIComponents(frame.getContentPane(), bundle);
+
+              
+                SwingUtilities.invokeLater(() -> {
+                    frame.getContentPane().removeAll();
+                    try {
+                        Andie.createAndShowGUI(); 
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    frame.getContentPane().revalidate();
+                    frame.getContentPane().repaint();
+                });
+            }
+
         }
+
+        private void updateUIComponents(Container container, ResourceBundle bundle) {
+            for (Component component : container.getComponents()) {
+                if (component instanceof JLabel) {
+                    JLabel label = (JLabel) component;
+                    label.setText(bundle.getString(label.getText()));
+                } else if (component instanceof JButton) {
+                    JButton button = (JButton) component;
+                    button.setText(bundle.getString(button.getText()));
+                } else if (component instanceof JMenuItem) {
+                    JMenuItem menuItem = (JMenuItem) component;
+                    menuItem.setText(bundle.getString(menuItem.getText()));
+                }
+
+                if (component instanceof Container && component != frame) {
+                    updateUIComponents((Container) component, bundle);
+                }
+            }
+        }
+
     }
 }

@@ -1,8 +1,12 @@
 package cosc202.andie;
 
 import java.awt.image.*;
+import javax.swing.*;
 
-public class GaussianBlur implements ImageOperation, java.io.Serializable {
+/** This class applies a Gaussian blur to an image
+ * 
+ */
+public class GaussianBlur implements ImageOperation{
 
     /**
      * The size of the filter to apply
@@ -36,7 +40,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
      * 
      */
     public BufferedImage apply(BufferedImage input) {
-        // The values for the kernel as a 9-element array
+
         int size = 2 * radius + 1;
         float sigma = size / 3;
 
@@ -75,7 +79,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
             }
         } catch (NullPointerException e) {
-            System.out.println("No image selected");
+            JOptionPane.showMessageDialog(null, "Please select an image before filter");
             return null;
         }
     }
