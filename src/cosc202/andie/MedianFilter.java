@@ -14,7 +14,15 @@ import javax.swing.*;
  * neighbourhood and sorts them. The new pixel value is then the middle value (the median) from the
  * sorted list.
  * </p>
-*/
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
+ * </p>
+ *
+ * @author Cam Clark, Jenny Kim
+ * @version 1.0
+ */
 public class MedianFilter implements ImageOperation, java.io.Serializable {
 
     /**

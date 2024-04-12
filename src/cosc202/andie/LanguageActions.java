@@ -10,9 +10,22 @@ import java.util.prefs.Preferences;
 
 import javax.swing.*;
 
-/** 
+/**
+ * <p>
+ * Operation to change the language of the labels
+ * </p>
+ * 
+ * <p>
  * This class creates a menu with language options
+ * </p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
+ * </p>
  *
+ * @author Newton Sython, Jenny Kim
+ * @version 1.0
  */
 public class LanguageActions {
 

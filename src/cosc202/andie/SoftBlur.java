@@ -4,6 +4,24 @@ import java.awt.image.*;
 
 import javax.swing.JOptionPane;
 
+/**
+ * <p>
+ * ImageOperation to apply a softening filter to an image
+ * </p>
+ * 
+ * <p>
+ * A soft blur filter decreases the unevenness between the pixels by averaging nearby pixels
+ * Creating a blurry effect
+ * </p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
+ * </p>
+ * 
+ * @author Katrina Hogg
+ * @version 1.0
+ */
 public class SoftBlur implements ImageOperation, java.io.Serializable{
     /**
      * Soft blur filter constructor
