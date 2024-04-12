@@ -53,6 +53,8 @@ class EditableImage {
     private String imageFilename;
     /** The file where the operation sequence is stored. */
     private String opsFilename;
+    /**Check if Image has actions on it */ 
+    private static boolean ImageEdited;
 
     /**
      * <p>
@@ -158,7 +160,7 @@ class EditableImage {
         original = ImageIO.read(imageFile);
         current = deepCopy(original);
         }catch (IOException e){
-            JOptionPane.showMessageDialog(null, "You opened the wrong file-type niggah!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You opened the wrong file-type!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
@@ -265,6 +267,7 @@ class EditableImage {
     public void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
+        ImageEdited = true;
     }
 
     /**
@@ -317,6 +320,9 @@ class EditableImage {
         for (ImageOperation op : ops) {
             current = op.apply(current);
         }
+    }
+    public static boolean GetimageEdited(){
+        return ImageEdited;
     }
 
 }

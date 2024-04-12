@@ -175,7 +175,7 @@ public class FileActions {
      * @see EditableImage#saveAs(String)
      */
     public class FileSaveAsAction extends ImageAction {
-
+private  static boolean isSaved = false;
         /**
          * <p>
          * Create a new file-save-as action.
@@ -215,6 +215,10 @@ public class FileActions {
                     System.exit(1);
                 }
             }
+            isSaved = true;
+        }
+        public static boolean getisSaved(){
+            return isSaved;
         }
 
     }
@@ -272,7 +276,7 @@ public class FileActions {
      * </p>
      */
     public class FileExitAction extends AbstractAction {
-
+private int saves = 0;
         /**
          * <p>
          * Create a new file-exit action.
@@ -302,9 +306,15 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            
+            if(EditableImage.GetimageEdited() && FileSaveAsAction.getisSaved() &&  saves > 0){
             System.exit(0);
+        }else{
+            saves++;
+            System.out.println(saves + " " +  EditableImage.GetimageEdited() + FileSaveAsAction.getisSaved());
+            JOptionPane.showMessageDialog(null, "You have attempted to close the application without saving your work. If this was intended press the exit button again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
+    }
     }
 
 }
