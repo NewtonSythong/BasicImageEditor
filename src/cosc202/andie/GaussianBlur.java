@@ -3,23 +3,8 @@ package cosc202.andie;
 import java.awt.image.*;
 import javax.swing.*;
 
-/**
- * <p>
- * ImageOperation to apply a Gaussian blur to an image
- * </p>
+/** This class applies a Gaussian blur to an image
  * 
- * <p>
- * The images produced by this operation are still colour images,
- * Gaussian blurring involves performing a weighted average of 
- * surrounding pixels based on the Gaussian distribution
- * </p>
- * 
- * <p>
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
- * </p>
- * 
- * @author Jenny Kim
- * @version 1.0
  */
 public class GaussianBlur implements ImageOperation{
 
@@ -60,24 +45,25 @@ public class GaussianBlur implements ImageOperation{
         float sigma = size / 3;
 
         float[] array = new float[size * size];
-        float kernelSum = 0;
+        float kernelSum = 0f;
         int index = 0;
         for (int x = -radius; x <= radius; x++) {
             for (int y = -radius; y <= radius; y++) {
-                float distance = x * x + y * y;
-                array[index] = (float) (Math.exp(-distance / (2 * sigma * sigma)) / (2 * Math.PI * sigma * sigma));
-                kernelSum += array[index];
+                
+                array[index] = gaussian(x, y, sigma);
+                kernelSum+=array[index];
                 index++;
             }
         }
 
-        // Normalise the kernal values
+        float[] newArray = new float[array.length];
         for (int i = 0; i < array.length; i++) {
-            array[i] /= kernelSum;
+            newArray[i] = normalisedGaussian(array[i], kernelSum);
         }
 
-        Kernel kernel = new Kernel(size, size, array);
 
+
+        Kernel kernel = new Kernel(size, size, newArray);
 
         ConvolveOp convOp = new ConvolveOp(kernel);
 
@@ -97,5 +83,13 @@ public class GaussianBlur implements ImageOperation{
             JOptionPane.showMessageDialog(null, "Please select an image before filter");
             return null;
         }
+    }
+    public static float gaussian(int x, int y, float sigma) {
+        
+        return (float) (Math.exp(-((x*x + y*y) / (2.0f * sigma * sigma))) * (1.0f / (2.0f * Math.PI * sigma * sigma)));
+    }
+
+    public static float normalisedGaussian(float value, float kernelSum) {
+        return value / kernelSum;
     }
 }
