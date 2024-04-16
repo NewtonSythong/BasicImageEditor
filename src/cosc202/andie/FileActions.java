@@ -102,9 +102,12 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            int choice = -1; //Choice will either be 0 (wanting to open new file) or 1 (Not wanting to open)
             if(imageOpen == true){
-                JOptionPane.showMessageDialog(null, "Are you sure you want to open a new file, any changes to current file will not be saved.");
+               choice =   JOptionPane.showConfirmDialog(null, "Are you sure you want to open a new file, any changes to current file will not be saved.","confirmation", JOptionPane.YES_NO_OPTION);
             }
+System.out.println(choice);
+            if(choice == JOptionPane.YES_OPTION || choice == -25400){
 
             JFileChooser fileChooser = new JFileChooser();
             
@@ -123,11 +126,14 @@ public class FileActions {
                 }
             }
 
+        
+
             target.repaint();
             target.getParent().revalidate();
         }
 
     }
+}
 
     /**
      * <p>
