@@ -65,6 +65,20 @@ public class FileActions {
         return fileMenu;
     }
 
+     /**
+     * Retrieves the file extension from the given file path.
+     *
+     * @param filePath The path of the file.
+     * @return The file extension (without the dot), or null if the file has no extension.
+     */
+    public static String getFileExtension(String fileName) {
+        int dotIndex = fileName.lastIndexOf('.');
+        if (dotIndex != -1 && dotIndex < fileName.length() - 1) {
+            return fileName.substring(dotIndex + 1);
+        }
+        return null;
+    }
+
     /**
      * <p>
      * Action to open an image from file.
@@ -114,15 +128,18 @@ public class FileActions {
 
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
+                    String imageFilePath = fileChooser.getSelectedFile().getAbsolutePath();
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                    if(!getFileExtension(imageFilePath).equals("jpg")){
+                        JOptionPane.showMessageDialog(null, "Incompatible file-type!", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }else{
                     target.getImage().open(imageFilepath);
                     imageOpen =  true;
-                    
-;
+                    }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Wrong file type");
-                    return;
-                }
+                    System.exit(1);
+                    }
             }
 
         
