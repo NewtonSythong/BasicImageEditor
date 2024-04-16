@@ -172,7 +172,6 @@ class EditableImage {
     @SuppressWarnings("unchecked")
     Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();ops=opsFromFile;redoOps.clear();objIn.close();fileIn.close();
 }catch(Exception ex){
-    JOptionPane.showMessageDialog(null, "You opened the wrong file-type!", "Error", JOptionPane.ERROR_MESSAGE);
     // Could be no file or something else. Carry on for now.
     ops.clear();
     redoOps.clear();
