@@ -130,7 +130,7 @@ public class FileActions {
                 try {
                     String imageFilePath = fileChooser.getSelectedFile().getAbsolutePath();
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    if(!getFileExtension(imageFilePath).equals("jpg")){
+                    if(!getFileExtension(imageFilePath).equals("jpg") && !getFileExtension(imageFilePath).equals("jpeg") && !getFileExtension(imageFilePath).equals("png")){
                         JOptionPane.showMessageDialog(null, "Incompatible file-type!", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }else{
