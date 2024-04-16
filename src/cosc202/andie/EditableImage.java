@@ -159,26 +159,29 @@ class EditableImage {
         File imageFile = new File(imageFilename);
         original = ImageIO.read(imageFile);
         current = deepCopy(original);
-        try{
+        try {
             FileInputStream fileIn = new FileInputStream(this.opsFilename);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
-                // Silence the Java compiler warning about type casting.
-    // Understanding the cause of the warning is way beyond
-    // the scope of COSC202, but if you're interested, it has
-    // to do with "type erasure" in Java: the compiler cannot
-    // produce code that fails at this point in all cases in
-    // which there is actually a type mismatch for one of the
-    // elements within the Stack, i.e., a non-ImageOperation.
-    @SuppressWarnings("unchecked")
-    Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();ops=opsFromFile;redoOps.clear();objIn.close();fileIn.close();
-}catch(Exception ex){
-    // Could be no file or something else. Carry on for now.
-    ops.clear();
-    redoOps.clear();
-}
-this.refresh();  
+            // Silence the Java compiler warning about type casting.
+            // Understanding the cause of the warning is way beyond
+            // the scope of COSC202, but if you're interested, it has
+            // to do with "type erasure" in Java: the compiler cannot
+            // produce code that fails at this point in all cases in
+            // which there is actually a type mismatch for one of the
+            // elements within the Stack, i.e., a non-ImageOperation.
+            @SuppressWarnings("unchecked")
+            Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
+            ops = opsFromFile;
+            redoOps.clear();
+            objIn.close();
+            fileIn.close();
+        } catch (Exception ex) {
+            // Could be no file or something else. Carry on for now.
+            ops.clear();
+            redoOps.clear();
+        }
+        this.refresh();
     }
-
 
     /**
      * <p>
@@ -235,15 +238,27 @@ this.refresh();
 
     /**
      * Creates a copy of the current image without the change history and exports it
+     * If an extension is specified, it saves with that extension
+     * otherwise saves with the same extension as the original image
      * 
      * @param fileName
      * @throws Exception
      */
     public void export(String fileName) throws Exception {
-        this.original = this.current;
+
+        BufferedImage exportImage = deepCopy(this.current);
         ops.clear();
         redoOps.clear();
-        saveAs(fileName);
+
+        String extension = "";
+
+        if (fileName.contains(".")) { // if contains a ".", it indicates that it is an extension
+            extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+        } else {
+            extension = imageFilename.substring(imageFilename.lastIndexOf(".") + 1);
+            fileName += "." + extension;
+        }
+        ImageIO.write(exportImage, extension, new File(fileName));
     }
 
     /**
