@@ -106,8 +106,7 @@ public class FileActions {
             if(imageOpen == true){
                choice =   JOptionPane.showConfirmDialog(null, "Are you sure you want to open a new file, any changes to current file will not be saved.","confirmation", JOptionPane.YES_NO_OPTION);
             }
-System.out.println(choice);
-            if(choice == JOptionPane.YES_OPTION || choice == -25400){
+            if(choice == JOptionPane.YES_OPTION || choice == -1){
 
             JFileChooser fileChooser = new JFileChooser();
             
