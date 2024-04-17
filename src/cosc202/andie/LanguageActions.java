@@ -1,117 +1,140 @@
 package cosc202.andie;
 
-import java.awt.Component;
-import java.awt.Container;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
-import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.SwingUtilities;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.KeyStroke;
+import javax.swing.SpinnerListModel;
 
+/**
+ * This class handles the actions related to language changes in the
+ * application.
+ * @author Newton
+ * @author Jenny
+ */
 public class LanguageActions {
+    /**
+     * A list of actions that can be performed.
+     */
+    protected ArrayList<Action> actions;
 
-    private ArrayList<Action> actions;
-    private ResourceBundle bundle;
-    private JFrame frame;
+    /**
+     * Constructor for LanguageActions.
+     * It sets the default locale based on saved preferences and initializes the
+     * actions list.
+     */
+    public LanguageActions() {
+        Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+        Locale.setDefault(new Locale(prefs.get("language", "en"), prefs.get("country", "NZ")));
+        ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
 
-    public LanguageActions(ResourceBundle bundle, JFrame frame) {
-        this.bundle = bundle;
-        this.frame = frame;
-        this.actions = new ArrayList<Action>();
-        this.actions.add(new ChangeLanguage(bundle.getString("English"), null, null, "en", "NZ"));
-        this.actions.add(new ChangeLanguage(bundle.getString("Korean"), null, null, "ko", "KR"));
+        actions = new ArrayList<Action>();
+        actions.add(new LangChangeLanguage(bundle.getString("ChangeLanguage"), null, "changes language", null));
     }
 
+    /**
+     * Creates a menu for language actions.
+     * 
+     * @return a JMenu object containing menu items for each action.
+     */
     public JMenu createMenu() {
-        JMenu langMenu = new JMenu(bundle.getString("Language"));
-        for (Action a : actions) {
-            langMenu.add(new JMenuItem(a));
+        Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+        Locale.setDefault(new Locale(prefs.get("language", "en"), prefs.get("country", "NZ")));
+        ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+
+        JMenu languageMenu = new JMenu(bundle.getString("Language"));
+
+        for (Action action : actions) {
+            languageMenu.add(new JMenuItem(action));
         }
-        return langMenu;
+
+        return languageMenu;
     }
 
-    public class ChangeLanguage extends AbstractAction {
+    /**
+     * This class represents an action to change the language.
+     */
+    public class LangChangeLanguage extends ImageAction {
 
-        private String language;
+        LangChangeLanguage(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+            this.putValue(Action.ACCELERATOR_KEY,
+                    KeyStroke.getKeyStroke(KeyEvent.VK_L, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
 
-        public ChangeLanguage(String name, ImageIcon icon, Integer mnemonic, String language, String country) {
-            super(name, icon);
-            this.language = language;
         }
 
+        /**
+         * Handles the action event triggered by the user.
+         * This method is called when the user performs an action that this class is
+         * listening to.
+         * For example, if this class is used as an ActionListener for a button, this
+         * method will be called when the button is clicked.
+         *
+         * @param e The action event triggered by the user.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
+            String language = "English";
+            String[] languageList = { "English", "Korean" };
+
+            SpinnerListModel languageModel = new SpinnerListModel(languageList);
+            JSpinner languageSpinner = new JSpinner(languageModel);
+            int option = JOptionPane.showOptionDialog(null, languageSpinner, "Select language",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
             Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-            System.out.println("action method called"); 
 
-            String language = null; 
-            String country = null;
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                language = (String) languageModel.getValue();
+                System.out.println(language);
+                if (language.equals("Korean")) {
+                    prefs.put("language", "ko");
+                    prefs.put("country", "KR");
+                    restartApplication();
 
-            if ("en".equals(this.language)) {
-                language = "en";
-                country = "NZ";
-                System.out.println("English"); 
-            } else if ("ko".equals(this.language)) {
-                language = "ko";
-                country = "KR";
-                System.out.println("Korean"); 
-            }
-
-            if (language != null && country != null) {
-                prefs.put("language", language);
-                prefs.put("country", country);
-
-              
-                Locale.setDefault(new Locale(language, country));
-
-               
-                ResourceBundle bundle = ResourceBundle.getBundle("cosc202/andie/MessageBundle", Locale.getDefault());
-
-                updateUIComponents(frame.getContentPane(), bundle);
-
-              
-                SwingUtilities.invokeLater(() -> {
-                    frame.getContentPane().removeAll();
-                    try {
-                        Andie.createAndShowGUI(); 
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                    frame.getContentPane().revalidate();
-                    frame.getContentPane().repaint();
-                });
+                } else if (language.equals("English")) {
+                    prefs.put("language", "en");
+                    prefs.put("country", "NZ");
+                    restartApplication();
+                }
             }
 
         }
+    }
 
-        private void updateUIComponents(Container container, ResourceBundle bundle) {
-            for (Component component : container.getComponents()) {
-                if (component instanceof JLabel) {
-                    JLabel label = (JLabel) component;
-                    label.setText(bundle.getString(label.getText()));
-                } else if (component instanceof JButton) {
-                    JButton button = (JButton) component;
-                    button.setText(bundle.getString(button.getText()));
-                } else if (component instanceof JMenuItem) {
-                    JMenuItem menuItem = (JMenuItem) component;
-                    menuItem.setText(bundle.getString(menuItem.getText()));
-                }
-
-                if (component instanceof Container && component != frame) {
-                    updateUIComponents((Container) component, bundle);
+    /**
+     * Restarts the application by disposing the current frame and creating a new
+     * one.
+     * This method is typically called when the user changes the language, to
+     * refresh the UI with the new language.
+     * If an exception occurs while creating the new frame, the application will
+     * exit.
+     */
+    private void restartApplication() {
+        Andie.getFrame().dispose();
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    Andie.createAndShowGUI();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    System.exit(1);
                 }
             }
-        }
-
+        });
     }
 }

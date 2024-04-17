@@ -3,9 +3,18 @@ package cosc202.andie;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
-import javax.swing.*;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 /**
  * <p>
  * Actions provided by the File menu.
@@ -31,20 +40,29 @@ public class FileActions {
     protected ArrayList<Action> actions;
     private ResourceBundle bundle;
     protected boolean imageOpen = false;
-    
 
     /**
      * <p>
      * Create a set of File menu actions.
      * </p>
      */
-    public FileActions(ResourceBundle bundle) {
-        this.bundle = bundle;
+    public FileActions() {
+
+        Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+        Locale.setDefault(new Locale(prefs.get("language", "en"), prefs.get("country", "NZ")));
+        this.bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+        if (this.bundle == null) {
+            throw new RuntimeException("Resource bundle not found!");
+        }
+
         actions = new ArrayList<Action>();
         actions.add(new FileOpenAction(bundle.getString("Open"), null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileSaveAction(bundle.getString("Save"), null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction(bundle.getString("SaveAs"), null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExportAction(bundle.getString("Export"), null, "Export the image", Integer.valueOf(KeyEvent.VK_E)));
+        actions.add(
+                new FileSaveAction(bundle.getString("Save"), null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(
+                new FileSaveAsAction(bundle.getString("SaveAs"), null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileExportAction(bundle.getString("Export"), null, "Export the image",
+                Integer.valueOf(KeyEvent.VK_E)));
         actions.add(new FileExitAction(bundle.getString("Exit"), null, "Exit the program", Integer.valueOf(0)));
     }
 
@@ -73,8 +91,9 @@ public class FileActions {
      * @see EditableImage#open(String)
      */
     public class FileOpenAction extends ImageAction {
-       //datafield to check if image has already been opened, which is turned to true once image has been opened.
-        
+        // datafield to check if image has already been opened, which is turned to true
+        // once image has been opened.
+
         /**
          * <p>
          * Create a new file-open action.
@@ -102,21 +121,22 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if(imageOpen == true){
-                JOptionPane.showMessageDialog(null, "Are you sure you want to open a new file, any changes to current file will not be saved.");
+            if (imageOpen == true) {
+                JOptionPane.showMessageDialog(null,
+                        "Are you sure you want to open a new file, any changes to current file will not be saved.");
             }
 
             JFileChooser fileChooser = new JFileChooser();
-            
+
             int result = fileChooser.showOpenDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open(imageFilepath);
-                    imageOpen =  true;
-                    
-;
+                    imageOpen = true;
+
+                    ;
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Wrong file type");
                     return;
@@ -260,7 +280,7 @@ public class FileActions {
 
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
-                    
+
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().export(imageFilepath);
                 } catch (Exception ex) {

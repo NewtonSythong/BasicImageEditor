@@ -1,8 +1,18 @@
 package cosc202.andie;
 
-import java.util.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.EmptyStackException;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
+
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -37,8 +47,13 @@ public class EditActions {
      * Create a set of Edit menu actions.
      * </p>
      */
-    public EditActions(ResourceBundle bundle) {
-        this.bundle = bundle;
+    public EditActions() {
+        Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+        Locale.setDefault(new Locale(prefs.get("language", "en"), prefs.get("country", "NZ")));
+        this.bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+        if (this.bundle == null) {
+            throw new RuntimeException("Resource bundle not found!");
+        }
         actions = new ArrayList<Action>();
         actions.add(new UndoAction(bundle.getString("Undo"), null, "Undo", Integer.valueOf(KeyEvent.VK_Z)));
         actions.add(new RedoAction(bundle.getString("Redo"), null, "Redo", Integer.valueOf(KeyEvent.VK_Y)));

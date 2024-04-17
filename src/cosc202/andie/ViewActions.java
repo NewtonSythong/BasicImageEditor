@@ -1,8 +1,17 @@
 package cosc202.andie;
 
-import java.util.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
+
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -35,8 +44,13 @@ public class ViewActions {
      * Create a set of View menu actions.
      * </p>
      */
-    public ViewActions(ResourceBundle bundle) {
-        this.bundle = bundle;
+    public ViewActions() {
+        Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+        Locale.setDefault(new Locale(prefs.get("language", "en"), prefs.get("country", "NZ")));
+        this.bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+        if (this.bundle == null) {
+            throw new RuntimeException("Resource bundle not found!");
+        }
         actions = new ArrayList<Action>();
         actions.add(new ZoomInAction(this.bundle.getString("ZoomIn"), null, "Zoom In", Integer.valueOf(KeyEvent.VK_PLUS)));
         actions.add(new ZoomOutAction(this.bundle.getString("ZoomOut"), null, "Zoom Out", Integer.valueOf(KeyEvent.VK_MINUS)));

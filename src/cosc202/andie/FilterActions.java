@@ -3,7 +3,9 @@ package cosc202.andie;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -70,8 +72,13 @@ public class FilterActions {
      * 
      */
 
-    public FilterActions(ResourceBundle bundle) {
-        this.bundle = bundle;
+    public FilterActions() {
+        Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+        Locale.setDefault(new Locale(prefs.get("language", "en"), prefs.get("country", "NZ")));
+        this.bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+        if (this.bundle == null) {
+            throw new RuntimeException("Resource bundle not found!");
+        }
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction(bundle.getString("MeanFilter"), null, "Apply a mean filter",
                 Integer.valueOf(KeyEvent.VK_M)));
