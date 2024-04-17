@@ -42,7 +42,8 @@ public class GaussianBlur implements ImageOperation{
     public BufferedImage apply(BufferedImage input) {
 
         int size = 2 * radius + 1;
-        float sigma = size / 3;
+        float sigma = (float) Math.max(radius / 3.0f, 1.0f);
+
 
         float[] array = new float[size * size];
         float kernelSum = 0f;
