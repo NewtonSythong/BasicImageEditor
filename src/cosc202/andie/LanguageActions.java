@@ -10,12 +10,11 @@ import java.util.prefs.Preferences;
 
 import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
 import javax.swing.KeyStroke;
-import javax.swing.SpinnerListModel;
 
 /**
  * This class handles the actions related to language changes in the
@@ -75,71 +74,55 @@ public class LanguageActions {
 
         }
 
-        /**
-         * Handles the action event triggered by the user.
-         * This method is called when the user performs an action that this class is
-         * listening to.
-         * For example, if this class is used as an ActionListener for a button, this
-         * method will be called when the button is clicked.
-         *
-         * @param e The action event triggered by the user.
-         */
         @Override
         public void actionPerformed(ActionEvent e) {
-            String language = "English";
-            String[] languageList = { "English (NZ)", "Korean (한국어)", "Italian (Italiano)"};
 
-            SpinnerListModel languageModel = new SpinnerListModel(languageList);
-            JSpinner languageSpinner = new JSpinner(languageModel);
-            int option = JOptionPane.showOptionDialog(null, languageSpinner, "Select language",
+            String[] languageList = { "English (NZ)", "Korean (한국어)", "Italian (Italiano)" };
+
+            JComboBox<String> languageComboBox = new JComboBox<>(languageList);
+
+            int option = JOptionPane.showOptionDialog(null, languageComboBox, "Select language",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
-            Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+            if (option == 0) {
+                String language = (String) languageComboBox.getSelectedItem();
+                Preferences prefs = Preferences.userNodeForPackage(Andie.class);
 
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                language = (String) languageModel.getValue();
-                System.out.println(language);
                 if (language.equals("Korean (한국어)")) {
                     prefs.put("language", "ko");
                     prefs.put("country", "KR");
-                    restartApplication();
-
                 } else if (language.equals("English (NZ)")) {
                     prefs.put("language", "en");
                     prefs.put("country", "NZ");
-                    restartApplication();
                 } else if (language.equals("Italian (Italiano)")) {
                     prefs.put("language", "it");
                     prefs.put("country", "IT");
-                    restartApplication();
                 }
-            }
+                restartApplication();
 
+            }
         }
-    }
 
-    /**
-     * Restarts the application by disposing the current frame and creating a new
-     * one.
-     * This method is typically called when the user changes the language, to
-     * refresh the UI with the new language.
-     * If an exception occurs while creating the new frame, the application will
-     * exit.
-     */
-    private void restartApplication() {
-        Andie.getFrame().dispose();
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Andie.createAndShowGUI();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    System.exit(1);
+        /**
+         * Restarts the application by disposing the current frame and creating a new
+         * one.
+         * This method is typically called when the user changes the language, to
+         * refresh the UI with the new language.
+         * If an exception occurs while creating the new frame, the application will
+         * exit.
+         */
+        private void restartApplication() {
+            Andie.getFrame().dispose();
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    try {
+                        Andie.createAndShowGUI();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        System.exit(1);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }
