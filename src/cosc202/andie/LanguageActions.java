@@ -87,7 +87,7 @@ public class LanguageActions {
         @Override
         public void actionPerformed(ActionEvent e) {
             String language = "English";
-            String[] languageList = { "English", "Korean", "Italian"};
+            String[] languageList = { "English (NZ)", "Korean (한국어)", "Italian (Italiano)"};
 
             SpinnerListModel languageModel = new SpinnerListModel(languageList);
             JSpinner languageSpinner = new JSpinner(languageModel);
