@@ -365,10 +365,17 @@ public class FileActions {
             } else {
                 saves++;
                 System.out.println(saves + " " + EditableImage.GetimageEdited() + FileSaveAsAction.getisSaved());
-                JOptionPane.showMessageDialog(null,
-                        "You have attempted to close the application without saving your work. If this was intended press the exit button again.",
-                        "Error", JOptionPane.ERROR_MESSAGE);
+
+                int response = JOptionPane.showConfirmDialog(null,
+                        "You have unsaved changes. Do you still want to exit?",
+                        "Error", JOptionPane.YES_NO_OPTION);
+
+                if (response == JOptionPane.YES_OPTION) {
+                    System.exit(0);
+                }
             }
+
+            
         }
     }
 
