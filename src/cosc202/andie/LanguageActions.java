@@ -21,8 +21,8 @@ import javax.swing.SpinnerListModel;
  * This class handles the actions related to language changes in the
  * application.
  * 
- * @author Newton
- * @author Jenny
+ * @author Newton Sythong
+ * @author Jenny Kim
  */
 public class LanguageActions {
     /**
@@ -87,7 +87,7 @@ public class LanguageActions {
         @Override
         public void actionPerformed(ActionEvent e) {
             String language = "English";
-            String[] languageList = { "English", "Korean", "Italian"};
+            String[] languageList = { "English (NZ)", "Korean (한국어)", "Italian (Italiano)"};
 
             SpinnerListModel languageModel = new SpinnerListModel(languageList);
             JSpinner languageSpinner = new JSpinner(languageModel);
@@ -102,16 +102,16 @@ public class LanguageActions {
             } else if (option == JOptionPane.OK_OPTION) {
                 language = (String) languageModel.getValue();
                 System.out.println(language);
-                if (language.equals("Korean")) {
+                if (language.equals("Korean (한국어)")) {
                     prefs.put("language", "ko");
                     prefs.put("country", "KR");
                     restartApplication();
 
-                } else if (language.equals("English")) {
+                } else if (language.equals("English (NZ)")) {
                     prefs.put("language", "en");
                     prefs.put("country", "NZ");
                     restartApplication();
-                } else if (language.equals("Italian")) {
+                } else if (language.equals("Italian (Italiano)")) {
                     prefs.put("language", "it");
                     prefs.put("country", "IT");
                     restartApplication();

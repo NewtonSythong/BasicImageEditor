@@ -136,7 +136,7 @@ public class Andie {
     public static void main(String[] args) throws Exception {
         Locale current = Locale.getDefault();
         Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-        if (!current.equals(Locale.ENGLISH) || !current.equals(Locale.KOREAN)) {
+        if (!current.equals(Locale.ENGLISH) || !current.equals(Locale.KOREAN) || !current.equals(Locale.ITALIAN)) {
             Locale.setDefault(new Locale(prefs.get("language", "en"), prefs.get("country", "NZ")));
         }
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
