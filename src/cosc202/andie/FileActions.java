@@ -83,39 +83,12 @@ public class FileActions {
         return fileMenu;
     }
 
-     /**
+    /**
      * Retrieves the file extension from the given file path.
      *
      * @param filePath The path of the file.
-     * @return The file extension (without the dot), or null if the file has no extension.
-     */
-    public static String getFileExtension(String fileName) {
-        int dotIndex = fileName.lastIndexOf('.');
-        if (dotIndex != -1 && dotIndex < fileName.length() - 1) {
-            return fileName.substring(dotIndex + 1);
-        }
-        return null;
-    }
-
-     /**
-     * Retrieves the file extension from the given file path.
-     *
-     * @param filePath The path of the file.
-     * @return The file extension (without the dot), or null if the file has no extension.
-     */
-    public static String getFileExtension(String fileName) {
-        int dotIndex = fileName.lastIndexOf('.');
-        if (dotIndex != -1 && dotIndex < fileName.length() - 1) {
-            return fileName.substring(dotIndex + 1);
-        }
-        return null;
-    }
-
-     /**
-     * Retrieves the file extension from the given file path.
-     *
-     * @param filePath The path of the file.
-     * @return The file extension (without the dot), or null if the file has no extension.
+     * @return The file extension (without the dot), or null if the file has no
+     *         extension.
      */
     public static String getFileExtension(String fileName) {
         int dotIndex = fileName.lastIndexOf('.');
@@ -163,40 +136,43 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            int choice = -1; //Choice will either be 0 (wanting to open new file) or 1 (Not wanting to open)
-            if(imageOpen == true){
-               choice =   JOptionPane.showConfirmDialog(null, "Are you sure you want to open a new file, any changes to current file will not be saved.","confirmation", JOptionPane.YES_NO_OPTION);
+            int choice = -1; // Choice will either be 0 (wanting to open new file) or 1 (Not wanting to open)
+            if (imageOpen == true) {
+                choice = JOptionPane.showConfirmDialog(null,
+                        "Are you sure you want to open a new file, any changes to current file will not be saved.",
+                        "confirmation", JOptionPane.YES_NO_OPTION);
             }
-            if(choice == JOptionPane.YES_OPTION || choice == -1){
+            if (choice == JOptionPane.YES_OPTION || choice == -1) {
 
-            JFileChooser fileChooser = new JFileChooser();
+                JFileChooser fileChooser = new JFileChooser();
 
-            int result = fileChooser.showOpenDialog(target);
+                int result = fileChooser.showOpenDialog(target);
 
-            if (result == JFileChooser.APPROVE_OPTION) {
-                try {
-                    String imageFilePath = fileChooser.getSelectedFile().getAbsolutePath();
-                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    if(!getFileExtension(imageFilePath).equals("jpg") && !getFileExtension(imageFilePath).equals("jpeg") && !getFileExtension(imageFilePath).equals("png")){
-                        JOptionPane.showMessageDialog(null, "Incompatible file-type!", "Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }else{
-                    target.getImage().open(imageFilepath);
-                    imageOpen =  true;
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        String imageFilePath = fileChooser.getSelectedFile().getAbsolutePath();
+                        String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                        if (!getFileExtension(imageFilePath).equals("jpg")
+                                && !getFileExtension(imageFilePath).equals("jpeg")
+                                && !getFileExtension(imageFilePath).equals("png")) {
+                            JOptionPane.showMessageDialog(null, "Incompatible file-type!", "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                            return;
+                        } else {
+                            target.getImage().open(imageFilepath);
+                            imageOpen = true;
+                        }
+                    } catch (Exception ex) {
+                        System.exit(1);
                     }
-                } catch (Exception ex) {
-                    System.exit(1);
-                    }
+                }
+
+                target.repaint();
+                target.getParent().revalidate();
             }
 
-        
-
-            target.repaint();
-            target.getParent().revalidate();
         }
-
     }
-}
 
     /**
      * <p>
@@ -251,7 +227,8 @@ public class FileActions {
      * @see EditableImage#saveAs(String)
      */
     public class FileSaveAsAction extends ImageAction {
-private  static boolean isSaved = false;
+        private static boolean isSaved = false;
+
         /**
          * <p>
          * Create a new file-save-as action.
@@ -293,7 +270,8 @@ private  static boolean isSaved = false;
             }
             isSaved = true;
         }
-        public static boolean getisSaved(){
+
+        public static boolean getisSaved() {
             return isSaved;
         }
 
@@ -350,7 +328,8 @@ private  static boolean isSaved = false;
      * </p>
      */
     public class FileExitAction extends AbstractAction {
-private int saves = 0;
+        private int saves = 0;
+
         /**
          * <p>
          * Create a new file-exit action.
@@ -380,15 +359,17 @@ private int saves = 0;
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            
-            if(EditableImage.GetimageEdited() && FileSaveAsAction.getisSaved() &&  saves > 0){
-            System.exit(0);
-        }else{
-            saves++;
-            System.out.println(saves + " " +  EditableImage.GetimageEdited() + FileSaveAsAction.getisSaved());
-            JOptionPane.showMessageDialog(null, "You have attempted to close the application without saving your work. If this was intended press the exit button again.", "Error", JOptionPane.ERROR_MESSAGE);
+
+            if (EditableImage.GetimageEdited() && FileSaveAsAction.getisSaved() && saves > 0) {
+                System.exit(0);
+            } else {
+                saves++;
+                System.out.println(saves + " " + EditableImage.GetimageEdited() + FileSaveAsAction.getisSaved());
+                JOptionPane.showMessageDialog(null,
+                        "You have attempted to close the application without saving your work. If this was intended press the exit button again.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-    }
     }
 
 }
