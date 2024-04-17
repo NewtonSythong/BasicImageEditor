@@ -3,9 +3,18 @@ package cosc202.andie;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
-import javax.swing.*;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 /**
  * <p>
  * Actions provided by the File menu.
@@ -31,20 +40,29 @@ public class FileActions {
     protected ArrayList<Action> actions;
     private ResourceBundle bundle;
     protected boolean imageOpen = false;
-    
 
     /**
      * <p>
      * Create a set of File menu actions.
      * </p>
      */
-    public FileActions(ResourceBundle bundle) {
-        this.bundle = bundle;
+    public FileActions() {
+
+        Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+        Locale.setDefault(new Locale(prefs.get("language", "en"), prefs.get("country", "NZ")));
+        this.bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+        if (this.bundle == null) {
+            throw new RuntimeException("Resource bundle not found!");
+        }
+
         actions = new ArrayList<Action>();
         actions.add(new FileOpenAction(bundle.getString("Open"), null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileSaveAction(bundle.getString("Save"), null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction(bundle.getString("SaveAs"), null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExportAction(bundle.getString("Export"), null, "Export the image", Integer.valueOf(KeyEvent.VK_E)));
+        actions.add(
+                new FileSaveAction(bundle.getString("Save"), null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(
+                new FileSaveAsAction(bundle.getString("SaveAs"), null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileExportAction(bundle.getString("Export"), null, "Export the image",
+                Integer.valueOf(KeyEvent.VK_E)));
         actions.add(new FileExitAction(bundle.getString("Exit"), null, "Exit the program", Integer.valueOf(0)));
     }
 
@@ -65,11 +83,12 @@ public class FileActions {
         return fileMenu;
     }
 
-     /**
+    /**
      * Retrieves the file extension from the given file path.
      *
      * @param filePath The path of the file.
-     * @return The file extension (without the dot), or null if the file has no extension.
+     * @return The file extension (without the dot), or null if the file has no
+     *         extension.
      */
     public static String getFileExtension(String fileName) {
         int dotIndex = fileName.lastIndexOf('.');
@@ -87,8 +106,9 @@ public class FileActions {
      * @see EditableImage#open(String)
      */
     public class FileOpenAction extends ImageAction {
-       //datafield to check if image has already been opened, which is turned to true once image has been opened.
-        
+        // datafield to check if image has already been opened, which is turned to true
+        // once image has been opened.
+
         /**
          * <p>
          * Create a new file-open action.
@@ -116,40 +136,43 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            int choice = -1; //Choice will either be 0 (wanting to open new file) or 1 (Not wanting to open)
-            if(imageOpen == true){
-               choice =   JOptionPane.showConfirmDialog(null, "Are you sure you want to open a new file, any changes to current file will not be saved.","confirmation", JOptionPane.YES_NO_OPTION);
+            int choice = -1; // Choice will either be 0 (wanting to open new file) or 1 (Not wanting to open)
+            if (imageOpen == true) {
+                choice = JOptionPane.showConfirmDialog(null,
+                        "Are you sure you want to open a new file, any changes to current file will not be saved.",
+                        "confirmation", JOptionPane.YES_NO_OPTION);
             }
-            if(choice == JOptionPane.YES_OPTION || choice == -1){
+            if (choice == JOptionPane.YES_OPTION || choice == -1) {
 
-            JFileChooser fileChooser = new JFileChooser();
-            
-            int result = fileChooser.showOpenDialog(target);
+                JFileChooser fileChooser = new JFileChooser();
 
-            if (result == JFileChooser.APPROVE_OPTION) {
-                try {
-                    String imageFilePath = fileChooser.getSelectedFile().getAbsolutePath();
-                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    if(!getFileExtension(imageFilePath).equals("jpg") && !getFileExtension(imageFilePath).equals("jpeg") && !getFileExtension(imageFilePath).equals("png")){
-                        JOptionPane.showMessageDialog(null, "Incompatible file-type!", "Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }else{
-                    target.getImage().open(imageFilepath);
-                    imageOpen =  true;
+                int result = fileChooser.showOpenDialog(target);
+
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        String imageFilePath = fileChooser.getSelectedFile().getAbsolutePath();
+                        String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                        if (!getFileExtension(imageFilePath).equals("jpg")
+                                && !getFileExtension(imageFilePath).equals("jpeg")
+                                && !getFileExtension(imageFilePath).equals("png")) {
+                            JOptionPane.showMessageDialog(null, "Incompatible file-type!", "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                            return;
+                        } else {
+                            target.getImage().open(imageFilepath);
+                            imageOpen = true;
+                        }
+                    } catch (Exception ex) {
+                        System.exit(1);
                     }
-                } catch (Exception ex) {
-                    System.exit(1);
-                    }
+                }
+
+                target.repaint();
+                target.getParent().revalidate();
             }
 
-        
-
-            target.repaint();
-            target.getParent().revalidate();
         }
-
     }
-}
 
     /**
      * <p>
@@ -204,7 +227,8 @@ public class FileActions {
      * @see EditableImage#saveAs(String)
      */
     public class FileSaveAsAction extends ImageAction {
-private  static boolean isSaved = false;
+        private static boolean isSaved = false;
+
         /**
          * <p>
          * Create a new file-save-as action.
@@ -246,7 +270,8 @@ private  static boolean isSaved = false;
             }
             isSaved = true;
         }
-        public static boolean getisSaved(){
+
+        public static boolean getisSaved() {
             return isSaved;
         }
 
@@ -286,7 +311,7 @@ private  static boolean isSaved = false;
 
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
-                    
+
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().export(imageFilepath);
                 } catch (Exception ex) {
@@ -303,7 +328,8 @@ private  static boolean isSaved = false;
      * </p>
      */
     public class FileExitAction extends AbstractAction {
-private int saves = 0;
+        private int saves = 0;
+
         /**
          * <p>
          * Create a new file-exit action.
@@ -333,15 +359,17 @@ private int saves = 0;
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            
-            if(EditableImage.GetimageEdited() && FileSaveAsAction.getisSaved() &&  saves > 0){
-            System.exit(0);
-        }else{
-            saves++;
-            System.out.println(saves + " " +  EditableImage.GetimageEdited() + FileSaveAsAction.getisSaved());
-            JOptionPane.showMessageDialog(null, "You have attempted to close the application without saving your work. If this was intended press the exit button again.", "Error", JOptionPane.ERROR_MESSAGE);
+
+            if (EditableImage.GetimageEdited() && FileSaveAsAction.getisSaved() && saves > 0) {
+                System.exit(0);
+            } else {
+                saves++;
+                System.out.println(saves + " " + EditableImage.GetimageEdited() + FileSaveAsAction.getisSaved());
+                JOptionPane.showMessageDialog(null,
+                        "You have attempted to close the application without saving your work. If this was intended press the exit button again.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-    }
     }
 
 }

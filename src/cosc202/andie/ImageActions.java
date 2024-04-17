@@ -3,9 +3,15 @@ package cosc202.andie;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
-import javax.swing.*;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 /**
  * <p>
  * Actions provided by the Image menu.
@@ -37,8 +43,13 @@ public class ImageActions {
      * It initializes the list of actions and adds the Rotate and Flip actions to
      * it.
      */
-    public ImageActions(ResourceBundle bundle) {
-        this.bundle = bundle;
+    public ImageActions() {
+        Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+        Locale.setDefault(new Locale(prefs.get("language", "en"), prefs.get("country", "NZ")));
+        this.bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+        if (this.bundle == null) {
+            throw new RuntimeException("Resource bundle not found!");
+        }
         actions = new ArrayList<Action>();
         actions.add(new RotateClockwiseAction(bundle.getString("RotateClockwise"), null, "Rotate Clockwise",
                 Integer.valueOf(KeyEvent.VK_C)));

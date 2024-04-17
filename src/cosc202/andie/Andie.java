@@ -3,7 +3,7 @@ package cosc202.andie;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -57,17 +57,15 @@ public class Andie {
      * 
      * @throws Exception if something goes wrong.
      */
+
     public static void createAndShowGUI() throws Exception {
+
         if (frame == null) {
             frame = new JFrame("ANDIE");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         } else {
             frame.getContentPane().removeAll();
         }
-        
-        Locale.setDefault(new Locale("en", "NZ"));
-
-        ResourceBundle bundle = ResourceBundle.getBundle("cosc202/andie/MessageBundle", Locale.getDefault());
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
         frame.setIconImage(image);
@@ -84,32 +82,32 @@ public class Andie {
 
         // File menus are pretty standard, so things that usually go in File menus go
         // here.
-        FileActions fileActions = new FileActions(bundle);
+        FileActions fileActions = new FileActions();
         menuBar.add(fileActions.createMenu());
 
         // Likewise Edit menus are very common, so should be clear what might go here.
-        EditActions editActions = new EditActions(bundle);
+        EditActions editActions = new EditActions();
         menuBar.add(editActions.createMenu());
 
         // View actions control how the image is displayed, but do not alter its actual
         // content
-        ViewActions viewActions = new ViewActions(bundle);
+        ViewActions viewActions = new ViewActions();
         menuBar.add(viewActions.createMenu());
 
         // Filters apply a per-pixel operation to the image, generally based on a local
         // window
-        FilterActions filterActions = new FilterActions(bundle);
+        FilterActions filterActions = new FilterActions();
         menuBar.add(filterActions.createMenu());
 
         // Actions that affect the representation of colour in the image
-        ColourActions colourActions = new ColourActions(bundle);
+        ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
 
-        ImageActions imageActions = new ImageActions(bundle);
+        ImageActions imageActions = new ImageActions();
         menuBar.add(imageActions.createMenu());
 
         // Language menu
-        LanguageActions LanguageActions = new LanguageActions(bundle, frame);
+        LanguageActions LanguageActions = new LanguageActions();
         menuBar.add(LanguageActions.createMenu());
 
         frame.setJMenuBar(menuBar);
@@ -136,18 +134,23 @@ public class Andie {
      * @see #createAndShowGUI()
      */
     public static void main(String[] args) throws Exception {
+        Locale current = Locale.getDefault();
+        Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+        if (!current.equals(Locale.ENGLISH) || !current.equals(Locale.KOREAN)) {
+            Locale.setDefault(new Locale(prefs.get("language", "en"), prefs.get("country", "NZ")));
+        }
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
                     createAndShowGUI();
+
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     System.exit(1);
                 }
             }
         });
+
     }
-
-
 
 }
