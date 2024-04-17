@@ -102,16 +102,16 @@ public class LanguageActions {
             } else if (option == JOptionPane.OK_OPTION) {
                 language = (String) languageModel.getValue();
                 System.out.println(language);
-                if (language.equals("Korean")) {
+                if (language.equals("Korean (한국어)")) {
                     prefs.put("language", "ko");
                     prefs.put("country", "KR");
                     restartApplication();
 
-                } else if (language.equals("English")) {
+                } else if (language.equals("English (NZ)")) {
                     prefs.put("language", "en");
                     prefs.put("country", "NZ");
                     restartApplication();
-                } else if (language.equals("Italian")) {
+                } else if (language.equals("Italian (Italiano)")) {
                     prefs.put("language", "it");
                     prefs.put("country", "IT");
                     restartApplication();
