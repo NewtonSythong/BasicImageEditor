@@ -3,8 +3,19 @@ package cosc202.andie;
 import java.awt.image.*;
 import javax.swing.*;
 
-/** This class applies a Gaussian blur to an image
+/**
+ * <p>
+ * ImageOperation to apply a Gaussian blur filter to an image
+ * </p>
  * 
+ * <p>
+ * A Gaussian filter takes an image and uses the weighted average of the pixels
+ * based on the Gaussian distribution to smoothen and blur the image
+ * </p>
+ *
+ *
+ * @author Jenny Kim
+ * @version 1.0
  */
 public class GaussianBlur implements ImageOperation{
 
