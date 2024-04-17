@@ -13,8 +13,22 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 /**
+ * <p>
+ * Actions provided by the Image menu.
+ * </p>
+ * 
+ * <p>
  * This class represents a collection of image actions.
  * It contains actions for rotating and flipping an image.
+ * </p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
+ * </p>
+ * 
+ * @author Newton Sythong
+ * @version 1.0
  */
 public class ImageActions {
     /**

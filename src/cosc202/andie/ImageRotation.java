@@ -4,9 +4,24 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JOptionPane;
 
+
 /**
+ * <p>
+ * ImageOperation to rotate an image
+ * </p>
+ * 
+ * <p>
  * This class represents an operation that rotates an image.
  * It implements the ImageOperation interface and is serializable.
+ * </p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
+ * </p>
+ * 
+ * @author Newton Sythong
+ * @version 1.0
  */
 public class ImageRotation implements ImageOperation, java.io.Serializable {
     

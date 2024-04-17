@@ -3,7 +3,10 @@ package cosc202.andie;
 import java.awt.image.*;
 import javax.swing.*;
 
-public class GaussianBlur implements ImageOperation, java.io.Serializable {
+/** This class applies a Gaussian blur to an image
+ * 
+ */
+public class GaussianBlur implements ImageOperation{
 
     /**
      * The size of the filter to apply
@@ -37,29 +40,30 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
      * 
      */
     public BufferedImage apply(BufferedImage input) {
-        // The values for the kernel as a 9-element array
+
         int size = 2 * radius + 1;
         float sigma = size / 3;
 
         float[] array = new float[size * size];
-        float kernelSum = 0;
+        float kernelSum = 0f;
         int index = 0;
         for (int x = -radius; x <= radius; x++) {
             for (int y = -radius; y <= radius; y++) {
-                float distance = x * x + y * y;
-                array[index] = (float) (Math.exp(-distance / (2 * sigma * sigma)) / (2 * Math.PI * sigma * sigma));
-                kernelSum += array[index];
+                
+                array[index] = gaussian(x, y, sigma);
+                kernelSum+=array[index];
                 index++;
             }
         }
 
-        // Normalise the kernal values
+        float[] newArray = new float[array.length];
         for (int i = 0; i < array.length; i++) {
-            array[i] /= kernelSum;
+            newArray[i] = normalisedGaussian(array[i], kernelSum);
         }
 
-        Kernel kernel = new Kernel(size, size, array);
 
+
+        Kernel kernel = new Kernel(size, size, newArray);
 
         ConvolveOp convOp = new ConvolveOp(kernel);
 
@@ -79,5 +83,13 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
             JOptionPane.showMessageDialog(null, "Please select an image before filter");
             return null;
         }
+    }
+    public static float gaussian(int x, int y, float sigma) {
+        
+        return (float) (Math.exp(-((x*x + y*y) / (2.0f * sigma * sigma))) * (1.0f / (2.0f * Math.PI * sigma * sigma)));
+    }
+
+    public static float normalisedGaussian(float value, float kernelSum) {
+        return value / kernelSum;
     }
 }

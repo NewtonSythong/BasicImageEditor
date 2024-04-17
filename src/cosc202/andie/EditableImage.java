@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 import java.awt.image.*;
 import javax.imageio.*;
+import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -53,6 +54,8 @@ class EditableImage {
     private String imageFilename;
     /** The file where the operation sequence is stored. */
     private String opsFilename;
+    /** Check if Image has actions on it */
+    private static boolean ImageEdited;
 
     /**
      * <p>
@@ -156,11 +159,9 @@ class EditableImage {
         File imageFile = new File(imageFilename);
         original = ImageIO.read(imageFile);
         current = deepCopy(original);
-        
         try {
             FileInputStream fileIn = new FileInputStream(this.opsFilename);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
-
             // Silence the Java compiler warning about type casting.
             // Understanding the cause of the warning is way beyond
             // the scope of COSC202, but if you're interested, it has
@@ -213,7 +214,6 @@ class EditableImage {
         fileOut.close();
     }
 
-
     /**
      * <p>
      * Save an image to a specified file.
@@ -236,20 +236,30 @@ class EditableImage {
         save();
     }
 
-
     /**
      * Creates a copy of the current image without the change history and exports it
+     * If an extension is specified, it saves with that extension
+     * otherwise saves with the same extension as the original image
      * 
      * @param fileName
      * @throws Exception
      */
     public void export(String fileName) throws Exception {
-        this.original = this.current;
+
+        BufferedImage exportImage = deepCopy(this.current);
         ops.clear();
         redoOps.clear();
-        saveAs(fileName);
-    }
 
+        String extension = "";
+
+        if (fileName.contains(".")) { // if contains a ".", it indicates that it is an extension
+            extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+        } else {
+            extension = imageFilename.substring(imageFilename.lastIndexOf(".") + 1);
+            fileName += "." + extension;
+        }
+        ImageIO.write(exportImage, extension, new File(fileName));
+    }
 
     /**
      * <p>
@@ -261,6 +271,7 @@ class EditableImage {
     public void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
+        ImageEdited = true;
     }
 
     /**
@@ -313,6 +324,10 @@ class EditableImage {
         for (ImageOperation op : ops) {
             current = op.apply(current);
         }
+    }
+
+    public static boolean GetimageEdited() {
+        return ImageEdited;
     }
 
 }

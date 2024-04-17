@@ -14,9 +14,19 @@ import javax.swing.JOptionPane;
  * by enhancing the differences between neighbouring pixel values
  * </p>
  * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
+ * </p>
+ * 
+ * @author Katrina Hogg
+ * @version 1.0
  */
 public class SharpenFilter implements ImageOperation, java.io.Serializable {
 
+    /**
+     * Sharpen filter constructor
+     */
     SharpenFilter() {
         // construction Code
     }

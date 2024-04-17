@@ -5,9 +5,22 @@ import java.awt.image.*;
 import javax.swing.JOptionPane;
 
 /**
- * Class to handle the resizing of an image as an ImageOperation.
+ * <p>
+ * ImageOperation to handle resizing an image
+ * </p>
+ * 
+ * <p>
  * This class implements the ImageOperation interface and is serializable
  * so that the operation can be saved and restored as part of the application state.
+ * </p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
+ * </p>
+ * 
+ * @author Newton Sythong
+ * @version 1.0
  */
 public class ImageResize implements ImageOperation, java.io.Serializable {
     private double scaleFactor; // The scale factor for resizing

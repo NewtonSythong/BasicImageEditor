@@ -24,8 +24,6 @@ import javax.swing.JOptionPane;
  * There are a lot of operations that a user might expect to see here.
  * In the sample code there are Undo and Redo actions, but more may need to be
  * added.
- * blahblahblahblahblah
- * ragga ragga, ragga ragga
  * </p>
  * 
  * <p>

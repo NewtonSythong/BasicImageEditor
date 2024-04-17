@@ -11,17 +11,24 @@ import javax.swing.*;
  * 
  * <p>
  * A median filter takes an image  takes all of the pixel values in a local
-neighbourhood and sorts them. The new pixel value is then the middle value (the median) from the
-sorted list.
+ * neighbourhood and sorts them. The new pixel value is then the middle value (the median) from the
+ * sorted list.
  * </p>
-*/
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
+ * </p>
+ *
+ * @author Cam Clark, Jenny Kim
+ * @version 1.0
+ */
 public class MedianFilter implements ImageOperation, java.io.Serializable {
 
     /**
      * 
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a
      * 5x5 filter, and so forth.
-     * @param radius The radius of the newly constructed MedianFilter
      */
 
     private int radius;
@@ -40,7 +47,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * By default, a Median filter has radius 1.
      * </p>
      * 
-     * @see MeanFilter(int)
+     * @see MedianFilter(int)
      * 
      */
 
