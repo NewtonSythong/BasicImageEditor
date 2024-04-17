@@ -21,8 +21,8 @@ import javax.swing.SpinnerListModel;
  * This class handles the actions related to language changes in the
  * application.
  * 
- * @author Newton
- * @author Jenny
+ * @author Newton Sythong
+ * @author Jenny Kim
  */
 public class LanguageActions {
     /**
