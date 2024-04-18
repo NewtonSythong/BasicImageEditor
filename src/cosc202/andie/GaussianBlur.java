@@ -17,7 +17,7 @@ import javax.swing.*;
  * @author Jenny Kim
  * @version 1.0
  */
-public class GaussianBlur implements ImageOperation{
+public class GaussianBlur implements ImageOperation {
 
     /**
      * The size of the filter to apply
@@ -40,7 +40,6 @@ public class GaussianBlur implements ImageOperation{
         this.radius = radius;
     }
 
-
     /**
      * Apply Gaussian blur to an image.
      *
@@ -55,15 +54,14 @@ public class GaussianBlur implements ImageOperation{
         int size = 2 * radius + 1;
         float sigma = (float) Math.max(radius / 3.0f, 1.0f);
 
-
         float[] array = new float[size * size];
         float kernelSum = 0f;
         int index = 0;
         for (int x = -radius; x <= radius; x++) {
             for (int y = -radius; y <= radius; y++) {
-                
+
                 array[index] = gaussian(x, y, sigma);
-                kernelSum+=array[index];
+                kernelSum += array[index];
                 index++;
             }
         }
@@ -73,11 +71,9 @@ public class GaussianBlur implements ImageOperation{
             newArray[i] = normalisedGaussian(array[i], kernelSum);
         }
 
-
-
         Kernel kernel = new Kernel(size, size, newArray);
 
-        ConvolveOp convOp = new ConvolveOp(kernel);
+        ConvolveOp convOp = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
 
         try {
             if (input != null) {
@@ -96,9 +92,11 @@ public class GaussianBlur implements ImageOperation{
             return null;
         }
     }
+
     public static float gaussian(int x, int y, float sigma) {
-        
-        return (float) (Math.exp(-((x*x + y*y) / (2.0f * sigma * sigma))) * (1.0f / (2.0f * Math.PI * sigma * sigma)));
+
+        return (float) (Math.exp(-((x * x + y * y) / (2.0f * sigma * sigma)))
+                * (1.0f / (2.0f * Math.PI * sigma * sigma)));
     }
 
     public static float normalisedGaussian(float value, float kernelSum) {
