@@ -4,7 +4,7 @@
 - Sharpen Filter - Katrina
 - Gaussian Blur Filter - Jenny
 - Median Filter - Cam & Jenny
-- Image Invesion - Katrina
+- Image Inversion - Katrina
 - Colour Channel Cycling - Katrina
 - Multilingual Support - Newton & Jenny
 - Image Resize - Tele
