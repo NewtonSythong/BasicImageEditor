@@ -15,6 +15,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+
 /**
  * <p>
  * Actions provided by the File menu.
@@ -82,6 +83,8 @@ public class FileActions {
 
         return fileMenu;
     }
+
+
 
     /**
      * Retrieves the file extension from the given file path.

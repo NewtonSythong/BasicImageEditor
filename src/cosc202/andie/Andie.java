@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import java.util.Locale;
 import java.util.prefs.Preferences;
+import javax.swing.JToolBar;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -79,6 +80,7 @@ public class Andie {
 
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
+        
 
         // File menus are pretty standard, so things that usually go in File menus go
         // here.
@@ -110,6 +112,9 @@ public class Andie {
         LanguageActions LanguageActions = new LanguageActions();
         menuBar.add(LanguageActions.createMenu());
 
+        JToolBar toolBar = new JToolBar();
+        
+
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
@@ -118,6 +123,8 @@ public class Andie {
     public static JFrame getFrame() { // Add this method
         return frame;
     }
+
+
 
     /**
      * <p>
