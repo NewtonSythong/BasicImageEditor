@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  * @author Katrina Hogg
  * @version 1.0
  */
-public class BrightnessContrastAdjustment {
+public class BrightnessContrastAdjustment implements ImageOperation, java.io.Serializable{
     
     /**
      * <p>
