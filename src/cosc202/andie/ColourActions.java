@@ -222,4 +222,43 @@ public class ColourActions {
             target.getParent().revalidate();
         }
     }
+
+    /**
+     * 
+     */
+    public class BrightnessContrastAction extends ImageAction{
+
+        /**
+         * <p>
+         * Create a new invert-colour action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        BrightnessContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the brightness-contrast action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the BrightnessContrastAction is triggered.
+         * It changes the image by inverting the colour values
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new BrightnessContrastAdjustment());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    
+    }
 }
