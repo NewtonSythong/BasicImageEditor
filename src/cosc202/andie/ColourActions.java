@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
 
@@ -61,6 +62,8 @@ public class ColourActions {
                 Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new CycleColourAction(bundle.getString("Cycle"), null, "Cycle between different colour channels",
                 Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new BrightnessContrastAction(bundle.getString("View"), null, "Change the brightness and or contrast of the image",
+                Integer.valueOf(KeyEvent.VK_B)));//currently called view because getting error with BrightnessContrast
     }
 
     /**
@@ -255,6 +258,23 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+
+            //Determine brightness and contrast percentage change//these should og into colour action
+            int b = 0;
+            int c = 0;
+
+            //Show two text boxes
+            JTextField brightnessBox = new JTextField();
+            JTextField contrastBox = new JTextField();
+
+
+            int option = JOptionPane.showOptionDialog(null, b, "Enter desied brightness value",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+
+            
+            
+            //Create and apply colour change
             target.getImage().apply(new BrightnessContrastAdjustment());
             target.repaint();
             target.getParent().revalidate();

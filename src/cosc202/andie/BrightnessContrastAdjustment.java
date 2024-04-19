@@ -51,10 +51,23 @@ public class BrightnessContrastAdjustment implements ImageOperation, java.io.Ser
                       int r = (argb & 0x00FF0000) >> 16;
                       int g = (argb & 0x0000FF00) >> 8;
                       int b = (argb & 0x000000FF);
+                        
+                      
+                    
+                      //need to get user value input for brightness and contrast, from a textbox?
+                      //store them in another variable somewhere
+                      //apply that to a math equation
+
+                      int v = 0;
+
+                      //int vNew = (int) Math.round(
+                        
+                      //(1+ (c/100)) * (v-127.5) + 127.5 * (1+ (bright/100))
+                      
+                      //);//find a way to put the result within the 0 - 255 range
+
       
-                      int grey = (int) Math.round(0.3*r + 0.6*g + 0.1*b);
-      
-                      argb = (a << 24) | (grey << 16) | (grey << 8) | grey;
+                      argb = (a << 24) | (r << 16) | (g << 8) | b;
                       input.setRGB(x, y, argb);
                   }
               }
