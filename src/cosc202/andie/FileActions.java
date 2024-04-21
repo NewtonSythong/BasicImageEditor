@@ -57,7 +57,7 @@ public class FileActions {
         }
 
         actions = new ArrayList<Action>();
-        actions.add(new FileOpenAction(bundle.getString("Open"), null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new FileOpenAction(bundle.getString("Open"),null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
         actions.add(
                 new FileSaveAction(bundle.getString("Save"), null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
         actions.add(
