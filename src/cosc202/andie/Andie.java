@@ -113,6 +113,7 @@ public class Andie {
         menuBar.add(LanguageActions.createMenu());
 
         JToolBar toolBar = new JToolBar();
+    
         
 
         frame.setJMenuBar(menuBar);
