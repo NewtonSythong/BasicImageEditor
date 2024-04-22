@@ -7,6 +7,7 @@ import java.util.prefs.Preferences;
 import javax.swing.JToolBar;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
@@ -111,12 +112,11 @@ public class Andie {
         // Language menu
         LanguageActions LanguageActions = new LanguageActions();
         menuBar.add(LanguageActions.createMenu());
-
+        // Toolbar not working.
         JToolBar toolBar = new JToolBar();
-    
-        
-
+        Toolbar.setToolBar(toolBar);
         frame.setJMenuBar(menuBar);
+        frame.add(toolBar, BorderLayout.NORTH);
         frame.pack();
         frame.setVisible(true);
     }
