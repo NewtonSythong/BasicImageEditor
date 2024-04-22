@@ -4,8 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import java.util.Locale;
 import java.util.prefs.Preferences;
+import javax.swing.JToolBar;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
@@ -79,6 +81,7 @@ public class Andie {
 
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
+        
 
         // File menus are pretty standard, so things that usually go in File menus go
         // here.
@@ -109,8 +112,11 @@ public class Andie {
         // Language menu
         LanguageActions LanguageActions = new LanguageActions();
         menuBar.add(LanguageActions.createMenu());
-
+        // Toolbar not working.
+        JToolBar toolBar = new JToolBar();
+        Toolbar.setToolBar(toolBar);
         frame.setJMenuBar(menuBar);
+        frame.add(toolBar, BorderLayout.NORTH);
         frame.pack();
         frame.setVisible(true);
     }
@@ -118,6 +124,8 @@ public class Andie {
     public static JFrame getFrame() { // Add this method
         return frame;
     }
+
+
 
     /**
      * <p>
