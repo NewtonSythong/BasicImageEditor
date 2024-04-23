@@ -14,6 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
 
 
 /**
@@ -259,7 +260,7 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            //Determine brightness and contrast percentage change//these should og into colour action
+            //Determine brightness and contrast percentage change
             int b = 0;
             int c = 0;
 
@@ -267,15 +268,22 @@ public class ColourActions {
             JTextField brightnessBox = new JTextField();
             JTextField contrastBox = new JTextField();
 
+            JPanel panel = new JPanel();
+            //panel.setLayout(new GridLayout(0, 1));
 
-            int option = JOptionPane.showOptionDialog(null, b, "Enter desied brightness value",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(null, panel, "Enter brightness contrast values", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+           
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                //try to extract number value
+                b = Integer.parseInt(brightnessBox.getText());
+                c = Integer.parseInt(contrastBox.getText());
+            }
 
-
-            
-            
             //Create and apply colour change
-            target.getImage().apply(new BrightnessContrastAdjustment());
+            target.getImage().apply(new BrightnessContrastAdjustment(b, c));
             target.repaint();
             target.getParent().revalidate();
         }
