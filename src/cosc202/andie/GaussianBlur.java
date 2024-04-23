@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.awt.image.*;
+
 import javax.swing.*;
 
 /**
@@ -73,16 +74,27 @@ public class GaussianBlur implements ImageOperation {
 
         Kernel kernel = new Kernel(size, size, newArray);
 
-        ConvolveOp convOp = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
+        ConvolveOp convOp = new ConvolveOp(kernel);
 
         try {
             if (input != null) {
-                BufferedImage output = new BufferedImage(
-                        input.getColorModel(),
-                        input.copyData(null),
-                        input.isAlphaPremultiplied(), null);
-                convOp.filter(input, output);
+
+                EdgeHandling eh = new EdgeHandling();
+
+                BufferedImage paddedInput = eh.addPadding(input, radius);
+                BufferedImage middleCroppedImage = eh.cropMiddle(paddedInput, input.getWidth(), input.getHeight());
+                paddedInput = eh.addOriginalImage(middleCroppedImage, input);
+
+                BufferedImage paddedOutput = new BufferedImage(
+                        paddedInput.getColorModel(),
+                        paddedInput.copyData(null),
+                        paddedInput.isAlphaPremultiplied(), null);
+
+                convOp.filter(paddedInput, paddedOutput);
+
+                BufferedImage output = eh.cropImage(paddedOutput, radius);
                 return output;
+                
             } else {
                 throw new NullPointerException();
 

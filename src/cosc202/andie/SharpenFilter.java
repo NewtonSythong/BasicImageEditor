@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
  * </p>
  * 
  * <p>
- * A sharpen filter enhances the color contrast around edges in the image 
+ * A sharpen filter enhances the color contrast around edges in the image
  * by enhancing the differences between neighbouring pixel values
  * </p>
  * 
@@ -34,28 +34,39 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
     public BufferedImage apply(BufferedImage input) {
         // The values for the kernel as a 9-element array
         float[] array = { 0, -1 / 2.0f, 0,
-                        -1 / 2.0f, 3, -1 / 2.0f,
-                        0, -1 / 2.0f, 0 };
+                -1 / 2.0f, 3, -1 / 2.0f,
+                0, -1 / 2.0f, 0 };
 
         // Make a 3x3 filter from the array
         Kernel kernel = new Kernel(3, 3, array);
         // Apply this as a convolution - same code as in MeanFilter
         ConvolveOp convOp = new ConvolveOp(kernel);
-try{
-    if(input !=  null){
-    BufferedImage output = new BufferedImage(input.getColorModel(),
-    input.copyData(null),
-    input.isAlphaPremultiplied(), null);
-convOp.filter(input, output);
-// And we're done
-return output;
-}else{
-    throw new NullPointerException();
-}
-} catch (NullPointerException e){
-    JOptionPane.showMessageDialog(null, "Please select image before filter");
-return null;
-}
- 
+        try {
+            if (input != null) {
+
+                EdgeHandling eh = new EdgeHandling();
+
+                BufferedImage paddedInput = eh.addPadding(input, 3);
+                BufferedImage middleCroppedImage = eh.cropMiddle(paddedInput, input.getWidth(), input.getHeight());
+                paddedInput = eh.addOriginalImage(middleCroppedImage, input);
+
+                BufferedImage paddedOutput = new BufferedImage(
+                        paddedInput.getColorModel(),
+                        paddedInput.copyData(null),
+                        paddedInput.isAlphaPremultiplied(), null);
+
+                convOp.filter(paddedInput, paddedOutput);
+
+                BufferedImage output = eh.cropImage(paddedOutput, 3);
+                return output;
+
+            } else {
+                throw new NullPointerException();
+            }
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Please select image before filter");
+            return null;
+        }
+
     }
 }
