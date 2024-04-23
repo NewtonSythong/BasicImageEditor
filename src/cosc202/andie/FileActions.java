@@ -1,12 +1,16 @@
 package cosc202.andie;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -14,7 +18,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-
 
 /**
  * <p>
@@ -56,8 +59,9 @@ public class FileActions {
             throw new RuntimeException("Resource bundle not found!");
         }
 
+
         actions = new ArrayList<Action>();
-        actions.add(new FileOpenAction(bundle.getString("Open"),null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new FileOpenAction(bundle.getString("Open"), null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
         actions.add(
                 new FileSaveAction(bundle.getString("Save"), null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
         actions.add(
@@ -83,8 +87,6 @@ public class FileActions {
 
         return fileMenu;
     }
-
-
 
     /**
      * Retrieves the file extension from the given file path.
