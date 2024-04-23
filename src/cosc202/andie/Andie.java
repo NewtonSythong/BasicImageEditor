@@ -112,9 +112,11 @@ public class Andie {
         // Language menu
         LanguageActions LanguageActions = new LanguageActions();
         menuBar.add(LanguageActions.createMenu());
-        // Toolbar not working.
+        
+        // Toolbar
         JToolBar toolBar = new JToolBar();
         Toolbar.setToolBar(toolBar);
+        
         frame.setJMenuBar(menuBar);
         frame.add(toolBar, BorderLayout.NORTH);
         frame.pack();
