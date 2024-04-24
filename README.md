@@ -25,3 +25,8 @@ Once the user has ran the 'Andie.java' file a new window will appear. This is th
 As ANDIE is a Non-destructive image editor we suggest the user to open a file of type '.png'. Once opened a file the user has complete freedom with how they decide to experience ANDIE. Each menu bar represents a different set of features such as View, Filters, Colour and Image. If the user applies a unwanted feature then the edit menu bar is helpful as it has the ability to undo and redo actions. If the image has reached its desired state then the user should 'save as' if wanting to save as an operations file 'ops' or export if wanting to create a copy of exsisting image without the change history.
 
 ## No Significant Code Refactoring
+
+
+## Use of Icons
+Icons were used from the following open license location:
+https://uxwing.com/ The license for use can be found here https://uxwing.com/license/.
