@@ -14,6 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
@@ -63,8 +64,8 @@ public class ColourActions {
                 Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new CycleColourAction(bundle.getString("Cycle"), null, "Cycle between different colour channels",
                 Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new BrightnessContrastAction(bundle.getString("View"), null, "Change the brightness and or contrast of the image",
-                Integer.valueOf(KeyEvent.VK_B)));//currently called view because getting error with BrightnessContrast
+        actions.add(new BrightnessContrastAction(bundle.getString("BrightnessContrast"), null, "Change the brightness and or contrast of the image",
+                Integer.valueOf(KeyEvent.VK_B)));
     }
 
     /**
@@ -265,19 +266,21 @@ public class ColourActions {
             int c = 0;
 
             //Show two text boxes
-            JTextField brightnessBox = new JTextField();
-            JTextField contrastBox = new JTextField();
+            JTextField brightnessBox = new JTextField("", 15);
+            JTextField contrastBox = new JTextField("", 15);
 
             JPanel panel = new JPanel();
-            //panel.setLayout(new GridLayout(0, 1));
+            panel.add(new JLabel("Brightness:"));
+            panel.add(brightnessBox);
+            panel.add(new JLabel("Contrast:"));
+            panel.add(contrastBox);
 
-            int option = JOptionPane.showOptionDialog(null, panel, "Enter brightness contrast values", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(null, panel, "Enter brightness and contrast values", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
            
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                //try to extract number value
                 b = Integer.parseInt(brightnessBox.getText());
                 c = Integer.parseInt(contrastBox.getText());
             }
