@@ -81,10 +81,8 @@ public class GaussianBlur implements ImageOperation {
 
                 EdgeHandling eh = new EdgeHandling();
 
-                BufferedImage paddedInput = eh.addPadding(input, radius);
-                BufferedImage middleCroppedImage = eh.cropMiddle(paddedInput, input.getWidth(), input.getHeight());
-                paddedInput = eh.addOriginalImage(middleCroppedImage, input);
-
+                BufferedImage paddedInput = eh.filterImage(input, radius);
+               
                 BufferedImage paddedOutput = new BufferedImage(
                         paddedInput.getColorModel(),
                         paddedInput.copyData(null),

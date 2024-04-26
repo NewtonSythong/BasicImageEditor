@@ -46,9 +46,7 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
 
                 EdgeHandling eh = new EdgeHandling();
 
-                BufferedImage paddedInput = eh.addPadding(input, 3);
-                BufferedImage middleCroppedImage = eh.cropMiddle(paddedInput, input.getWidth(), input.getHeight());
-                paddedInput = eh.addOriginalImage(middleCroppedImage, input);
+                BufferedImage paddedInput = eh.filterImage(input, 3);
 
                 BufferedImage paddedOutput = new BufferedImage(
                         paddedInput.getColorModel(),

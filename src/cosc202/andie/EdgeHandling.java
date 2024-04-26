@@ -24,10 +24,10 @@ import java.awt.Image;
  */
 public class EdgeHandling {
 
-    BufferedImage input;
-
     public EdgeHandling() {
     }
+
+
 
     /**
      * Method to add padding to the edges of the original image and make it larger
@@ -37,22 +37,20 @@ public class EdgeHandling {
      *               image
      * @return the padded image
      */
-    public BufferedImage addPadding(BufferedImage src, int radius) {
+    public BufferedImage filterImage(BufferedImage src, int radius) {
         int newWidth = src.getWidth() + 2 * radius;
         int newHeight = src.getHeight() + 2 * radius;
 
-        // BufferedImage paddedImage = new BufferedImage(newWidth, newHeight, src.getType());
         Image image = src.getScaledInstance(newWidth, newHeight, Image.SCALE_DEFAULT);
-
-        BufferedImage paddedImage = new BufferedImage(newWidth, newHeight, src.getType());
-
-        Graphics2D g = paddedImage.createGraphics();
-        // g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
-
+        BufferedImage filteredImage = new BufferedImage(newWidth, newHeight, src.getType());
+        Graphics2D g = filteredImage.createGraphics();
         g.drawImage(image, 0, 0, null);
         g.dispose();
 
-        return paddedImage;
+        filteredImage = cropMiddle(filteredImage, src.getWidth(), src.getHeight());
+        filteredImage = addOriginalImage(filteredImage, src);
+
+        return filteredImage;
     }
 
     /**
