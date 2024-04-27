@@ -29,6 +29,11 @@ public class ImagePanel extends JPanel {
     private EditableImage image;
 
     /**
+     * Variables used for mouse actions
+     */
+    public static int inX, inY, width, height;
+        
+    /**
      * <p>
      * The zoom-level of the current view.
      * A scale of 1.0 represents actual size; 0.5 is zoomed out to half size; 1.5 is zoomed in to one-and-a-half size; and so forth.
@@ -38,11 +43,12 @@ public class ImagePanel extends JPanel {
      * Note that the scale is internally represented as a multiplier, but externally as a percentage.
      * </p>
      */
-    private double scale;
+    public static double scale;
 
-
-    private Rectangle selectionRect = null;  // Rectangle to represent selected region
-
+    /**
+     * Rectangle to represent selected region
+     */
+    public static Rectangle selectionRect = null;  
 
      /**
      * <p>
@@ -52,6 +58,7 @@ public class ImagePanel extends JPanel {
      * <p>
      * Newly created ImagePanels have a default zoom level of 100%
      * </p>
+     * 
      */
     public ImagePanel() {
         image = new EditableImage();
@@ -154,8 +161,11 @@ public class ImagePanel extends JPanel {
      */
     public Rectangle getRect() {
         return selectionRect;
-
-    } 
+    }
+    
+    public void setRect(Rectangle r){
+        selectionRect = r;
+    }
 
     /**
      * Clears the current selection, removing the rectangle from the display.
@@ -180,12 +190,12 @@ public class ImagePanel extends JPanel {
 
             @Override
             public void mouseDragged(MouseEvent e) {
-                int x = Math.min(startPoint.x, e.getX());  // Calculate top-left corner X.
-                int y = Math.min(startPoint.y, e.getY());  // Calculate top-left corner Y.
-                int width = Math.abs(e.getX() - startPoint.x);  // Calculate width of the rectangle.
-                int height = Math.abs(e.getY() - startPoint.y);  // Calculate height of the rectangle.
+                inX = Math.min(startPoint.x, e.getX());  // Calculate top-left corner X.
+                inY = Math.min(startPoint.y, e.getY());  // Calculate top-left corner Y.
+                width = Math.abs(e.getX() - startPoint.x);  // Calculate width of the rectangle.
+                height = Math.abs(e.getY() - startPoint.y);  // Calculate height of the rectangle.
 
-                selectionRect.setBounds(x, y, width, height);  // Update the selection rectangle dimensions.
+                selectionRect.setBounds(inX, inY, width, height);  // Update the selection rectangle dimensions.
                 repaint();  // Repaint to update the visual appearance of the rectangle.
             }
 
@@ -201,4 +211,5 @@ public class ImagePanel extends JPanel {
         addMouseListener(mouseHandler);  // Add the mouse button handler.
         addMouseMotionListener(mouseHandler);  // Add the mouse motion handler.
     }
+
 }
