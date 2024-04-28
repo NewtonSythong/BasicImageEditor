@@ -283,6 +283,8 @@ public class ColourActions {
             } else if (option == JOptionPane.OK_OPTION) {
                 b = Integer.parseInt(brightnessBox.getText());
                 c = Integer.parseInt(contrastBox.getText());
+
+                //add something here, like if the box is empty default the input value to zero 
             }
 
             //Create and apply colour change
