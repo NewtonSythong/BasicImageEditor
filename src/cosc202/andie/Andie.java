@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent; 
 
 /**
  * <p>
@@ -109,6 +111,10 @@ public class Andie {
         ImageActions imageActions = new ImageActions();
         menuBar.add(imageActions.createMenu());
 
+        //Drawing menu for Drawing and Region Cropping
+        DrawActions drawActions = new DrawActions();
+        menuBar.add(drawActions.createMenu());
+
         // Language menu
         LanguageActions LanguageActions = new LanguageActions();
         menuBar.add(LanguageActions.createMenu());
@@ -117,10 +123,16 @@ public class Andie {
         JToolBar toolBar = new JToolBar();
         Toolbar.setToolBar(toolBar);
         
+
         frame.setJMenuBar(menuBar);
         frame.add(toolBar, BorderLayout.NORTH);
         frame.pack();
         frame.setVisible(true);
+        frame.requestFocusInWindow();
+        KeyboardShortcuts k1 = new KeyboardShortcuts();
+        KeyAdapter c = k1.getKeyAdapter();
+        frame.addKeyListener(c);
+
     }
 
     public static JFrame getFrame() { // Add this method

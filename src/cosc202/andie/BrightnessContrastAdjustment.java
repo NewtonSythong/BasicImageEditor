@@ -59,10 +59,23 @@ public class BrightnessContrastAdjustment implements ImageOperation, java.io.Ser
                       int r = (argb & 0x00FF0000) >> 16;
                       int g = (argb & 0x0000FF00) >> 8;
                       int b = (argb & 0x000000FF);
+
+                      //the equation is right, something about the scaling of the nmber input isnt right though i think
+                      //like to make things positive seems like i have to make it 250
+                      //otherwise if i do that on the negative it does it way too intensley, screen goes black
+
+                      //having the value go in like this doesnt necessarily mean percent??, thatll be whats messing it up??
+
+                      //turn the brightness and contrast values into the percentages?
+                      //or does the contrast/100 take care of that
+                      //the plus one makes it 125%?
                         
-                      //need to get user value input for brightness and contrast, from a textbox?
-                      //store them in another variable somewhere
-                      //apply that to a math equation
+                      int newR = limit((int) Math.round((1+(contrast/100)) * (r-127.5) + 127.5 * (1+(brightness/100))));
+                      int newG = limit((int) Math.round((1+(contrast/100)) * (g-127.5) + 127.5 * (1+(brightness/100))));
+                      int newB = limit((int) Math.round((1+(contrast/100)) * (b-127.5) + 127.5 * (1+(brightness/100))));
+
+                      argb = (a << 24) | (newR << 16) | (newG << 8) | newB;
+                      input.setRGB(x, y, argb);
 
                       //each colour (red green blue) has a range of 225
                       //need to apply the equation to each colour value
@@ -70,28 +83,6 @@ public class BrightnessContrastAdjustment implements ImageOperation, java.io.Ser
                       //if below zero keep it zero?
                       ///if above 255 keep 255?
 
-                      /*From InvertColour
-                       * int a = (argb & 0xFF000000) >> 24; // the opacity of the colour
-                        int r = (255 - argb & 0x00FF0000) >> 16 ;
-                        int g = (255 - argb & 0x0000FF00) >> 8;
-                        int b = (255 - argb & 0x000000FF);
-                        argb = (a << 24) | (r << 16 ) | (g << 8) | b;
-                        input.setRGB(x, y, argb);
-                       */
-                    
-                       //find a way to put the result within the 0 - 255 range
-
-                      int newR = (int) Math.round(                    
-                      (1+(contrast/100)) * (r-127.5) + 127.5 * (1+(brightness/100)));
-
-                      int newG = (int) Math.round(                    
-                      (1+(contrast/100)) * (g-127.5) + 127.5 * (1+(brightness/100)));
-
-                      int newB = (int) Math.round(                    
-                      (1+(contrast/100)) * (b-127.5) + 127.5 * (1+(brightness/100)));
-
-                      argb = (a << 24) | (newR << 16) | (newG << 8) | newB;
-                      input.setRGB(x, y, argb);
                   }
               }
               
@@ -104,5 +95,12 @@ public class BrightnessContrastAdjustment implements ImageOperation, java.io.Ser
       return null;
         }
 
+    }
+
+    /**
+     * 
+     */
+    private static int limit(int num) {
+        return Math.max(0, Math.min(255, num));
     }
 }

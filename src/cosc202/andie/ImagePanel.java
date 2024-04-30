@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
 
 /**
  * <p>
@@ -17,16 +18,21 @@ import javax.swing.*;
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
  * </p>
  * 
- * @author Steven Mills
+ * @author Steven Mills (modified by Tele Tamati)
  * @version 1.0
  */
 public class ImagePanel extends JPanel {
-    
+
     /**
      * The image to display in the ImagePanel.
      */
     private EditableImage image;
 
+    /**
+     * Variables used for mouse actions
+     */
+    public static int inX, inY, width, height;
+        
     /**
      * <p>
      * The zoom-level of the current view.
@@ -37,9 +43,14 @@ public class ImagePanel extends JPanel {
      * Note that the scale is internally represented as a multiplier, but externally as a percentage.
      * </p>
      */
-    private double scale;
+    public static double scale;
 
     /**
+     * Rectangle to represent selected region
+     */
+    public static Rectangle selectionRect = null;  
+
+     /**
      * <p>
      * Create a new ImagePanel.
      * </p>
@@ -47,10 +58,12 @@ public class ImagePanel extends JPanel {
      * <p>
      * Newly created ImagePanels have a default zoom level of 100%
      * </p>
+     * 
      */
     public ImagePanel() {
         image = new EditableImage();
         scale = 1.0;
+        setupMouseHandlers();
     }
 
     /**
@@ -75,7 +88,7 @@ public class ImagePanel extends JPanel {
      * @return The current zoom level as a percentage.
      */
     public double getZoom() {
-        return 100*scale;
+        return 100 * scale;
     }
 
     /**
@@ -99,8 +112,7 @@ public class ImagePanel extends JPanel {
         scale = zoomPercent / 100;
     }
 
-
-    /**
+      /**
      * <p>
      * Gets the preferred size of this component for UI layout.
      * </p>
@@ -114,8 +126,8 @@ public class ImagePanel extends JPanel {
     @Override
     public Dimension getPreferredSize() {
         if (image.hasImage()) {
-            return new Dimension((int) Math.round(image.getCurrentImage().getWidth()*scale), 
-                                 (int) Math.round(image.getCurrentImage().getHeight()*scale));
+            return new Dimension((int) Math.round(image.getCurrentImage().getWidth() * scale),
+                                 (int) Math.round(image.getCurrentImage().getHeight() * scale));
         } else {
             return new Dimension(450, 450);
         }
@@ -131,11 +143,73 @@ public class ImagePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g.create();
         if (image.hasImage()) {
-            Graphics2D g2  = (Graphics2D) g.create();
             g2.scale(scale, scale);
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
-            g2.dispose();
         }
+        if (selectionRect != null) {
+            g2.setColor(Color.RED); // Color for the selection rectangle
+            g2.draw(selectionRect);
+        }
+        g2.dispose();
     }
+
+     /**
+     * Returns the current selection rectangle.
+     * @return The current selection rectangle.
+     */
+    public Rectangle getRect() {
+        return selectionRect;
+    }
+    
+    public void setRect(Rectangle r){
+        selectionRect = r;
+    }
+
+    /**
+     * Clears the current selection, removing the rectangle from the display.
+     */
+    public void clearSelection() {
+        selectionRect = null;
+        repaint();  // Repaint to remove the selection visually.
+    }
+
+    /**
+     * Sets up mouse handlers for creating and modifying the selection rectangle.
+     */
+    private void setupMouseHandlers() {
+        MouseAdapter mouseHandler = new MouseAdapter() {
+            private Point startPoint;  // Starting point of the selection rectangle.
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                startPoint = e.getPoint();  // Record the start point on mouse press.
+                selectionRect = new Rectangle();  // Initialize the selection rectangle.
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                inX = Math.min(startPoint.x, e.getX());  // Calculate top-left corner X.
+                inY = Math.min(startPoint.y, e.getY());  // Calculate top-left corner Y.
+                width = Math.abs(e.getX() - startPoint.x);  // Calculate width of the rectangle.
+                height = Math.abs(e.getY() - startPoint.y);  // Calculate height of the rectangle.
+
+                selectionRect.setBounds(inX, inY, width, height);  // Update the selection rectangle dimensions.
+                repaint();  // Repaint to update the visual appearance of the rectangle.
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (selectionRect.width == 0 || selectionRect.height == 0) {
+                    selectionRect = null;  // Cancel the selection if rectangle is too small.
+                }
+                repaint();  // Repaint after releasing the mouse button.
+            }
+        };
+
+        addMouseListener(mouseHandler);  // Add the mouse button handler.
+        addMouseMotionListener(mouseHandler);  // Add the mouse motion handler.
+    }
+
 }
