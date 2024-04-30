@@ -73,6 +73,10 @@ public class FilterActions {
                 Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new BlockAveragingAction(bundle.getString("BlockAverage"), null, "Apply a block average",
                 Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new EmbossFilterAction(bundle.getString("EmbossFilter"), null, "Apply an Emboss filter",
+                Integer.valueOf(KeyEvent.VK_E)));
+        actions.add(new SobelFilterAction(bundle.getString("SobelFilter"), null, "Apply a Sobel filter",
+                Integer.valueOf(KeyEvent.VK_O)));
 
     }
 
@@ -499,29 +503,29 @@ public class FilterActions {
             JSpinner blockWidthSpinner = new JSpinner(blockWidthModel);
             JSpinner blockHeightSpinner = new JSpinner(blockHeightModel);
 
-            int option = JOptionPane.showOptionDialog(null, blockWidthSpinner, "Enter block width", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
-            null);
+            int option = JOptionPane.showOptionDialog(null, blockWidthSpinner, "Enter block width",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
+                    null);
 
             // Check the return value from the dialog box.
 
             if (option == JOptionPane.CANCEL_OPTION) {
-            return;
+                return;
             } else if (option == JOptionPane.OK_OPTION) {
-            blockWidth = blockWidthModel.getNumber().intValue();
+                blockWidth = blockWidthModel.getNumber().intValue();
             }
 
             int optionHeight = JOptionPane.showOptionDialog(null, blockHeightSpinner, "Enter block height",
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
-            null);
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
+                    null);
 
             // Check the return value from the dialog box.
 
             if (optionHeight == JOptionPane.CANCEL_OPTION) {
-            return;
+                return;
             } else if (optionHeight == JOptionPane.OK_OPTION) {
-            blockHeight = blockHeightModel.getNumber().intValue();
+                blockHeight = blockHeightModel.getNumber().intValue();
             }
-
 
             target.getImage().apply(new BlockAveraging(blockHeight * blockWidth));
             target.repaint();
@@ -529,4 +533,97 @@ public class FilterActions {
         }
 
     }
+
+    public class EmbossFilterAction extends ImageAction {
+        /**
+         * Create a new emboss filter action.
+         * 
+         * </p>
+         *
+         * 
+         * 
+         * @param name     The name of the action (ignored if null).
+         * 
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * 
+         * @param desc     A brief description of the action (ignored if null).
+         * 
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         * 
+         */
+        EmbossFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+            super(name, icon, desc, mnemonic);
+
+        }
+
+        public void actionPerformed(ActionEvent e) {
+
+            int direction = 1;
+
+            SpinnerNumberModel directionModel = new SpinnerNumberModel(1, 1, 8, 1);
+            JSpinner directionSpinner = new JSpinner(directionModel);
+            int option = JOptionPane.showOptionDialog(null, directionSpinner, "Enter direction (1 - 8): ",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                direction = directionModel.getNumber().intValue();
+            }
+
+            target.getImage().apply(new EmbossFilter(direction));
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+    }
+    public class SobelFilterAction extends ImageAction {
+        /**
+         * Create a new sobel filter action.
+         * 
+         * </p>
+         *
+         * 
+         * 
+         * @param name     The name of the action (ignored if null).
+         * 
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * 
+         * @param desc     A brief description of the action (ignored if null).
+         * 
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         * 
+         */
+        SobelFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+            super(name, icon, desc, mnemonic);
+
+        }
+
+        public void actionPerformed(ActionEvent e) {
+
+            int direction = 1;
+
+            SpinnerNumberModel directionModel = new SpinnerNumberModel(1, 1, 2, 1);
+            JSpinner directionSpinner = new JSpinner(directionModel);
+            int option = JOptionPane.showOptionDialog(null, directionSpinner, "Enter direction (1 or 2): ",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                direction = directionModel.getNumber().intValue();
+            }
+
+            target.getImage().apply(new EmbossFilter(direction));
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+    }
+
+
 }
