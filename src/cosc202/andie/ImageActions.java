@@ -54,11 +54,11 @@ public class ImageActions {
         actions.add(new RotateClockwiseAction(bundle.getString("RotateClockwise"), null, "Rotate Clockwise",
                 Integer.valueOf(KeyEvent.VK_C)));
         actions.add(new RotateAntiClockwiseAction(bundle.getString("RotateAnti-Clockwise"), null, "Rotate Anti-Clockwise",
-                Integer.valueOf(KeyEvent.VK_A)));
+                Integer.valueOf(KeyEvent.VK_Q)));
         actions.add(new FlipHorizontalAction(bundle.getString("FlipHorizontal"), null, "Flip Horizontal", Integer.valueOf(KeyEvent.VK_H)));
         actions.add(new FlipVerticalAction(bundle.getString("FlipVertical"), null,"Flip Vertical", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new ResizeBiggerAction(bundle.getString("ResizeBigger"), null, "Resize the image twice the size", KeyEvent.VK_B));
-        actions.add(new ResizeSmallerAction(bundle.getString("ResizeSmaller"), null, "Resize the image half it's size", KeyEvent.VK_S));
+        actions.add(new ResizeSmallerAction(bundle.getString("ResizeSmaller"), null, "Resize the image half it's size", KeyEvent.VK_L));
     }
 
     /**

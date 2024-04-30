@@ -129,18 +129,4 @@ public class Toolbar {
 
         return tBar;
     }
-
-    // private ImageIcon createIcon(String file){
-    // URL image = Toolbar.class.getResource(file);
-    // if(image != null){
-    // return new ImageIcon(image);
-    // }else{
-    // System.out.println("this is broken cam");
-    // return null;
-    // }
-    // }
-
 }
-
-// Image image =
-// ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
