@@ -2,17 +2,15 @@ package cosc202.andie;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
 import java.util.Locale;
 import java.util.prefs.Preferences;
-import javax.swing.JToolBar;
 
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent; 
+import javax.swing.JToolBar; 
 
 /**
  * <p>
