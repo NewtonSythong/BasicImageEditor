@@ -6,69 +6,76 @@ import java.awt.image.*;
 
 /**
  * <p>
- * Implements an operation to extract a specific region from an image.
+ * ImageOperation to crop an area given a selected region.
  * </p>
  * 
  * <p>
- * This operation isolates a user-defined region of an image, effectively removing the external areas. The process involves creating a smaller image from the defined rectangle, representing the area of interest.
- * The coordinates for the rectangle's top-left and bottom-right are used to define the cropping boundaries.
+ * The crop feature will take the area that has been selected by the user and
+ * then crop out all pixels that have not been selected.
+ * It does this by getting a subImage of the rectangle that was selected and
+ * then setting this subImage as the new BufferedImage.
+ * It takes parameters of the top left point and the bottom right point (Point
+ * being the x value and y value).
  * </p>
  * 
  * <p>
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
- * @author Tele Tamati
+ * @author Katie Wink
  */
 public class RegionCrop implements ImageOperation, java.io.Serializable {
 
     /*
-     * Holds the dimensions and position of the cropping area as a rectangle,
-     * specifying the upper-left corner's x and y positions, and the rectangle's width and height.
+     * This stores the x and y coordinates of the upper-left corner of the region
+     * selected,
+     * as well as the width and height of that region.
      */
-    private Rectangle cropArea;
+    private Rectangle r;
 
     /**
-     * Represents the scaling factor of the image when the crop is executed, ensuring the operation aligns with the user's view.
+     * This is stores the scale of the EditableImage at the time when the crop was
+     * applied.
+     * This means we can correctly crop the image how the user would expect.
      */
-    private double imageScale;
+    private double scale;
 
     /**
      * <p>
-     * Initializes a new cropping operation for a specified image region.
+     * Construct a new RegionCrop.
      * </p>
      * 
      * <p>
-     * The constructor prepares the operation by setting the region to be cropped and adjusting for any scale applied to the image display.
+     * RegionCrop crops an image to the region that has been selected as a
+     * rectangle.
      * </p>
      * 
-     * @param scale The display scale of the {@link ImagePanel} within which the {@link EditableImage} is shown.
-     * @param rect defines the cropping boundaries.
+     * @param scale The scale of the {@link ImagePanel} the {@link EditableImage} is in
+     *              that we intend to apply a region crop to.
+     * @param rect The {@link Rectangle} of the region selected that we would like
+     *             the image to be cropped to.
      */
     public RegionCrop(double scale, Rectangle rect) {
-        this.imageScale = scale;
-        this.cropArea = rect;
+        this.scale = scale;
+        r = rect;
     }
 
     /**
      * <p>
-     * Executes the cropping operation on a provided image.
+     * Apply a region crop to an image.
      * </p>
      * 
-     * @param originalImage The image from which a region will be cropped.
-     * @return A new BufferedImage object representing the cropped section of the original image.
+     * @param previousImage The image to crop.
+     * @return The resulting (cropped) image.
      */
-    public BufferedImage apply(BufferedImage originalImage) {
-        // Calculate the actual coordinates and dimensions of the crop area, adjusted for the current image scale.
-        BufferedImage croppedImage = originalImage.getSubimage((int) (cropArea.x / imageScale), (int) (cropArea.y / imageScale), 
-                (int) (cropArea.width / imageScale), (int) (cropArea.height / imageScale));
-
-        // Create a copy of the cropped image to preserve the original properties.
-        BufferedImage finalCroppedImage = new BufferedImage(croppedImage.getWidth(), croppedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
-        Graphics graphics = finalCroppedImage.createGraphics();
-        graphics.drawImage(croppedImage, 0, 0, null);
-        graphics.dispose();
-
-        return finalCroppedImage;
+    public BufferedImage apply(BufferedImage previousImage) {
+        BufferedImage img = previousImage.getSubimage((int) (r.x / scale), (int) (r.y / scale), (int) (r.width / scale),
+                (int) (r.height / scale));
+        // fill in the corners of the desired crop location here
+        BufferedImage copyOfImage = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics g = copyOfImage.createGraphics();
+        g.drawImage(img, 0, 0, null);
+        return copyOfImage;
     }
 }
