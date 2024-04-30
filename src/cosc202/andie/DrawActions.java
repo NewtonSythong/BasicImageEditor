@@ -2,13 +2,8 @@ package cosc202.andie;
 
 import java.util.*;
 import java.util.prefs.Preferences;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.HeadlessException;
 
-import javax.swing.event.*;
 import javax.swing.*;
-import java.awt.Toolkit;
 import java.awt.event.*;
 import java.awt.*;
 
@@ -27,7 +22,7 @@ import java.awt.*;
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
  * </p>
  *
- * @author Steven Mills
+ * @author Tele Tamati
  * @version 1.0
  */
 public class DrawActions{
