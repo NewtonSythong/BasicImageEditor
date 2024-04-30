@@ -32,11 +32,23 @@ public class DrawActions{
      */
     protected ArrayList<Action> actions;
     private ResourceBundle bundle;
+
     /** 
      * Stores whether or not the user is currently drawing or selecting a region. This
      * is used to correctly colour the select region and colour buttons in thhe toolbar. 
      */
     public static boolean drawing = false;
+
+    /**
+     * Storing color which will be used for drawing
+     */
+    public static Color drawColour = Color.white;
+
+    /**
+     * Store the width value of hollow shapes or lines
+     */
+    public static int drawWidth = 1;
+
     /**
      * Constructor for the ToolsMenu class.
      * It initializes the list of actions and adds the selection tool action to it.
@@ -58,7 +70,7 @@ public class DrawActions{
      * It can be used to add these actions to a Tools menu.
      */
     public JMenu createMenu() {
-        JMenu toolsMenu = new JMenu(bundle.getString("Tools"));
+        JMenu toolsMenu = new JMenu(bundle.getString("Draw"));
 
         for (Action action : actions) {
             toolsMenu.add(new JMenuItem(action));
@@ -68,11 +80,8 @@ public class DrawActions{
     }
 
     /**
-     * <p>
      * Action to crop a selected region.
-     * </p>
      * 
-     * @see RegionCrop
      */
     public class RegionCropAction extends ImageAction {
 
@@ -103,6 +112,7 @@ public class DrawActions{
             target.getParent().revalidate();
         }
     }
+
 }
 
 

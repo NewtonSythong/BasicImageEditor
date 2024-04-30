@@ -111,9 +111,9 @@ public class Andie {
         ImageActions imageActions = new ImageActions();
         menuBar.add(imageActions.createMenu());
 
-        // Tools menu for Drawing and Region Cropping
-        // DrawActions drawActions = new DrawActions();
-        // menuBar.add(drawActions.createMenu());
+        //Drawing menu for Drawing and Region Cropping
+        DrawActions drawActions = new DrawActions();
+        menuBar.add(drawActions.createMenu());
 
         // Language menu
         LanguageActions LanguageActions = new LanguageActions();
