@@ -197,7 +197,7 @@ public class FilterActions {
             target.repaint();
 
             target.getParent().revalidate();
-           
+
         }
 
     }
@@ -251,8 +251,6 @@ public class FilterActions {
             target.repaint();
 
             target.getParent().revalidate();
-
-            
 
         }
 
@@ -445,7 +443,6 @@ public class FilterActions {
         }
     }
 
-
     /**
      * 
      * <p>
@@ -502,32 +499,34 @@ public class FilterActions {
             JSpinner blockWidthSpinner = new JSpinner(blockWidthModel);
             JSpinner blockHeightSpinner = new JSpinner(blockHeightModel);
 
-            int option = JOptionPane.showOptionDialog(null, blockWidthSpinner, "Enter block width",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(null, blockWidthSpinner, "Enter block width", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
+            null);
 
             // Check the return value from the dialog box.
 
             if (option == JOptionPane.CANCEL_OPTION) {
-                return;
+            return;
             } else if (option == JOptionPane.OK_OPTION) {
-                blockWidth = blockWidthModel.getNumber().intValue();
+            blockWidth = blockWidthModel.getNumber().intValue();
             }
 
-            option = JOptionPane.showOptionDialog(null, blockHeightSpinner, "Enter block height",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int optionHeight = JOptionPane.showOptionDialog(null, blockHeightSpinner, "Enter block height",
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
+            null);
 
             // Check the return value from the dialog box.
 
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                blockHeight = blockHeightModel.getNumber().intValue();
+            if (optionHeight == JOptionPane.CANCEL_OPTION) {
+            return;
+            } else if (optionHeight == JOptionPane.OK_OPTION) {
+            blockHeight = blockHeightModel.getNumber().intValue();
             }
 
-            target.getImage().apply(new BlockAveraging(blockWidth, blockHeight));
+
+            target.getImage().apply(new BlockAveraging(blockHeight * blockWidth));
             target.repaint();
             target.getParent().revalidate();
         }
-    }
 
+    }
 }
