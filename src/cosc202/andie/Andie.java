@@ -118,9 +118,8 @@ public class Andie {
         menuBar.add(LanguageActions.createMenu());
 
         //Actions for changing light/dark mode
-        //Programme starts tweaking when I try add it to the bar :'((
-        // ThemeActions themeActions = new ThemeActions();
-        // menuBar.add(themeActions.createMenu());
+        ThemeActions themeActions = new ThemeActions();
+        menuBar.add(themeActions.createMenu());
         
         // Toolbar
         JToolBar toolBar = new JToolBar();
