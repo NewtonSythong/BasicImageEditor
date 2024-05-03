@@ -32,6 +32,7 @@ public class ScatterFilter implements ImageOperation{
                 output.setRGB(x, y, input.getRGB(scatterX, scatterY));
             }
         }
+        
 
         return output;
 
