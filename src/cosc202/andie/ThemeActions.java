@@ -1,6 +1,5 @@
 package cosc202.andie;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -9,24 +8,23 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
+import javax.swing.plaf.*;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 public class ThemeActions {
     
     /** A list of actions for the Theme menu. */
     protected ArrayList<Action> actions;
     private ResourceBundle bundle;
-
-    /**Private boolean to know if light mode is on or not */
-    private boolean isLightMode = true;
-    Color backgroundColor;
-    Color textColor;
 
     public ThemeActions() {
         Preferences prefs = Preferences.userNodeForPackage(Andie.class);
@@ -36,8 +34,11 @@ public class ThemeActions {
             throw new RuntimeException("Resource bundle not found!");
         }
         actions = new ArrayList<Action>();
-        actions.add(new DarkModeAction(bundle.getString("DarkMode"), null, "Dark Mode", Integer.valueOf(KeyEvent.VK_D)));
-        actions.add(new LightModeAction(bundle.getString("LightMode"), null, "Light Mode", Integer.valueOf(KeyEvent.VK_L)));
+        actions.add(new MetalAction(bundle.getString("MetalTheme"), null, "Metal Theme", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new NimbusAction(bundle.getString("NimbusTheme"), null, "Nimbus Theme", Integer.valueOf(KeyEvent.VK_N)));
+        actions.add(new MotifAction(bundle.getString("MotifTheme"), null, "Motif Theme", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new WindowsAction(bundle.getString("WindowsTheme"), null, "Windows Theme", Integer.valueOf(KeyEvent.VK_W)));
+        actions.add(new WindowsClassicAction(bundle.getString("WindowsClassicTheme"), null, "Windows Classic Theme", Integer.valueOf(KeyEvent.VK_C)));
 
     }
 
@@ -50,72 +51,135 @@ public class ThemeActions {
         return themeMenu;
     }
 
-    /** */
-    public class DarkModeAction extends ImageAction {
+    /*
+     * javax.swing.plaf.metal.MetalLookAndFeel
+        javax.swing.plaf.nimbus.NimbusLookAndFeel
+        com.sun.java.swing.plaf.motif.MotifLookAndFeel
+        com.sun.java.swing.plaf.windows.WindowsLookAndFeel
+        com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel
+     */
 
-        DarkModeAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+    /** */
+    public class MetalAction extends ImageAction {
+
+        MetalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
         public void actionPerformed(ActionEvent e) {
             try {
-                if (isLightMode) {//If light mode is on
-                    //Change to dark mode
-                    backgroundColor = Color.DARK_GRAY;
-                    textColor = Color.WHITE;
-                } else {//If light mode is not on
-                    JOptionPane.showMessageDialog(null, "Dark mode is already applied.");
-                    return;
-                }
+                
+                UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+                SwingUtilities.updateComponentTreeUI(Andie.frame); //Repaints the UI
 
-                //Changing background colour
-                Andie.frame.getContentPane().setBackground(backgroundColor);
-                UIManager.put("Panel.background", backgroundColor);
-
-                //Changing menu bar color
-                UIManager.put("MenuBar.background", backgroundColor);
-                UIManager.put("MenuBar.foreground", textColor);
-
-                //Repaints the UI
-                 SwingUtilities.updateComponentTreeUI(Andie.frame);
-
-            } catch (EmptyStackException exception) {
-                JOptionPane.showMessageDialog(null, "Error occurred");
+            } catch (UnsupportedLookAndFeelException exception) {
+                JOptionPane.showMessageDialog(null, "UnsupportedLookAndFeelException occurred");
+            }catch (ClassNotFoundException exception) {
+                JOptionPane.showMessageDialog(null, "ClassNotFoundException occurred");
+            }catch (InstantiationException exception) {
+                JOptionPane.showMessageDialog(null, "InstantiationException occurred");
+            }catch (IllegalAccessException exception) {
+                JOptionPane.showMessageDialog(null, "IllegalAccessException occurred");
             }
         }
     }
 
     /** */
-    public class LightModeAction extends ImageAction {
+    public class NimbusAction extends ImageAction {
 
-        LightModeAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        NimbusAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
         public void actionPerformed(ActionEvent e) {
             try {
-                if (!isLightMode) {//If light mode is not on
-                    //Change to dark mode
-                    backgroundColor = Color.WHITE;
-                    textColor = Color.DARK_GRAY;
-                } else {//If light mode is not on
-                    JOptionPane.showMessageDialog(null, "Light mode is already applied.");
-                    return;
-                }
 
-                //Changing background colour
-                Andie.frame.getContentPane().setBackground(backgroundColor);//idk if UI manager will work
-                UIManager.put("Panel.background", backgroundColor);
+                UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+                SwingUtilities.updateComponentTreeUI(Andie.frame); //Repaints the UI
 
-                //Changing menu bar color
-                UIManager.put("MenuBar.background", backgroundColor);
-                UIManager.put("MenuBar.foreground", textColor);
+            } catch (UnsupportedLookAndFeelException exception) {
+                JOptionPane.showMessageDialog(null, "UnsupportedLookAndFeelException occurred");
+            }catch (ClassNotFoundException exception) {
+                JOptionPane.showMessageDialog(null, "ClassNotFoundException occurred");
+            }catch (InstantiationException exception) {
+                JOptionPane.showMessageDialog(null, "InstantiationException occurred");
+            }catch (IllegalAccessException exception) {
+                JOptionPane.showMessageDialog(null, "IllegalAccessException occurred");
+            }
+        }
+    }
 
-                //Repaints the UI
-                SwingUtilities.updateComponentTreeUI(Andie.frame);
+    /** */
+    public class MotifAction extends ImageAction {
 
-            } catch (EmptyStackException exception) {
-                JOptionPane.showMessageDialog(null, "Error occured");
+        MotifAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            try {
+
+                UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+                SwingUtilities.updateComponentTreeUI(Andie.frame); //Repaints the UI
+
+            } catch (UnsupportedLookAndFeelException exception) {
+                JOptionPane.showMessageDialog(null, "UnsupportedLookAndFeelException occurred");
+            }catch (ClassNotFoundException exception) {
+                JOptionPane.showMessageDialog(null, "ClassNotFoundException occurred");
+            }catch (InstantiationException exception) {
+                JOptionPane.showMessageDialog(null, "InstantiationException occurred");
+            }catch (IllegalAccessException exception) {
+                JOptionPane.showMessageDialog(null, "IllegalAccessException occurred");
+            }
+        }
+    }
+
+    /** */
+    public class WindowsAction extends ImageAction {
+
+        WindowsAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            try {
+
+                UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+                SwingUtilities.updateComponentTreeUI(Andie.frame); //Repaints the UI
+
+            } catch (UnsupportedLookAndFeelException exception) {
+                JOptionPane.showMessageDialog(null, "UnsupportedLookAndFeelException occurred");
+            }catch (ClassNotFoundException exception) {
+                JOptionPane.showMessageDialog(null, "ClassNotFoundException occurred");
+            }catch (InstantiationException exception) {
+                JOptionPane.showMessageDialog(null, "InstantiationException occurred");
+            }catch (IllegalAccessException exception) {
+                JOptionPane.showMessageDialog(null, "IllegalAccessException occurred");
+            }
+        }
+    }
+
+    /** */
+    public class WindowsClassicAction extends ImageAction {
+
+        WindowsClassicAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            try {
+
+                UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
+                SwingUtilities.updateComponentTreeUI(Andie.frame); //Repaints the UI
+
+            } catch (UnsupportedLookAndFeelException exception) {
+                JOptionPane.showMessageDialog(null, "UnsupportedLookAndFeelException occurred");
+            }catch (ClassNotFoundException exception) {
+                JOptionPane.showMessageDialog(null, "ClassNotFoundException occurred");
+            }catch (InstantiationException exception) {
+                JOptionPane.showMessageDialog(null, "InstantiationException occurred");
+            }catch (IllegalAccessException exception) {
+                JOptionPane.showMessageDialog(null, "IllegalAccessException occurred");
             }
         }
     }
