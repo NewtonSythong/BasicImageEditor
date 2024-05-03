@@ -36,8 +36,8 @@ public class ThemeActions {
             throw new RuntimeException("Resource bundle not found!");
         }
         actions = new ArrayList<Action>();
-        actions.add(new DarkModeAction(bundle.getString("Dark Mode"), null, "Dark Mode", Integer.valueOf(KeyEvent.VK_D)));
-        actions.add(new LightModeAction(bundle.getString("Light Mode"), null, "Light Mode", Integer.valueOf(KeyEvent.VK_L)));
+        actions.add(new DarkModeAction(bundle.getString("DarkMode"), null, "Dark Mode", Integer.valueOf(KeyEvent.VK_D)));
+        actions.add(new LightModeAction(bundle.getString("LightMode"), null, "Light Mode", Integer.valueOf(KeyEvent.VK_L)));
 
     }
 
@@ -80,7 +80,7 @@ public class ThemeActions {
                  SwingUtilities.updateComponentTreeUI(Andie.frame);
 
             } catch (EmptyStackException exception) {
-                JOptionPane.showMessageDialog(null, "Error occured");
+                JOptionPane.showMessageDialog(null, "Error occurred");
             }
         }
     }
