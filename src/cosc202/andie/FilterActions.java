@@ -73,6 +73,8 @@ public class FilterActions {
                 Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new BlockAveragingAction(bundle.getString("BlockAverage"), null, "Apply a block average",
                 Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new ScatterFilterAction(bundle.getString("ScatterFilter"), null, "Apply a Scatter filter",
+                Integer.valueOf(KeyEvent.VK_T)));
         actions.add(new EmbossFilterAction(bundle.getString("EmbossFilter"), null, "Apply an Emboss filter",
                 Integer.valueOf(KeyEvent.VK_E)));
         actions.add(new SobelFilterAction(bundle.getString("SobelFilter"), null, "Apply a Sobel filter",
@@ -534,6 +536,37 @@ public class FilterActions {
 
     }
 
+    public class ScatterFilterAction extends ImageAction {
+
+        ScatterFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+            super(name, icon, desc, mnemonic);
+
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            int radius = 1;
+
+            SpinnerNumberModel chooseRadius = new SpinnerNumberModel(1, 1, 10, 1);
+            JSpinner radiusSpinner = new JSpinner(chooseRadius);
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter radius (1 - 10): ",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                radius = chooseRadius.getNumber().intValue();
+            }
+
+            target.getImage().apply(new ScatterFilter(radius));
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+    }
+
     public class EmbossFilterAction extends ImageAction {
         /**
          * Create a new emboss filter action.
@@ -579,6 +612,7 @@ public class FilterActions {
         }
 
     }
+
     public class SobelFilterAction extends ImageAction {
         /**
          * Create a new sobel filter action.
@@ -624,6 +658,5 @@ public class FilterActions {
         }
 
     }
-
 
 }
