@@ -1,9 +1,7 @@
 package cosc202.andie;
-
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-
 /**
  * <p>
  * UI display element for {@link EditableImage}s.
@@ -32,6 +30,8 @@ public class ImagePanel extends JPanel {
      * Variables used for mouse actions
      */
     public static int inX, inY, width, height;
+    private static Point startPoint;
+    private static Point endPoint;
         
     /**
      * <p>
@@ -65,6 +65,25 @@ public class ImagePanel extends JPanel {
         scale = 1.0;
         setupMouseHandlers();
     }
+
+    /**
+     * Returns the point at which the user first clicks on the image
+     * mainly used for Line Drawing
+     * @return Point
+     */
+    public static Point getStartPoint() {
+        return startPoint;
+    }
+
+    /**
+     * Returns the point at which the user releases drag from the mouse
+     * mainly used for Line Drawing
+     * @return Point
+     */
+    public static Point getEndPoint() {
+        return endPoint;
+    }
+
 
     /**
      * <p>
@@ -143,6 +162,10 @@ public class ImagePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        if (startPoint != null && endPoint != null) {
+            g.setColor(DrawActions.drawColour);
+            g.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+        }
         Graphics2D g2 = (Graphics2D) g.create();
         if (image.hasImage()) {
             g2.scale(scale, scale);
@@ -159,12 +182,8 @@ public class ImagePanel extends JPanel {
      * Returns the current selection rectangle.
      * @return The current selection rectangle.
      */
-    public Rectangle getRect() {
+    public static Rectangle getRect() {
         return selectionRect;
-    }
-    
-    public void setRect(Rectangle r){
-        selectionRect = r;
     }
 
     /**
@@ -176,40 +195,48 @@ public class ImagePanel extends JPanel {
     }
 
     /**
-     * Sets up mouse handlers for creating and modifying the selection rectangle.
-     */
+    * Sets up mouse handlers for creating and modifying the selection rectangle.
+    */
     private void setupMouseHandlers() {
         MouseAdapter mouseHandler = new MouseAdapter() {
-            private Point startPoint;  // Starting point of the selection rectangle.
-
+            //private Point startPoint;  // Starting point of the selection rectangle.
             @Override
             public void mousePressed(MouseEvent e) {
                 startPoint = e.getPoint();  // Record the start point on mouse press.
                 selectionRect = new Rectangle();  // Initialize the selection rectangle.
             }
-
             @Override
             public void mouseDragged(MouseEvent e) {
                 inX = Math.min(startPoint.x, e.getX());  // Calculate top-left corner X.
                 inY = Math.min(startPoint.y, e.getY());  // Calculate top-left corner Y.
                 width = Math.abs(e.getX() - startPoint.x);  // Calculate width of the rectangle.
                 height = Math.abs(e.getY() - startPoint.y);  // Calculate height of the rectangle.
-
                 selectionRect.setBounds(inX, inY, width, height);  // Update the selection rectangle dimensions.
                 repaint();  // Repaint to update the visual appearance of the rectangle.
             }
-
             @Override
             public void mouseReleased(MouseEvent e) {
+                endPoint = e.getPoint();
+
                 if (selectionRect.width == 0 || selectionRect.height == 0) {
                     selectionRect = null;  // Cancel the selection if rectangle is too small.
                 }
                 repaint();  // Repaint after releasing the mouse button.
+
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (startPoint == null) {
+                    startPoint = e.getPoint();
+                } else {
+                    endPoint = e.getPoint();
+                    repaint(); // Trigger drawing after the second point is set
+               }
+               startPoint = null;
+               endPoint = null;
             }
         };
-
         addMouseListener(mouseHandler);  // Add the mouse button handler.
         addMouseMotionListener(mouseHandler);  // Add the mouse motion handler.
     }
-
 }
