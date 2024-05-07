@@ -32,11 +32,17 @@ public class DrawActions{
      */
     protected ArrayList<Action> actions;
     private ResourceBundle bundle;
-    /** 
-     * Stores whether or not the user is currently drawing or selecting a region. This
-     * is used to correctly colour the select region and colour buttons in thhe toolbar. 
+
+    /**
+     * Storing color which will be used for drawing
      */
-    public static boolean drawing = false;
+    public static Color drawColour = Color.PINK;
+
+    /**
+     * Store the width value of hollow shapes or lines
+     */
+    public static int drawWidth = 1;
+
     /**
      * Constructor for the ToolsMenu class.
      * It initializes the list of actions and adds the selection tool action to it.
@@ -51,6 +57,9 @@ public class DrawActions{
         }
         actions = new ArrayList<Action>();
         actions.add(new RegionCropAction(bundle.getString("CropRegion"), null,"Crops selected region", null));
+        actions.add(new DrawRectActions(bundle.getString("DrawRect"), null,"Tool to draw a Rectangle", null));
+        actions.add(new DrawOvalActions(bundle.getString("DrawOval"), null,"Tool to draw a Oval", null));
+        actions.add(new DrawLineActions(bundle.getString("DrawLine"), null, "Draw a line brother", null));
     }
 
     /**
@@ -58,7 +67,7 @@ public class DrawActions{
      * It can be used to add these actions to a Tools menu.
      */
     public JMenu createMenu() {
-        JMenu toolsMenu = new JMenu(bundle.getString("Tools"));
+        JMenu toolsMenu = new JMenu(bundle.getString("Draw"));
 
         for (Action action : actions) {
             toolsMenu.add(new JMenuItem(action));
@@ -68,7 +77,6 @@ public class DrawActions{
     }
 
     /**
-     * <p>
      * Action to crop a selected region.
      * </p>
      * 
@@ -103,11 +111,80 @@ public class DrawActions{
             target.getParent().revalidate();
         }
     }
+
+    public class DrawRectActions extends ImageAction{
+        
+        DrawRectActions(String name, ImageIcon imageIcon, String desc, Integer mnemonic) {
+            super(name, imageIcon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e){
+            if(target.getImage().hasImage() == false){
+                // There is not an image to draw on, so display error message.
+                JOptionPane.showMessageDialog(null, "No image detected for drawing mate");
+                return;
+            }
+
+            Rectangle recto = ImagePanel.getRect(); //Getting the Rectangle from ImagePanel (selection) 
+
+            if(recto == null){
+                JOptionPane.showMessageDialog(null, "Please select an area to draw a Rectangle");
+                return;
+            }
+
+            Color color = drawColour;
+            boolean fill = false;
+
+            DrawRect drawRect = new DrawRect(recto, color, fill);
+            target.getImage().apply(drawRect);
+            target.repaint();
+            
+        }
+        
+        
+    }
+
+    public class DrawOvalActions extends ImageAction {
+        public DrawOvalActions(String name, ImageIcon imageIcon, String desc, Integer mnemonic) {
+            super(name, imageIcon, desc, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e){
+            Rectangle rect = ImagePanel.getRect();
+            if (rect == null || rect.width == 0 || rect.height == 0) {
+                JOptionPane.showMessageDialog(null, "Please select an area to draw an oval");
+                return;
+            }
+            Color color = drawColour;
+            boolean fill = false;
+            DrawOval drawOval = new DrawOval(rect, color, fill);
+            target.getImage().apply(drawOval);
+            target.repaint();
+        }
+    }
+
+    public class DrawLineActions extends ImageAction {
+        public DrawLineActions(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e){
+            Point startPoint = ImagePanel.getStartPoint();//new Point(ImagePanel.inX, ImagePanel.inY); // Method to get start point from ImagePanel
+            Point endPoint = ImagePanel.getEndPoint(); // Method to get end point from ImagePanel
+            if (startPoint == null || endPoint == null) {
+                JOptionPane.showMessageDialog(null, "Please select start and end points for the line.");
+                return;
+            }
+    
+            Color color = drawColour;
+            
+            DrawLine drawLine = new DrawLine(startPoint, endPoint, color);
+            target.getImage().apply(drawLine);
+            target.repaint();
+
+        }
+
+    }
 }
-
-
-
-
-
-
-
