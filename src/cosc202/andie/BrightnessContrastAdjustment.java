@@ -54,6 +54,8 @@ public class BrightnessContrastAdjustment implements ImageOperation, java.io.Ser
     public BufferedImage apply(BufferedImage input) {
         try{
           if(input != null){
+            BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
+            input.isAlphaPremultiplied(), null);
               for (int y = 0; y < input.getHeight(); ++y) {
                   for (int x = 0; x < input.getWidth(); ++x) {
                       int argb = input.getRGB(x, y);
@@ -61,34 +63,17 @@ public class BrightnessContrastAdjustment implements ImageOperation, java.io.Ser
                       int r = (argb & 0x00FF0000) >> 16;
                       int g = (argb & 0x0000FF00) >> 8;
                       int b = (argb & 0x000000FF);
-
-                      //the equation is right, something about the scaling of the nmber input isnt right though i think
-                      //like to make things positive seems like i have to make it 250
-                      //otherwise if i do that on the negative it does it way too intensley, screen goes black
-
-                      //having the value go in like this doesnt necessarily mean percent??, thatll be whats messing it up??
-
-                      //turn the brightness and contrast values into the percentages?
-                      //or does the contrast/100 take care of that
-                      //the plus one makes it 125%?
                         
-                      int newR = limit((int) Math.round((1+(contrast/100)) * (r-127.5) + 127.5 * (1+(brightness/100))));
-                      int newG = limit((int) Math.round((1+(contrast/100)) * (g-127.5) + 127.5 * (1+(brightness/100))));
-                      int newB = limit((int) Math.round((1+(contrast/100)) * (b-127.5) + 127.5 * (1+(brightness/100))));
+                      int newR = limit((int) Math.round((1.0+(contrast/100.0)) * (r-127.5) + (127.5 * (1.0+(brightness/100.0)))));
+                      int newG = limit((int) Math.round((1.0+(contrast/100.0)) * (g-127.5) + (127.5 * (1.0+(brightness/100.0)))));
+                      int newB = limit((int) Math.round((1.0+(contrast/100.0)) * (b-127.5) + (127.5 * (1.0+(brightness/100.0)))));
 
                       argb = (a << 24) | (newR << 16) | (newG << 8) | newB;
-                      input.setRGB(x, y, argb);
-
-                      //each colour (red green blue) has a range of 225
-                      //need to apply the equation to each colour value
-                      //check each colour is within 0-255
-                      //if below zero keep it zero?
-                      ///if above 255 keep 255?
-
+                      output.setRGB(x, y, argb);
                   }
               }
               
-              return input;
+              return output;
           }else{
               throw new NullPointerException();
           }
