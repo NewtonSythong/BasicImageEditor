@@ -121,10 +121,14 @@ public class Andie {
         //Programme starts tweaking when I try add it to the bar :'((
         // ThemeActions themeActions = new ThemeActions();
         // menuBar.add(themeActions.createMenu());
+
+        
         
         // Toolbar
         JToolBar toolBar = new JToolBar();
         Toolbar.setToolBar(toolBar);
+        //
+        // MacroRecording macroRecordings = new MacroRecording();
         
 
         frame.setJMenuBar(menuBar);
