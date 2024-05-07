@@ -109,20 +109,25 @@ public class Andie {
         ImageActions imageActions = new ImageActions();
         menuBar.add(imageActions.createMenu());
 
-        // Tools menu for Drawing and Region Cropping
-        // DrawActions drawActions = new DrawActions();
-        // menuBar.add(drawActions.createMenu());
+        // Drawing menu for Drawing and Region Cropping
+        DrawActions drawActions = new DrawActions();
+        menuBar.add(drawActions.createMenu());
 
         // Language menu
         LanguageActions LanguageActions = new LanguageActions();
         menuBar.add(LanguageActions.createMenu());
 
         //Actions for changing light/dark mode
+<<<<<<< HEAD
         //Programme starts tweaking when I try add it to the bar :'((
         // ThemeActions themeActions = new ThemeActions();
         // menuBar.add(themeActions.createMenu());
 
         
+=======
+        ThemeActions themeActions = new ThemeActions();
+        menuBar.add(themeActions.createMenu());
+>>>>>>> 6ff3b945578f3b3cc80a39668ede5392fcf3890f
         
         // Toolbar
         JToolBar toolBar = new JToolBar();
