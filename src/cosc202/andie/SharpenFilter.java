@@ -1,8 +1,8 @@
 package cosc202.andie;
 
 import java.awt.image.*;
-
 import javax.swing.JOptionPane;
+import java.util.ResourceBundle;
 
 /**
  * <p>
@@ -58,7 +58,8 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
                 throw new NullPointerException();
             }
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "Please select image before filter");
+            ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+            JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
             return null;
         }
 

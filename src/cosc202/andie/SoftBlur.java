@@ -3,6 +3,7 @@ package cosc202.andie;
 import java.awt.image.*;
 
 import javax.swing.JOptionPane;
+import java.util.ResourceBundle;
 
 /**
  * <p>
@@ -51,8 +52,9 @@ return output;
         throw new NullPointerException();
     }
     } catch (NullPointerException e){
-            JOptionPane.showMessageDialog(null, "Please select image before filter");
-return null;
+        ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+        JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
+        return null;
     }
 }
 

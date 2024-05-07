@@ -1,6 +1,8 @@
 package cosc202.andie;
+
 import java.awt.image.*;
 import javax.swing.JOptionPane;
+import java.util.ResourceBundle;
 
 /**
  * <p>
@@ -91,8 +93,9 @@ public class BrightnessContrastAdjustment implements ImageOperation, java.io.Ser
               throw new NullPointerException();
           }
         }catch ( NullPointerException e){
-              JOptionPane.showMessageDialog(null, "Please select an image file before trying to adjust the brightness and contrast");
-      return null;
+            ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+            JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
+            return null;
         }
 
     }

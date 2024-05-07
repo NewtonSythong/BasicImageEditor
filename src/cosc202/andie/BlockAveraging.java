@@ -3,6 +3,7 @@ package cosc202.andie;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import javax.swing.*;
+import java.util.ResourceBundle;
 
 public class BlockAveraging implements ImageOperation {
 
@@ -58,7 +59,8 @@ public class BlockAveraging implements ImageOperation {
             }
 
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "Please select an image before filter");
+            ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+            JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
             return null;
         }
     }

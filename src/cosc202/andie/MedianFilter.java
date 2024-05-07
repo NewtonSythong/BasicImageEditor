@@ -3,6 +3,7 @@ package cosc202.andie;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import javax.swing.*;
+import java.util.ResourceBundle;
 
 /**
  * <p>
@@ -127,7 +128,8 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
 
             }
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "Please select image before filter");
+            ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+            JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
             return null;
         }
 

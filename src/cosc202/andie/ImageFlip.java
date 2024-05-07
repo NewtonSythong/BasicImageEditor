@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.awt.image.BufferedImage;
+import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
  /**
@@ -60,8 +61,9 @@ public class ImageFlip implements ImageOperation, java.io.Serializable {
         throw new NullPointerException();
     }
   }catch ( NullPointerException e){
-        JOptionPane.showMessageDialog(null, "Please select an image file before trying to flip image");
-return null;
+    ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+    JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
+    return null;
   }
     }
 }

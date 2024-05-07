@@ -1,8 +1,8 @@
 package cosc202.andie;
 
 import java.awt.image.BufferedImage;
-
 import javax.swing.JOptionPane;
+import java.util.ResourceBundle;
 
 public class SobelFilter implements ImageOperation {
 
@@ -38,7 +38,8 @@ public class SobelFilter implements ImageOperation {
             } else
                 throw new NullPointerException();
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "Please select an image before filter");
+            ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+            JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
             return null;
 
         }

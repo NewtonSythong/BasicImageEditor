@@ -1,8 +1,8 @@
 package cosc202.andie;
 
 import java.awt.image.BufferedImage;
-
 import javax.swing.JOptionPane;
+import java.util.ResourceBundle;
 
 
 /**
@@ -61,8 +61,9 @@ public class ImageRotation implements ImageOperation, java.io.Serializable {
         throw new NullPointerException();
     }
       }catch ( NullPointerException e){
-        JOptionPane.showMessageDialog(null, "Please select an image file before trying to rotate");
-return null;
+        ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+        JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
+        return null;
   }
     }
 }

@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.awt.image.BufferedImage;
 import javax.swing.*;
+import java.util.ResourceBundle;
 
 public class EmbossFilter implements ImageOperation {
 
@@ -10,7 +11,6 @@ public class EmbossFilter implements ImageOperation {
     public EmbossFilter() {
         this.direction = 1;
     }
-
     public EmbossFilter(int direction) {
         this.direction = direction;
     }
@@ -69,7 +69,8 @@ public class EmbossFilter implements ImageOperation {
             } else throw new NullPointerException();
 
             }catch (NullPointerException e) {
-                JOptionPane.showMessageDialog(null, "Please select an image before filter");
+                ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+                JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
                 return null;
         }
     }

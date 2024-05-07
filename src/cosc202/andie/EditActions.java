@@ -123,7 +123,7 @@ public class EditActions {
 
                 }
             } catch (EmptyStackException exception) {
-                JOptionPane.showMessageDialog(null, "Nothing to undo");
+                JOptionPane.showMessageDialog(null, bundle.getString("NothingToChange"));
             }
         }
     }
@@ -174,7 +174,7 @@ public class EditActions {
                     throw new EmptyStackException();
                 }
             } catch (EmptyStackException exception) {
-                JOptionPane.showMessageDialog(null, "Nothing to redo");
+                JOptionPane.showMessageDialog(null, bundle.getString("NothingToChange"));
 
             }
         }
