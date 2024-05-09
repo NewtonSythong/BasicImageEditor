@@ -1,14 +1,18 @@
 package cosc202.andie;
+
 import java.awt.image.*;
 import javax.swing.JOptionPane;
+import java.util.ResourceBundle;
 
 /**
  * <p>
- * ImageOperation to adjust the brightness values of an image
+ * ImageOperation to adjust the brightness and contrast values of an image
  * </p>
  * 
  * <p>
- * Short description of how the filter/adjustments work
+ * Images produced by this operation are colour images
+ * The brightness and contrast of the image is decided by the user
+ * The values used for adjustment are percentages
  * </p>
  * 
  * <p>
@@ -21,7 +25,7 @@ import javax.swing.JOptionPane;
 public class BrightnessContrastAdjustment implements ImageOperation, java.io.Serializable{
     
     /**
-     * The user requested percentage brightness and contrast change
+     * The user inputs percentage brightness and contrast change value
      */
     private int brightness;
     private int contrast;
@@ -39,15 +43,16 @@ public class BrightnessContrastAdjustment implements ImageOperation, java.io.Ser
 
     /**
      * <p>
-     * Short description
+     * Apply brightness and contrast changes to image
      * </p>
      * 
      * <p>
-     * More detailed decription
+     * An equation is used to individually adjust each red, green and blue
+     * values by the user inputed brightness/contrast percentage change
      * </p>
      * 
-     * @param input The image to have its brightness adjusted
-     * @return The resulting greyscale image.
+     * @param input The image to have its brightness and or contrast adjusted
+     * @return The resulting brightness/contrast adjusted image.
      */
     public BufferedImage apply(BufferedImage input) {
         try{
@@ -76,14 +81,18 @@ public class BrightnessContrastAdjustment implements ImageOperation, java.io.Ser
               throw new NullPointerException();
           }
         }catch ( NullPointerException e){
-              JOptionPane.showMessageDialog(null, "Please select an image file before trying to adjust the brightness and contrast");
-      return null;
+            ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+            JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
+            return null;
         }
 
     }
 
     /**
-     * 
+     * <p>
+     * Method used to ensure caluclated pixel value is not
+     * below 0 and does not exceed 255
+     * <p>
      */
     private static int limit(int num) {
         return Math.max(0, Math.min(255, num));

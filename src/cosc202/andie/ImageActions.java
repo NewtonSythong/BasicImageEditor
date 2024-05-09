@@ -100,15 +100,10 @@ public class ImageActions {
          * @param e The event that triggered the action.
          */
         public void actionPerformed(ActionEvent e) {
-            try{
-            if(target == null) throw new NullPointerException();
             target.getImage().apply(new ImageRotation(true));
             target.repaint();
             target.getParent().revalidate();
-        }catch (NullPointerException ex){
-            JOptionPane.showMessageDialog(null, "No image detected sole!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;    
-        }
+
         }
 
     }
@@ -137,15 +132,10 @@ public class ImageActions {
          * @param e The event that triggered the action.
          */
         public void actionPerformed(ActionEvent e) {
-            try{
-            if(target == null) throw new NullPointerException();
+
             target.getImage().apply(new ImageRotation(false));
             target.repaint();
             target.getParent().revalidate();
-        }catch (NullPointerException ex){
-            JOptionPane.showMessageDialog(null, "No image detected sole!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;    
-        }
         }
     }
 
@@ -173,15 +163,10 @@ public class ImageActions {
          * @param e The event that triggered the action.
          */
         public void actionPerformed(ActionEvent e) {
-            try{
-            if(target == null) throw new NullPointerException();
+
             target.getImage().apply(new ImageFlip(true));
             target.repaint();
             target.getParent().revalidate();
-        }catch (NullPointerException ex){
-            JOptionPane.showMessageDialog(null, "No image detected sole!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;    
-        }
         }
     }
 
@@ -209,15 +194,10 @@ public class ImageActions {
          * @param e The event that triggered the action.
          */
         public void actionPerformed(ActionEvent e) {
-            try{
-            if(target == null) throw new NullPointerException();
+
             target.getImage().apply(new ImageFlip(false));
             target.repaint();
             target.getParent().revalidate();
-        }catch (NullPointerException ex){
-            JOptionPane.showMessageDialog(null, "No image detected sole!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;    
-        }
         }
     }
 
@@ -231,15 +211,11 @@ public class ImageActions {
         }
 
         public void actionPerformed(ActionEvent e) {
-            try{
-            if(target == null) throw new NullPointerException();
+
             target.getImage().apply(new ImageResize(200)); // 100% bigger means doubling the size (scale factor 2.0)
             target.repaint();
             target.getParent().revalidate();
-            }catch (NullPointerException ex){
-                JOptionPane.showMessageDialog(null, "No image detected sole!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;    
-            }
+
         }
     }
 
@@ -253,15 +229,10 @@ public class ImageActions {
         }
 
         public void actionPerformed(ActionEvent e) {
-            try{
-            if(target == null) throw new NullPointerException();
+
             target.getImage().apply(new ImageResize(50)); // 50% smaller means half of the original size (scale factor 0.5)
             target.repaint();
             target.getParent().revalidate();
-        }catch (NullPointerException ex){
-            JOptionPane.showMessageDialog(null, "No image detected sole!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;    
-        }
     }
     }
 }
