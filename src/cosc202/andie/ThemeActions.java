@@ -7,26 +7,22 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
-import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * <p>
- * ImageOperation to apply different themes to the UI
+ * Actions to apply different UI themes as users choice
  * </p>
  * 
  * <p>
- * A sharpen filter enhances the color contrast around edges in the image
- * by enhancing the differences between neighbouring pixel values
+ * The Theme menu allows user to select what theme they want their ANDIE UI to be
  * </p>
  * 
  * <p>
@@ -42,17 +38,27 @@ public class ThemeActions {
     /** A list of actions for the Theme menu. */
     protected ArrayList<Action> actions;
     private ResourceBundle bundle;
-    private String defaultLookFeel = UIManager.getLookAndFeel().getClass().getName();
-    private String currentTheme = defaultLookFeel;
 
+    private String defaultLookFeel = UIManager.getLookAndFeel().getClass().getName();//Save default UI theme
+    private String currentTheme = defaultLookFeel;//Keep track of what the current UI is
 
+    /**
+     * <p>
+     * Create a set of Theme menu actions.
+     * </p>
+     */
     public ThemeActions() {
         Preferences prefs = Preferences.userNodeForPackage(Andie.class);        
         Locale.setDefault(new Locale(prefs.get("language", "en"), prefs.get("country", "NZ")));
+
+        //Preferences prefers = Preferences.userNodeForPackage(ThemeActions.class);
+        //currentTheme = prefers.get(PREFS_KEY_LOOK_AND_FEEL, defaultLookFeel);
+
         this.bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
         if (this.bundle == null) {
             throw new RuntimeException("Resource bundle not found!");
         }
+
         actions = new ArrayList<Action>();
         actions.add(new DefaultAction(bundle.getString("DefaultTheme"), null, "Default Theme", Integer.valueOf(KeyEvent.VK_D)));
         actions.add(new MetalAction(bundle.getString("MetalTheme"), null, "Metal Theme", Integer.valueOf(KeyEvent.VK_M)));
@@ -64,7 +70,7 @@ public class ThemeActions {
 
     /**
      * <p>
-     * Create a menu containing the list of Edit actions.
+     * Create a menu containing the list of Theme actions.
      * </p>
      * 
      * @return The edit menu UI element.
@@ -77,27 +83,41 @@ public class ThemeActions {
         return themeMenu;
     }
 
-    /*
-     * javax.swing.plaf.metal.MetalLookAndFeel
-        javax.swing.plaf.nimbus.NimbusLookAndFeel
-        com.sun.java.swing.plaf.motif.MotifLookAndFeel
-        com.sun.java.swing.plaf.windows.WindowsLookAndFeel
-        com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel
-     */
-
     /**
      * <p>
-     * Action to undo an {@link ImageOperation}.
+     * Action to change UI theme to Metal theme
      * </p>
      * 
-     * @see EditableImage#undo()
+     * @see 
      */
     public class MetalAction extends ImageAction {
 
+        /**
+         * <p>
+         * Create a new action to change UI to Metal theme action
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         MetalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the convert-to-grey action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ConvertToGreyAction is triggered.
+         * It changes the image to greyscale.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             try {
                 
@@ -123,17 +143,38 @@ public class ThemeActions {
 
     /**
      * <p>
-     * Action to undo an {@link ImageOperation}.
+     * Action to change UI theme to Nimbus theme
      * </p>
      * 
-     * @see EditableImage#undo()
+     * @see 
      */
     public class NimbusAction extends ImageAction {
-
+        /**
+         * <p>
+         * Create a new action to change UI to Metal theme action
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         NimbusAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the convert-to-grey action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ConvertToGreyAction is triggered.
+         * It changes the image to greyscale.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             try {
                 if(currentTheme == ("javax.swing.plaf.nimbus.NimbusLookAndFeel")){
@@ -158,17 +199,39 @@ public class ThemeActions {
 
     /**
      * <p>
-     * Action to undo an {@link ImageOperation}.
+     * Action to change UI theme to Motif theme
      * </p>
      * 
-     * @see EditableImage#undo()
+     * @see 
      */
     public class MotifAction extends ImageAction {
 
+        /**
+         * <p>
+         * Create a new action to change UI to Metal theme action
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         MotifAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the convert-to-grey action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ConvertToGreyAction is triggered.
+         * It changes the image to greyscale.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             try {
                 if(currentTheme == ("com.sun.java.swing.plaf.motif.MotifLookAndFeel")){
@@ -193,17 +256,39 @@ public class ThemeActions {
 
     /**
      * <p>
-     * Action to undo an {@link ImageOperation}.
+     * Action to change UI theme to Windows theme
      * </p>
      * 
-     * @see EditableImage#undo()
+     * @see 
      */
     public class WindowsAction extends ImageAction {
 
+        /**
+         * <p>
+         * Create a new action to change UI to Metal theme action
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         WindowsAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the convert-to-grey action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ConvertToGreyAction is triggered.
+         * It changes the image to greyscale.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             try {
                 if(currentTheme == ("com.sun.java.swing.plaf.windows.WindowsLookAndFeel")){
@@ -217,7 +302,7 @@ public class ThemeActions {
             } catch (UnsupportedLookAndFeelException exception) {
                 JOptionPane.showMessageDialog(null, "UnsupportedLookAndFeelException occurred");
             }catch (ClassNotFoundException exception) {
-                JOptionPane.showMessageDialog(null, "ClassNotFoundException occurred");//occuring
+                JOptionPane.showMessageDialog(null, "ClassNotFoundException occurred\nTheme is not OS compatible.");//Occurs if on MAC
             }catch (InstantiationException exception) {
                 JOptionPane.showMessageDialog(null, "InstantiationException occurred");
             }catch (IllegalAccessException exception) {
@@ -228,17 +313,39 @@ public class ThemeActions {
 
     /**
      * <p>
-     * Action to undo an {@link ImageOperation}.
+     * Action to change UI theme to Windows Classic theme
      * </p>
      * 
-     * @see EditableImage#undo()
+     * @see 
      */
     public class WindowsClassicAction extends ImageAction {
 
+        /**
+         * <p>
+         * Create a new action to change UI to Windows Classic theme action
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         WindowsClassicAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the convert-to-grey action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ConvertToGreyAction is triggered.
+         * It changes the image to greyscale.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             try {
                 if(currentTheme == ("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel")){
@@ -252,7 +359,7 @@ public class ThemeActions {
             } catch (UnsupportedLookAndFeelException exception) {
                 JOptionPane.showMessageDialog(null, "UnsupportedLookAndFeelException occurred");
             }catch (ClassNotFoundException exception) {
-                JOptionPane.showMessageDialog(null, "ClassNotFoundException occurred");//occur
+                JOptionPane.showMessageDialog(null, "ClassNotFoundException occurred \nTheme is not OS compatible.");//Occurs if on MAC
             }catch (InstantiationException exception) {
                 JOptionPane.showMessageDialog(null, "InstantiationException occurred");
             }catch (IllegalAccessException exception) {
@@ -262,12 +369,39 @@ public class ThemeActions {
     }
 
     /**
-    */ 
+     * <p>
+     * Action to change UI theme to Default theme
+     * </p>
+     * 
+     * @see 
+     */
     public class DefaultAction extends ImageAction {
+        /**
+         * <p>
+         * Create a new action to change UI to Default theme action
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         DefaultAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the convert-to-grey action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ConvertToGreyAction is triggered.
+         * It changes the image to greyscale.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             try {
                 if(currentTheme == (defaultLookFeel)){
