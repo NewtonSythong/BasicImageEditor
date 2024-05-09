@@ -275,9 +275,9 @@ class EditableImage {
     public void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
-        // if (MacroRecording.recording) {
-        //     MacroRecording.operations.add(op);
-        // }
+        if (MacroRecording.recording) {
+            MacroRecording.operations.add(op);
+        }
         ImageEdited = true;
     }
 
@@ -287,9 +287,9 @@ class EditableImage {
      * </p>
      */
     public void undo() {
-        // if (MacroRecording.recording) {
-        //     MacroRecording.operations.pop(redoOps.pop());
-        // }
+        if (MacroRecording.recording) {
+            MacroRecording.operations.pop(redoOps.pop());
+        }
         redoOps.push(ops.pop());
         refresh();
     }
@@ -300,9 +300,9 @@ class EditableImage {
      * </p>
      */
     public void redo() {
-        // if (MacroRecording.recording) {
-        // MacroRecording.operations.add(redoOps.pop());
-        // }
+        if (MacroRecording.recording) {
+        MacroRecording.operations.add(redoOps.pop());
+        }
         apply(redoOps.pop());
     }
 
