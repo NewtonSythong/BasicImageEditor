@@ -80,8 +80,10 @@ public class LanguageActions {
             String[] languageList = { "English (NZ)", "Korean (한국어)", "Italian (Italiano)" };
 
             JComboBox<String> languageComboBox = new JComboBox<>(languageList);
+            ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
 
-            int option = JOptionPane.showOptionDialog(null, languageComboBox, "Select language",
+
+            int option = JOptionPane.showOptionDialog(null, languageComboBox, bundle.getString("SelectLanguage"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             if (option == 0) {
