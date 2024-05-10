@@ -7,10 +7,7 @@ import javax.swing.JToolBar;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-
-import java.net.URL;
 
 public class Toolbar {
     protected static ArrayList<Action> actions = new ArrayList<Action>();
