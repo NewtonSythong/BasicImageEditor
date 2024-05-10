@@ -5,6 +5,7 @@
 // import java.util.Stack;
 // import javax.swing.Action;
 // import javax.swing.ImageIcon;
+// import javax.swing.JDialog;
 // import javax.swing.JMenu;
 // import javax.swing.JMenuItem;
 // import javax.swing.event.MenuKeyListener;
@@ -27,11 +28,10 @@
 
 // public class MacroRecordingActions {
 
-//     protected static Stack<ImageOperation> operations = new Stack<ImageOperation>();
-//     private String opsMacroName;
+
 //     protected static boolean recording = false;
 //     protected ArrayList<Action> actions;
-//     private ResourceBundle bundle;
+//     ResourceBundle bundle;
 
 //     public MacroRecordingActions() {
 
@@ -43,8 +43,11 @@
 //         }
 //         actions = new ArrayList<Action>();
 //         actions.add(
-//                 new MacroRecordAction(bundle.getString("Open"), null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
-
+//                 new MacroRecordAction(bundle.getString("Record"), null, "Start a macro recording",
+//                         Integer.valueOf(KeyEvent.VK_Z)));
+//         actions.add(
+//             new MacroStopAction(bundle.getString("Stop"), null, "stop a macro recording",
+//          Integer.valueOf(KeyEvent.VK_U)));
 //     }
 
 //     public JMenu createMenu() {
@@ -57,20 +60,42 @@
 //         return macroMenu;
 //     }
 
-// }
+//     public class MacroRecordAction extends ImageAction {
 
-// public class MacroRecordAction extends ImageAction {
+//         MacroRecordAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
 
-//     protected static Stack<ImageOperation> operations = new Stack<ImageOperation>();
-//     boolean isRecording = false;
+//             super(name, icon, desc, mnemonic);
+//         }
 
-//     MacroRecordAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-
-//         super(name, icon, desc, mnemonic);
+//         public void actionPerformed(ActionEvent e) {
+//             target.getImage().isRecording = true;
+//         }
 //     }
 
-//     public void actionPerformed(ActionEvent e) {
-//         isRecording = true;
+//     public class MacroStopAction extends ImageAction {
+
+    //
+//         MacroStopAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+//             super(name, icon, desc, mnemonic);
+//         }
+
+//         @Override
+//         public void actionPerformed(ActionEvent arg0) {
+//             target.getImage().isRecording = false;
+//             try {
+//                 String macroName = target.getImage().imageFilename + "macro.ops";
+//                 FileOutputStream fileOut = new FileOutputStream(macroName);
+//                 ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+//                 objOut.writeObject(target.getImage().macroOps);
+//                 objOut.close();
+//                 fileOut.close();
+//             } catch (Exception e) {
+//                 System.out.println("its broken");
+//             }
+
+//         }
 
 //     }
+
 // }
