@@ -178,7 +178,7 @@ public class ThemeActions {
         public void actionPerformed(ActionEvent e) {
             try {
                 if(currentTheme == ("javax.swing.plaf.nimbus.NimbusLookAndFeel")){
-                    JOptionPane.showMessageDialog(null, "This theme is already applied");
+                    JOptionPane.showMessageDialog(null, bundle.getString("ThemeAlreadyApplied"));
                 }else{
                     UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
                     SwingUtilities.updateComponentTreeUI(Andie.frame); //Repaints the UI
@@ -235,7 +235,7 @@ public class ThemeActions {
         public void actionPerformed(ActionEvent e) {
             try {
                 if(currentTheme == ("com.sun.java.swing.plaf.motif.MotifLookAndFeel")){
-                    JOptionPane.showMessageDialog(null, "This theme is already applied");
+                    JOptionPane.showMessageDialog(null, bundle.getString("ThemeAlreadyApplied"));
                 }else{
                     UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
                     SwingUtilities.updateComponentTreeUI(Andie.frame); //Repaints the UI
@@ -292,7 +292,7 @@ public class ThemeActions {
         public void actionPerformed(ActionEvent e) {
             try {
                 if(currentTheme == ("com.sun.java.swing.plaf.windows.WindowsLookAndFeel")){
-                    JOptionPane.showMessageDialog(null, "This theme is already applied");
+                    JOptionPane.showMessageDialog(null, bundle.getString("ThemeAlreadyApplied"));
                 }else{
                     UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
                     SwingUtilities.updateComponentTreeUI(Andie.frame); //Repaints the UI
@@ -302,7 +302,7 @@ public class ThemeActions {
             } catch (UnsupportedLookAndFeelException exception) {
                 JOptionPane.showMessageDialog(null, "UnsupportedLookAndFeelException occurred");
             }catch (ClassNotFoundException exception) {
-                JOptionPane.showMessageDialog(null, "ClassNotFoundException occurred\nTheme is not OS compatible.");//Occurs if on MAC
+                JOptionPane.showMessageDialog(null, "ClassNotFoundException occurred\n" + bundle.getString("OSIncompatible"));//Occurs if on MAC
             }catch (InstantiationException exception) {
                 JOptionPane.showMessageDialog(null, "InstantiationException occurred");
             }catch (IllegalAccessException exception) {
@@ -349,7 +349,7 @@ public class ThemeActions {
         public void actionPerformed(ActionEvent e) {
             try {
                 if(currentTheme == ("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel")){
-                    JOptionPane.showMessageDialog(null, "This theme is already applied");
+                    JOptionPane.showMessageDialog(null, bundle.getString("ThemeAlreadyApplied"));
                 }else{
                     UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
                     SwingUtilities.updateComponentTreeUI(Andie.frame); //Repaints the UI
@@ -359,7 +359,7 @@ public class ThemeActions {
             } catch (UnsupportedLookAndFeelException exception) {
                 JOptionPane.showMessageDialog(null, "UnsupportedLookAndFeelException occurred");
             }catch (ClassNotFoundException exception) {
-                JOptionPane.showMessageDialog(null, "ClassNotFoundException occurred \nTheme is not OS compatible.");//Occurs if on MAC
+                JOptionPane.showMessageDialog(null, "ClassNotFoundException occurred\n" + bundle.getString("OSIncompatible"));//Occurs if on MAC
             }catch (InstantiationException exception) {
                 JOptionPane.showMessageDialog(null, "InstantiationException occurred");
             }catch (IllegalAccessException exception) {
@@ -405,7 +405,7 @@ public class ThemeActions {
         public void actionPerformed(ActionEvent e) {
             try {
                 if(currentTheme == (defaultLookFeel)){
-                    JOptionPane.showMessageDialog(null, "This theme is already applied");
+                    JOptionPane.showMessageDialog(null, bundle.getString("ThemeAlreadyApplied"));
                 }else{
                     UIManager.setLookAndFeel(defaultLookFeel);
                     SwingUtilities.updateComponentTreeUI(Andie.frame); //Repaints the UI
