@@ -164,7 +164,6 @@ public class ImagePanel extends JPanel {
         super.paintComponent(g);
         if (startPoint != null && endPoint != null) {
             g.setColor(DrawActions.drawColour);
-            g.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
         }
         Graphics2D g2 = (Graphics2D) g.create();
         if (image.hasImage()) {
@@ -172,8 +171,13 @@ public class ImagePanel extends JPanel {
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
         }
         if (selectionRect != null) {
-            g2.setColor(Color.RED); // Color for the selection rectangle
-            g2.draw(selectionRect);
+        // Set a custom color for the rectangle
+        g2.setColor(Color.MAGENTA);  // A bright color to make the rectangle stand out
+
+        // Create a dashed stroke for the rectangle
+        float[] dashPattern = {7, 7};  // Define the pattern of dashes and spaces
+        g2.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10, dashPattern, 0));
+        g2.draw(selectionRect);
         }
         g2.dispose();
     }
@@ -205,6 +209,7 @@ public class ImagePanel extends JPanel {
                 startPoint = e.getPoint();  // Record the start point on mouse press.
                 selectionRect = new Rectangle();  // Initialize the selection rectangle.
             }
+
             @Override
             public void mouseDragged(MouseEvent e) {
                 inX = Math.min(startPoint.x, e.getX());  // Calculate top-left corner X.
@@ -222,8 +227,8 @@ public class ImagePanel extends JPanel {
                     selectionRect = null;  // Cancel the selection if rectangle is too small.
                 }
                 repaint();  // Repaint after releasing the mouse button.
-
             }
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (startPoint == null) {
