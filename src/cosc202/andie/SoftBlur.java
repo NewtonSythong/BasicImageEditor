@@ -11,7 +11,8 @@ import java.util.ResourceBundle;
  * </p>
  * 
  * <p>
- * A soft blur filter decreases the unevenness between the pixels by averaging nearby pixels
+ * A soft blur filter decreases the unevenness between the pixels by averaging
+ * nearby pixels
  * Creating a blurry effect
  * </p>
  * 
@@ -23,40 +24,48 @@ import java.util.ResourceBundle;
  * @author Katrina Hogg
  * @version 1.0
  */
-public class SoftBlur implements ImageOperation, java.io.Serializable{
+public class SoftBlur implements ImageOperation, java.io.Serializable {
     /**
      * Soft blur filter constructor
      */
-SoftBlur(){
-    //construction Code
-}
-
-public BufferedImage apply (BufferedImage input){
-    // The values for the kernel as a 9-element array
-    float[] array = { 0, 1 / 8.0f, 0,
-            1 / 8.0f, 1 / 2.0f, 1 / 8.0f,
-            0, 1 / 8.0f, 0 };
-    // Make a 3x3 filter from the array
-    Kernel kernel = new Kernel(3, 3, array);
-    // Apply this as a convolution - same code as in MeanFilter
-    ConvolveOp convOp = new ConvolveOp(kernel);
-try{
-    if(input != null){
-        BufferedImage output = new BufferedImage(input.getColorModel(),
-        input.copyData(null),
-        input.isAlphaPremultiplied(), null);
-convOp.filter(input, output);
-// And we're done
-return output;
-    }else{
-        throw new NullPointerException();
+    SoftBlur() {
+        // construction Code
     }
-    } catch (NullPointerException e){
-        ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
-        JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
-        return null;
+
+    public BufferedImage apply(BufferedImage input) {
+        // The values for the kernel as a 9-element array
+        float[] array = { 0, 1 / 8.0f, 0,
+                1 / 8.0f, 1 / 2.0f, 1 / 8.0f,
+                0, 1 / 8.0f, 0 };
+        // Make a 3x3 filter from the array
+        Kernel kernel = new Kernel(3, 3, array);
+        // Apply this as a convolution - same code as in MeanFilter
+        ConvolveOp convOp = new ConvolveOp(kernel);
+        try {
+            if (input != null) {
+
+                EdgeHandling eh = new EdgeHandling();
+
+                BufferedImage paddedInput = eh.filterImage(input, 3);
+               
+                BufferedImage paddedOutput = new BufferedImage(
+                        paddedInput.getColorModel(),
+                        paddedInput.copyData(null),
+                        paddedInput.isAlphaPremultiplied(), null);
+
+                convOp.filter(paddedInput, paddedOutput);
+
+                BufferedImage output = eh.cropImage(paddedOutput, 3);
+                return output;
+                
+            } else {
+                throw new NullPointerException();
+            }
+        } catch (NullPointerException e) {
+            ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+            JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
+            return null;
+        }
     }
-}
 
 }
-
