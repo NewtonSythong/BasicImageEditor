@@ -2,21 +2,41 @@ package cosc202.andie;
 
 import java.awt.image.BufferedImage;
 import java.util.Random;
-import javax.swing.*;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
+/**
+ * This class is used to apply a scatter filter to an image.
+ * The filter scatters pixels of an image within certiain radius.
+ * 
+ * @author Jenny Kim
+ * 
+ */
 public class ScatterFilter implements ImageOperation {
 
     private int radius;
 
+    /**
+     * Constructs a ScatterFilter with a radius of 1.
+     */
     public ScatterFilter() {
         this(1);
     }
 
+    /**
+     * Constructs a ScatterFilter with a given radius.
+     * 
+     * @param radius the radius of the scatter filter
+     */
     public ScatterFilter(int radius) {
         this.radius = radius;
     }
-
+    /**
+     * Applies the scatter filter to the input image.
+     * @param input the image to which the filter is applied
+     * @return the image with the scatter filter applied
+     */
     public BufferedImage apply(BufferedImage input) {
         try {
 

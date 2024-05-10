@@ -2,21 +2,44 @@ package cosc202.andie;
 
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
-import javax.swing.*;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
+/**
+ * This class is used to apply block averaging to an image.
+ * It averages the colour of a block of pixels and sets the colour of all the
+ * pixels in the block to the average colour.
+ * 
+ *  @author Newton Sythong 
+ * 
+ */
 public class BlockAveraging implements ImageOperation {
 
     private int blockSize;
 
+    /**
+     * Constructor for BlockAveraging
+     * 
+     * @param blockSize The size of the block to average
+     */
     BlockAveraging(int blockSize) {
         this.blockSize = blockSize;
     }
 
+    /**
+     * Constructor for BlockAveraging with default block size of 2
+     */
     BlockAveraging() {
         this(2);
     }
 
+    /**
+     * Applies block averaging to the input image
+     * 
+     * @param input The image to apply block averaging to
+     * @return The image with block averaging applied
+     */
     public BufferedImage apply(BufferedImage input) {
         try {
 
