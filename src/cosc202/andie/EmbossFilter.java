@@ -1,20 +1,41 @@
 package cosc202.andie;
 
 import java.awt.image.BufferedImage;
-import javax.swing.*;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
+
+/**
+ * This class is used to apply an emboss filter to an image.
+ * It applies an emboss effect to the image in a specific direction.
+ * 
+ * @author Jenny Kim
+ * 
+ */
 public class EmbossFilter implements ImageOperation {
 
     int direction;
 
+    /**
+     * Constructs an EmbossFilter with a default direction of 1.
+     */
     public EmbossFilter() {
         this.direction = 1;
     }
+
+    /**
+     * Constructs an EmbossFilter with a given direction.
+     */
     public EmbossFilter(int direction) {
         this.direction = direction;
     }
 
+    /**
+     * Applies the emboss filter operation to the input image.
+     * @param input the image to which the filter is applied.
+     * @return the image with the emboss filter applied.
+     */
     public BufferedImage apply(BufferedImage input) {
 
             try {
