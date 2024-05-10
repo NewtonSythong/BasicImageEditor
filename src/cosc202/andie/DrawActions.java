@@ -36,12 +36,12 @@ public class DrawActions{
     /**
      * Storing color which will be used for drawing
      */
-    public static Color drawColour = Color.PINK;
+    public static Color drawColour = Color.BLACK;
 
     /**
      * Store the width value of hollow shapes or lines
      */
-    public static int drawWidth = 1;
+    public static int drawWidth = 5;
 
     /**
      * Constructor for the ToolsMenu class.
@@ -57,9 +57,13 @@ public class DrawActions{
         }
         actions = new ArrayList<Action>();
         actions.add(new RegionCropAction(bundle.getString("CropRegion"), null,"Crops selected region", null));
+        actions.add(new SetWidth(bundle.getString("SetWidth"), null, "Set the width for Drawing", null));
+        actions.add(new SetColour(bundle.getString("setColour"), null, "Set the colour for Drawing", null));
+        actions.add(new DrawLineActions(bundle.getString("DrawLine"), null, "Draw a line brother", null));
         actions.add(new DrawRectActions(bundle.getString("DrawRect"), null,"Tool to draw a Rectangle", null));
         actions.add(new DrawOvalActions(bundle.getString("DrawOval"), null,"Tool to draw a Oval", null));
-        actions.add(new DrawLineActions(bundle.getString("DrawLine"), null, "Draw a line brother", null));
+        actions.add(new DrawRectFilledActions(bundle.getString("DrawFilledRect"), null, "Draw a filled REctangle", null));
+        actions.add(new DrawFilledOvalActions(bundle.getString("DrawFilledOval"), null, "Draw a filled Oval", null));
     }
 
     /**
@@ -91,13 +95,13 @@ public class DrawActions{
         public void actionPerformed(ActionEvent e) {
             if (target.getImage().hasImage() == false) {
                 // There is not an image crop, so display error message.
-                JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
+                JOptionPane.showMessageDialog(null, "No image detected for cropping");
                 return;
             }
             // Check if there is a selected region.
             if (ImagePanel.selectionRect == null) {
                 // Trying to crop when there is no region selected. Give the user an error.
-                JOptionPane.showMessageDialog(null, bundle.getString("SelectRegionCrop"));
+                JOptionPane.showMessageDialog(null, "Please select a region to crop");
                 return;
             }
             // There is an image open, and a selected region, so we try to crop it.
@@ -111,31 +115,26 @@ public class DrawActions{
             target.getParent().revalidate();
         }
     }
-
+    
     public class DrawRectActions extends ImageAction{
         
         DrawRectActions(String name, ImageIcon imageIcon, String desc, Integer mnemonic) {
             super(name, imageIcon, desc, mnemonic);
         }
-
         public void actionPerformed(ActionEvent e){
             if(target.getImage().hasImage() == false){
                 // There is not an image to draw on, so display error message.
-                JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
+                JOptionPane.showMessageDialog(null, "No image detected for drawing mate");
                 return;
             }
-
-            Rectangle recto = ImagePanel.getRect(); //Getting the Rectangle from ImagePanel (selection) 
-
+            //Getting the Rectangle from ImagePanel (selection) 
+            Rectangle recto = ImagePanel.getRect(); 
             if(recto == null){
-                JOptionPane.showMessageDialog(null, bundle.getString("SelectRegionShape"));
+                JOptionPane.showMessageDialog(null, "Please select an area to draw a Rectangle");
                 return;
             }
-
-            Color color = drawColour;
             boolean fill = false;
-
-            DrawRect drawRect = new DrawRect(recto, color, fill);
+            DrawRect drawRect = new DrawRect(recto, drawColour, fill, drawWidth);
             target.getImage().apply(drawRect);
             target.repaint();
             
@@ -143,6 +142,33 @@ public class DrawActions{
         
         
     }
+
+    public class DrawRectFilledActions extends ImageAction{
+        
+        DrawRectFilledActions(String name, ImageIcon imageIcon, String desc, Integer mnemonic) {
+            super(name, imageIcon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e){
+            if(target.getImage().hasImage() == false){
+                // There is not an image to draw on, so display error message.
+                JOptionPane.showMessageDialog(null, "No image detected for drawing mate");
+                return;
+            }
+            //Getting the Rectangle from ImagePanel (selection) 
+            Rectangle recto = ImagePanel.getRect(); 
+            if(recto == null){
+                JOptionPane.showMessageDialog(null, "Please select an area to draw a Rectangle");
+                return;
+            }
+            boolean fill = true;
+            DrawRect drawRect = new DrawRect(recto, drawColour, fill, drawWidth);
+            target.getImage().apply(drawRect);
+            target.repaint();
+            }        
+    }
+
+
 
     public class DrawOvalActions extends ImageAction {
         public DrawOvalActions(String name, ImageIcon imageIcon, String desc, Integer mnemonic) {
@@ -153,12 +179,31 @@ public class DrawActions{
         public void actionPerformed(ActionEvent e){
             Rectangle rect = ImagePanel.getRect();
             if (rect == null || rect.width == 0 || rect.height == 0) {
-                JOptionPane.showMessageDialog(null, bundle.getString("SelectRegionShape"));
+                JOptionPane.showMessageDialog(null, "Please select an area to draw an oval");
                 return;
             }
-            Color color = drawColour;
             boolean fill = false;
-            DrawOval drawOval = new DrawOval(rect, color, fill);
+            DrawOval drawOval = new DrawOval(rect, drawColour, fill, drawWidth);
+            target.getImage().apply(drawOval);
+            target.repaint();
+        }
+    }
+
+
+    public class DrawFilledOvalActions extends ImageAction {
+        public DrawFilledOvalActions(String name, ImageIcon imageIcon, String desc, Integer mnemonic) {
+            super(name, imageIcon, desc, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e){
+            Rectangle rect = ImagePanel.getRect();
+            if (rect == null || rect.width == 0 || rect.height == 0) {
+                JOptionPane.showMessageDialog(null, "Please select an area to draw an oval");
+                return;
+            }
+            boolean fill = true;
+            DrawOval drawOval = new DrawOval(rect, drawColour, fill, drawWidth);
             target.getImage().apply(drawOval);
             target.repaint();
         }
@@ -174,17 +219,79 @@ public class DrawActions{
             Point startPoint = ImagePanel.getStartPoint();//new Point(ImagePanel.inX, ImagePanel.inY); // Method to get start point from ImagePanel
             Point endPoint = ImagePanel.getEndPoint(); // Method to get end point from ImagePanel
             if (startPoint == null || endPoint == null) {
-                JOptionPane.showMessageDialog(null, bundle.getString("SelectLinePoints"));
+                JOptionPane.showMessageDialog(null, "Please select start and end points for the line.");
                 return;
-            }
-    
-            Color color = drawColour;
-            
-            DrawLine drawLine = new DrawLine(startPoint, endPoint, color);
+            }            
+            DrawLine drawLine = new DrawLine(startPoint, endPoint, drawColour, drawWidth);
             target.getImage().apply(drawLine);
             target.repaint();
 
         }
 
     }
+
+    public class SetWidth extends ImageAction{
+        public SetWidth(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e){
+            JSlider slider = new JSlider(JSlider.HORIZONTAL, 1, 20, drawWidth);
+            slider.setMajorTickSpacing(5);
+            slider.setMinorTickSpacing(1);
+            slider.setPaintTicks(true);
+            slider.setPaintLabels(true);
+
+            int result = JOptionPane.showConfirmDialog(null, slider, "Choose Line Width",
+                                                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            if (result == JOptionPane.OK_OPTION) {
+                drawWidth = slider.getValue();  // Update the drawWidth used by all drawing actions
+            }
+        }
+        
+    }
+
+    public class SetColour extends ImageAction{
+        public SetColour(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e){
+            Color initialColor = drawColour;  // Start with the current drawing color
+            Color chosenColor = JColorChooser.showDialog(null, "Choose Color", initialColor);
+            if (chosenColor != null) {
+                drawColour = chosenColor;  // Update the drawColour used by all drawing actions
+            }
+        }
+    }
+
+    // /**
+    //  * Opens a color chooser dialog to set the drawing color.
+    //  */
+    // public void chooseColor() {
+    //     Color initialColor = drawColour;  // Start with the current drawing color
+    //     Color chosenColor = JColorChooser.showDialog(null, "Choose Color", initialColor);
+    //     if (chosenColor != null) {
+    //         drawColour = chosenColor;  // Update the drawColour used by all drawing actions
+    //     }
+    // }
+
+    // /**
+    //  * Opens a JSlider dialog to set the drawing line width.
+    //  */
+    // public void chooseLineWidth() {
+    //     JSlider slider = new JSlider(JSlider.HORIZONTAL, 1, 20, drawWidth);
+    //     slider.setMajorTickSpacing(5);
+    //     slider.setMinorTickSpacing(1);
+    //     slider.setPaintTicks(true);
+    //     slider.setPaintLabels(true);
+
+    //     int result = JOptionPane.showConfirmDialog(null, slider, "Choose Line Width",
+    //                                                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+    //     if (result == JOptionPane.OK_OPTION) {
+    //         drawWidth = slider.getValue();  // Update the drawWidth used by all drawing actions
+    //     }
+    // }
 }
