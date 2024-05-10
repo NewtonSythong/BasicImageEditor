@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.awt.BasicStroke;
 
 /**
  * <p>
@@ -26,7 +27,7 @@ public class DrawRect implements ImageOperation{
     private Rectangle rect;
     private Color color;
     private boolean fill;
-
+    private int lineWidth;
     /**
      * Constructor to create a DrawRect operation.
      * @param rect Rectangle defining the area to draw.
@@ -34,10 +35,11 @@ public class DrawRect implements ImageOperation{
      * @param fill Whether the rectangle should be filled.
      * 
     */
-    public DrawRect(Rectangle rect, Color color, boolean fill){
+    public DrawRect(Rectangle rect, Color color, boolean fill, int lineWidth){
     this.rect = rect;
     this.color = color;
-    this.fill = fill;  
+    this.fill = fill;
+    this.lineWidth = lineWidth;  
     }
 
 
@@ -49,6 +51,8 @@ public class DrawRect implements ImageOperation{
     public BufferedImage apply(BufferedImage input){
         Graphics2D g2d = input.createGraphics();
         g2d.setColor(color);
+        g2d.setStroke(new BasicStroke(lineWidth));    
+        
         if (fill) {
             g2d.fill(rect);
         } else { 
@@ -58,5 +62,3 @@ public class DrawRect implements ImageOperation{
         return input;
     }    
 }
-   
-

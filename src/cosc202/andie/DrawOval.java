@@ -1,5 +1,6 @@
 package cosc202.andie;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -25,10 +26,12 @@ import java.awt.image.BufferedImage;
  * 
  * @author Tele Tamati
  */
+
 public class DrawOval implements ImageOperation {
     private Rectangle bounds;
     private Color color;
     private boolean fill;
+    private int lineWidth;
 
      /**
      * Constructor to create a DrawOval operation.
@@ -36,10 +39,11 @@ public class DrawOval implements ImageOperation {
      * @param color Color of the oval.
      * @param fill Whether the oval should be filled.
      */
-    public DrawOval(Rectangle bounds, Color color, boolean fill){
+    public DrawOval(Rectangle bounds, Color color, boolean fill, int lineWidth){
         this.bounds = bounds;
         this.color = color;
         this.fill = fill;
+        this.lineWidth = lineWidth;
     }
 
     /**
@@ -50,6 +54,8 @@ public class DrawOval implements ImageOperation {
     public BufferedImage apply(BufferedImage image) {
         Graphics2D g2d = image.createGraphics();
         g2d.setColor(color);
+        g2d.setStroke(new BasicStroke(lineWidth));
+
         if(fill){
             g2d.fillOval(bounds.x, bounds.y, bounds.width, bounds.height);
         } else {
