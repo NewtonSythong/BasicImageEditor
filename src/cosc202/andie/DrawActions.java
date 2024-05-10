@@ -91,13 +91,13 @@ public class DrawActions{
         public void actionPerformed(ActionEvent e) {
             if (target.getImage().hasImage() == false) {
                 // There is not an image crop, so display error message.
-                JOptionPane.showMessageDialog(null, "No image detected for cropping");
+                JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
                 return;
             }
             // Check if there is a selected region.
             if (ImagePanel.selectionRect == null) {
                 // Trying to crop when there is no region selected. Give the user an error.
-                JOptionPane.showMessageDialog(null, "Please select a region to crop");
+                JOptionPane.showMessageDialog(null, bundle.getString("SelectRegionCrop"));
                 return;
             }
             // There is an image open, and a selected region, so we try to crop it.
@@ -121,14 +121,14 @@ public class DrawActions{
         public void actionPerformed(ActionEvent e){
             if(target.getImage().hasImage() == false){
                 // There is not an image to draw on, so display error message.
-                JOptionPane.showMessageDialog(null, "No image detected for drawing mate");
+                JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
                 return;
             }
 
             Rectangle recto = ImagePanel.getRect(); //Getting the Rectangle from ImagePanel (selection) 
 
             if(recto == null){
-                JOptionPane.showMessageDialog(null, "Please select an area to draw a Rectangle");
+                JOptionPane.showMessageDialog(null, bundle.getString("SelectRegionShape"));
                 return;
             }
 
@@ -153,7 +153,7 @@ public class DrawActions{
         public void actionPerformed(ActionEvent e){
             Rectangle rect = ImagePanel.getRect();
             if (rect == null || rect.width == 0 || rect.height == 0) {
-                JOptionPane.showMessageDialog(null, "Please select an area to draw an oval");
+                JOptionPane.showMessageDialog(null, bundle.getString("SelectRegionShape"));
                 return;
             }
             Color color = drawColour;
@@ -174,7 +174,7 @@ public class DrawActions{
             Point startPoint = ImagePanel.getStartPoint();//new Point(ImagePanel.inX, ImagePanel.inY); // Method to get start point from ImagePanel
             Point endPoint = ImagePanel.getEndPoint(); // Method to get end point from ImagePanel
             if (startPoint == null || endPoint == null) {
-                JOptionPane.showMessageDialog(null, "Please select start and end points for the line.");
+                JOptionPane.showMessageDialog(null, bundle.getString("SelectLinePoints"));
                 return;
             }
     
