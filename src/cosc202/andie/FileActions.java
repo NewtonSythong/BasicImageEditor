@@ -144,8 +144,8 @@ public class FileActions {
             int choice = -1; // Choice will either be 0 (wanting to open new file) or 1 (Not wanting to open)
             if (imageOpen == true) {
                 choice = JOptionPane.showConfirmDialog(null,
-                        "Are you sure you want to open a new file, any changes to current file will not be saved.",
-                        "confirmation", JOptionPane.YES_NO_OPTION);
+                        bundle.getString("OpenWithoutSaving"),
+                        "Message", JOptionPane.YES_NO_OPTION);
             }
             if (choice == JOptionPane.YES_OPTION || choice == -1) {
 
@@ -160,7 +160,7 @@ public class FileActions {
                         if (!getFileExtension(imageFilePath).equalsIgnoreCase("jpg")
                                 && !getFileExtension(imageFilePath).equalsIgnoreCase("jpeg")
                                 && !getFileExtension(imageFilePath).equalsIgnoreCase("png")) {
-                            JOptionPane.showMessageDialog(null, "Incompatible file-type!", "Error",
+                            JOptionPane.showMessageDialog(null, bundle.getString("IncompatibleFileType"), "Error",
                                     JOptionPane.ERROR_MESSAGE);
                             return;
                         } else {
@@ -218,7 +218,7 @@ public class FileActions {
             try {
                 target.getImage().save();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "No image to save");
+                JOptionPane.showMessageDialog(null, bundle.getString("NoImageToSave"));
             }
         }
 
@@ -263,7 +263,7 @@ public class FileActions {
         public void actionPerformed(ActionEvent e) {
             try {
                 if (!imageOpen) {
-                    throw new Exception("No image to save");
+                    throw new Exception(bundle.getString("NoImageToSave"));
                 }
                 JFileChooser fileChooser = new JFileChooser();
                 int result = fileChooser.showSaveDialog(target);
@@ -318,7 +318,7 @@ public class FileActions {
         public void actionPerformed(ActionEvent e) {
             try {
                 if (!imageOpen) {
-                    throw new Exception("No image to export");
+                    throw new Exception(bundle.getString("NoImageToExport"));
                 }
                 JFileChooser fileChooser = new JFileChooser();
                 int result = fileChooser.showSaveDialog(target);
@@ -379,8 +379,8 @@ public class FileActions {
             }else{
                 saves++;
                 int response = JOptionPane.showConfirmDialog(null,
-                        "You have unsaved changes. Do you still want to exit?",
-                        "Error", JOptionPane.YES_NO_OPTION);
+                        bundle.getString("CloseWithoutSaving"),
+                        "Message", JOptionPane.YES_NO_OPTION);
 
                 if (response == JOptionPane.YES_OPTION) {
                     System.exit(0);
