@@ -125,7 +125,8 @@ public class Andie {
         JToolBar toolBar = new JToolBar();
         Toolbar.setToolBar(toolBar);
         //
-        // MacroRecording macroRecordings = new MacroRecording();
+        MacroRecordingActions macroMenu = new MacroRecordingActions();
+        menuBar.add(macroMenu.createMenu());
         
 
         frame.setJMenuBar(menuBar);

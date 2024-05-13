@@ -58,10 +58,17 @@ class EditableImage {
     private Stack<ImageOperation> redoOps;
     /** The file where the original image is stored/ */
     private String imageFilename;
+
+
     /** The file where the operation sequence is stored. */
     private String opsFilename;
-    /** Check if Image has actions on it */
+    /** Check if Image is edited*/
     private static boolean ImageEdited;
+    /** Stack of macro operations */
+    protected Stack<ImageOperation> macros;
+    /**Macro recording status */
+    protected boolean isRecording  = false;
+
 
     /**
      * <p>
@@ -80,12 +87,16 @@ class EditableImage {
         redoOps = new Stack<ImageOperation>();
         imageFilename = null;
         opsFilename = null;
+        macros = new Stack<ImageOperation>();
     }
 
     public String getOpsFilename() {
         return opsFilename;
     }
-
+    
+    public String getImageFilename() {
+        return imageFilename;
+    }
     /**
      * <p>
      * Check if there is an image loaded.
@@ -93,7 +104,7 @@ class EditableImage {
      * 
      * @return True if there is an image, false otherwise.
      */
-    public boolean hasImage() {
+    public  boolean hasImage() {
         return current != null;
     }
 
@@ -281,9 +292,9 @@ class EditableImage {
     public void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
-        // if (MacroRecording.recording) {
-        //     MacroRecording.operations.add(op);
-        // }
+        if (isRecording) {
+          macros.add(op);
+        }
         ImageEdited = true;
     }
 
@@ -293,9 +304,9 @@ class EditableImage {
      * </p>
      */
     public void undo() {
-        // if (MacroRecording.recording) {
-        //     MacroRecording.operations.pop(redoOps.pop());
-        // }
+        if (isRecording) {
+            macros.pop();
+          }
         redoOps.push(ops.pop());
         refresh();
     }
@@ -306,9 +317,9 @@ class EditableImage {
      * </p>
      */
     public void redo() {
-        // if (MacroRecording.recording) {
-        // MacroRecording.operations.add(redoOps.pop());
-        // }
+        if (isRecording) {
+            macros.push(redoOps.pop());
+          }
         apply(redoOps.pop());
     }
 
