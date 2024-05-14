@@ -60,15 +60,37 @@ public class RegionCrop implements ImageOperation, java.io.Serializable {
      */
     public BufferedImage apply(BufferedImage originalImage) {
         // Calculate the actual coordinates and dimensions of the crop area, adjusted for the current image scale.
-        BufferedImage croppedImage = originalImage.getSubimage((int) (cropArea.x / imageScale), (int) (cropArea.y / imageScale), 
-                (int) (cropArea.width / imageScale), (int) (cropArea.height / imageScale));
-
-        // Create a copy of the cropped image to preserve the original properties.
-        BufferedImage finalCroppedImage = new BufferedImage(croppedImage.getWidth(), croppedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
-        Graphics graphics = finalCroppedImage.createGraphics();
+        int cropX = (int) (cropArea.x / imageScale);
+        int cropY = (int) (cropArea.y / imageScale);
+        int cropWidth = (int) (cropArea.width / imageScale);
+        int cropHeight = (int) (cropArea.height / imageScale);
+    
+        // Ensure the crop area does not extend beyond the image bounds
+        if (cropX < 0) {
+            cropX = 0;
+        }
+        if (cropY < 0) {
+            cropY = 0;
+        }
+    
+        // Adjust width and height if they extend outside the image bounds
+        if (cropX + cropWidth > originalImage.getWidth()) {
+            cropWidth = originalImage.getWidth() - cropX;
+        }
+        if (cropY + cropHeight > originalImage.getHeight()) {
+            cropHeight = originalImage.getHeight() - cropY;
+        }
+    
+        // Now crop the image
+        BufferedImage croppedImage = originalImage.getSubimage(cropX, cropY, cropWidth, cropHeight);
+    
+        // Create a copy of the cropped image to preserve the original properties
+        BufferedImage reusult = new BufferedImage(croppedImage.getWidth(), croppedImage.getHeight(), originalImage.getType());
+        Graphics graphics = reusult.createGraphics();
         graphics.drawImage(croppedImage, 0, 0, null);
         graphics.dispose();
-
-        return finalCroppedImage;
+    
+        return reusult;
     }
+    
 }
