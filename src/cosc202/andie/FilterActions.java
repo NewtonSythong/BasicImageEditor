@@ -452,12 +452,34 @@ public class FilterActions {
         }
     }
 
+    /**
+     * This class represents an action to apply a block averaging filter to an
+     * image.
+     * It extends ImageAction, which is an abstract class for actions that can be
+     * performed on an image.
+     */
     public class BlockAveragingAction extends ImageAction {
 
+        /**
+         * Constructs a new BlockAveragingAction with the specified name, icon,
+         * description, and mnemonic.
+         * 
+         * @param name     the name of the action.
+         * @param icon     the icon for the action.
+         * @param desc     the description of the action.
+         * @param mnemonic the mnemonic for the action.
+         */
         BlockAveragingAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * Performs the block averaging action.
+         * This method is called when the action is triggered, e.g., when the user
+         * clicks a button.
+         * 
+         * @param e the event that triggered the action.
+         */
         public void actionPerformed(ActionEvent e) {
             int blockWidth = 1;
             int blockHeight = 1;
@@ -488,14 +510,35 @@ public class FilterActions {
 
     }
 
+    /**
+     * This class represents an action to apply a scatter filter to an image.
+     * It extends ImageAction, which is an abstract class for actions that can be
+     * performed on an image.
+     */
     public class ScatterFilterAction extends ImageAction {
 
+        /**
+         * Constructs a new ScatterFilterAction with the specified name, icon,
+         * description, and mnemonic.
+         * 
+         * @param name     the name of the action.
+         * @param icon     the icon for the action.
+         * @param desc     the description of the action.
+         * @param mnemonic the mnemonic for the action.
+         */
         ScatterFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
 
             super(name, icon, desc, mnemonic);
 
         }
 
+        /**
+         * Performs the scatter filter action.
+         * This method is called when the action is triggered, e.g., when the user
+         * clicks a button.
+         * 
+         * @param e the event that triggered the action.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
 

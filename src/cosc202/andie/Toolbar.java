@@ -1,21 +1,39 @@
 package cosc202.andie;
 
-import javax.imageio.ImageIO;
-import javax.swing.Action;
-import javax.swing.JButton;
-import javax.swing.JToolBar;
-import java.awt.*;
+import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JToolBar;
 
+/**
+ * This class represents a toolbar for an application.
+ * It manages a list of actions that can be performed from the toolbar.
+ * 
+ * @author Cam Clark
+ */
 public class Toolbar {
+    /**
+     * A list of actions that can be performed from the toolbar.
+     */
     protected static ArrayList<Action> actions = new ArrayList<Action>();
-    //private static Image[] iconImages;
 
+    /**
+     * Constructs a new Toolbar object.
+     */
     public Toolbar() {
     }
 
+    /**
+     * Sets up the toolbar with the specified actions.
+     * 
+     * @param tBar the toolbar to set up.
+     * @return the set up toolbar.
+     */
     public static JToolBar setToolBar(JToolBar tBar) {
         ArrayList<Action> fileActions = new FileActions().actions;
         ArrayList<Action> EditActions = new EditActions().actions;
@@ -28,8 +46,7 @@ public class Toolbar {
         actions.add(4, imageActions.get(4));
         actions.add(5, imageActions.get(5));
         actions.add(6, fileActions.get(4));
-        
-        
+
         Image openFileImage;
         Image saveFileImage;
         Image undoOpImage;
@@ -39,13 +56,13 @@ public class Toolbar {
         Image exitAppImage;
 
         ImageIcon OpenFileIcon = new ImageIcon();
-        ImageIcon saveFileIcon = new ImageIcon();  
+        ImageIcon saveFileIcon = new ImageIcon();
         ImageIcon undoOpIcon = new ImageIcon();
         ImageIcon redoOpIcon = new ImageIcon();
         ImageIcon resizeBiggerIcon = new ImageIcon();
         ImageIcon resizeSmallerIcon = new ImageIcon();
         ImageIcon exitAppIcon = new ImageIcon();
-        
+
         try {
             openFileImage = ImageIO.read(Toolbar.class.getClassLoader().getResource("open-file-folder-icon.jpg"));
             openFileImage = openFileImage.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
@@ -75,11 +92,9 @@ public class Toolbar {
             exitAppImage = exitAppImage.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
             exitAppIcon = new ImageIcon(exitAppImage);
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         JButton openFile = new JButton("");
         openFile.setAction(actions.get(0));
@@ -122,7 +137,6 @@ public class Toolbar {
         exitFile.setIcon(exitAppIcon);
         exitFile.setText("");
         tBar.add(exitFile);
-        // System.out.println("does it get here?");
 
         return tBar;
     }
