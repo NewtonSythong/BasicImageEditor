@@ -95,6 +95,7 @@ public class MacroRecordingActions {
                     // String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     String macroName = target.getImage().getImageFilename() + "macro.ops";
                     FileOutputStream fileOut = new FileOutputStream(macroName);
+                    System.out.println(1);
                     ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
                     objOut.writeObject(target.getImage().macros);
                     objOut.close();
@@ -114,17 +115,22 @@ public class MacroRecordingActions {
         }
 
         public void actionPerformed(ActionEvent e) {
+            if(target.getImage() == null){
+                System.out.println("failure");
+            }
+            
             JFileChooser fileChooser = new JFileChooser ();
             FileNameExtensionFilter filter = new FileNameExtensionFilter("ops", "ops");
             fileChooser.setFileFilter(filter);
             int result = fileChooser.showOpenDialog(null);
-            System.out.println(result);
             if(result == JFileChooser.APPROVE_OPTION){
                 try{
                     String opsFileToAdd = fileChooser.getSelectedFile().getCanonicalPath();
+                    System.out.println(opsFileToAdd);
                     target.getImage().openMacroFromFile(opsFileToAdd);
+                    System.out.println(23421);
                  } catch(Exception ex){
-                  JOptionPane.showMessageDialog(fileChooser, "failure");
+                  JOptionPane.showMessageDialog(null, "failure");
                 }
             
 
