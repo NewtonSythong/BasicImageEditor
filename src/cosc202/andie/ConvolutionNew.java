@@ -1,10 +1,23 @@
 package cosc202.andie;
 
-import java.awt.image.BufferedImage;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 
+/**
+ * This class implements a convolution operation on an image.
+ * The convolution operation is applied to the image using a kernel.
+ * 
+ * @author Jenny Kim
+ */
 public class ConvolutionNew {
 
+    /**
+     * Applies the convolution operation to the input image with the specified kernel and radius.
+     * @param input the input image
+     * @param kernel the kernel to apply to the image
+     * @param radius the radius of the kernel
+     * @return the output image with the convolution operation applied
+     */
     public static BufferedImage apply(BufferedImage input, float[] kernel, int radius) {
         int width = input.getWidth();
         int height = input.getHeight();
