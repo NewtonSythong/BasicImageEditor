@@ -1,21 +1,39 @@
 package cosc202.andie;
 
 import java.awt.image.BufferedImage;
-import javax.swing.JOptionPane;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+/**
+ * This class is used to implement the Sobel filter to an image.
+ * The Sobel filter is applied to the image in a specidic direction.
+ * 
+ * @author Jenny Kim
+ */
 public class SobelFilter implements ImageOperation {
 
     int direction;
 
+    /**
+     * Contructs a new SobelFilter object with the default direction of 1.
+     */
     public SobelFilter() {
         this.direction = 1;
     }
 
+    /**
+     * Contructs a new SobelFilter object with the specified direction.
+     * @param direction the direction of the Sobel filter
+     */
     public SobelFilter(int direction) {
         this.direction = direction;
     }
 
+    /**
+     * Applies the Sobel filter to the input image.
+     * @param input the input image.
+     * @return the output image with the Sobel operation applied
+     */
     public BufferedImage apply(BufferedImage input) {
         try {
 
