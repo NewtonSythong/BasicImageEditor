@@ -113,6 +113,10 @@ public class Andie {
         DrawActions drawActions = new DrawActions();
         menuBar.add(drawActions.createMenu());
 
+        // Macro menu
+        MacroRecordingActions macroMenu = new MacroRecordingActions();
+        menuBar.add(macroMenu.createMenu());
+
         // Language menu
         LanguageActions LanguageActions = new LanguageActions();
         menuBar.add(LanguageActions.createMenu());
@@ -124,10 +128,7 @@ public class Andie {
         // Toolbar
         JToolBar toolBar = new JToolBar();
         Toolbar.setToolBar(toolBar);
-        //
-        MacroRecordingActions macroMenu = new MacroRecordingActions();
-        menuBar.add(macroMenu.createMenu());
-        
+
 
         frame.setJMenuBar(menuBar);
         frame.add(toolBar, BorderLayout.NORTH);
