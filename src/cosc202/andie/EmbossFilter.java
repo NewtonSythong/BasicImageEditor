@@ -84,7 +84,7 @@ public class EmbossFilter implements ImageOperation {
                         }
                 };
 
-                BufferedImage output = ConvolutionNew.apply(input, kernels[direction - 1], 1);
+                BufferedImage output = ConvolutionNew.apply(input, kernels[direction - 1], 1, 127);
                 return output;
 
             } else throw new NullPointerException();
