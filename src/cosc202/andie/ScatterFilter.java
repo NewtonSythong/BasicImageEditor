@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 /**
  * This class is used to apply a scatter filter to an image.
- * The filter scatters pixels of an image within certiain radius.
+ * The filter scatters pixels of an image within certain radius.
  * 
  * @author Jenny Kim
  * 
