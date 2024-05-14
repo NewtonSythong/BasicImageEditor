@@ -58,17 +58,14 @@ class EditableImage {
     private Stack<ImageOperation> redoOps;
     /** The file where the original image is stored/ */
     private String imageFilename;
-
-
     /** The file where the operation sequence is stored. */
     private String opsFilename;
-    /** Check if Image is edited*/
+    /** Check if Image is edited */
     private static boolean ImageEdited;
     /** Stack of macro operations */
     protected Stack<ImageOperation> macros;
-    /**Macro recording status */
-    protected boolean isRecording  = false;
-
+    /** Macro recording status */
+    protected boolean isRecording = false;
 
     /**
      * <p>
@@ -93,10 +90,11 @@ class EditableImage {
     public String getOpsFilename() {
         return opsFilename;
     }
-    
+
     public String getImageFilename() {
         return imageFilename;
     }
+
     /**
      * <p>
      * Check if there is an image loaded.
@@ -104,7 +102,7 @@ class EditableImage {
      * 
      * @return True if there is an image, false otherwise.
      */
-    public  boolean hasImage() {
+    public boolean hasImage() {
         return current != null;
     }
 
@@ -293,7 +291,7 @@ class EditableImage {
         current = op.apply(current);
         ops.add(op);
         if (isRecording) {
-          macros.add(op);
+            macros.add(op);
         }
         ImageEdited = true;
     }
@@ -306,7 +304,7 @@ class EditableImage {
     public void undo() {
         if (isRecording) {
             macros.pop();
-          }
+        }
         redoOps.push(ops.pop());
         refresh();
     }
@@ -319,7 +317,7 @@ class EditableImage {
     public void redo() {
         if (isRecording) {
             macros.push(redoOps.pop());
-          }
+        }
         apply(redoOps.pop());
     }
 
@@ -358,6 +356,24 @@ class EditableImage {
 
     public static boolean GetimageEdited() {
         return ImageEdited;
+    }
+
+    public void openMacroFromFile(String file) {
+        opsFilename = file;
+        try {
+            FileInputStream fileIn = new FileInputStream(opsFilename);
+            ObjectInputStream objIn = new ObjectInputStream(fileIn);
+            Stack<ImageOperation> macroOps = (Stack<ImageOperation>) objIn.readObject();
+            ops = macroOps;
+            redoOps.clear();
+            objIn.close();
+            fileIn.close();
+        } catch (Exception ex) {
+            if (original == null) {
+                System.out.println("broken");
+            }
+        }
+
     }
 
 }

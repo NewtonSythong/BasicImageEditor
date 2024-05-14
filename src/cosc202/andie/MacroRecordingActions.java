@@ -114,10 +114,23 @@ public class MacroRecordingActions {
         }
 
         public void actionPerformed(ActionEvent e) {
-            JFileChooser fileChooser = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("ops");
+            JFileChooser fileChooser = new JFileChooser ();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("ops", "ops");
+            fileChooser.setFileFilter(filter);
+            int result = fileChooser.showOpenDialog(null);
+            System.out.println(result);
+            if(result == JFileChooser.APPROVE_OPTION){
+                try{
+                    String opsFileToAdd = fileChooser.getSelectedFile().getCanonicalPath();
+                    target.getImage().openMacroFromFile(opsFileToAdd);
+                 } catch(Exception ex){
+                  JOptionPane.showMessageDialog(fileChooser, "failure");
+                }
+            
 
         }
 
+    
+}
     }
 }
