@@ -104,18 +104,23 @@ public class DrawActions{
                 JOptionPane.showMessageDialog(null, "Please select a region to crop");
                 return;
             }
+
             // There is an image open, and a selected region, so we try to crop it.
             target.getImage().apply(new RegionCrop(ImagePanel.scale, ImagePanel.selectionRect));
             ImagePanel.selectionRect = null;
             target.repaint();
             target.getParent().revalidate();
             target.repaint();
-            ImagePanel.inX = 0;
-            ImagePanel.inY = 0;
             target.getParent().revalidate();
         }
     }
     
+    /**
+     * Action to draw a hollow Rectangle
+     * </p>
+     * 
+     * @see DrawRect
+     */
     public class DrawRectActions extends ImageAction{
         
         DrawRectActions(String name, ImageIcon imageIcon, String desc, Integer mnemonic) {
@@ -143,6 +148,12 @@ public class DrawActions{
         
     }
 
+    /**
+     * Action to draw filled Rectangle.
+     * </p>
+     * 
+     * @see DrawRect
+     */
     public class DrawRectFilledActions extends ImageAction{
         
         DrawRectFilledActions(String name, ImageIcon imageIcon, String desc, Integer mnemonic) {
@@ -168,8 +179,12 @@ public class DrawActions{
             }        
     }
 
-
-
+    /**
+     * Action to draw a Hollow Oval
+     * </p>
+     * 
+     * @see DrawOval
+     */
     public class DrawOvalActions extends ImageAction {
         public DrawOvalActions(String name, ImageIcon imageIcon, String desc, Integer mnemonic) {
             super(name, imageIcon, desc, mnemonic);
@@ -190,6 +205,12 @@ public class DrawActions{
     }
 
 
+    /**
+     * Action to draw a Filled Oval
+     * </p>
+     * 
+     * @see DrawOval
+     */
     public class DrawFilledOvalActions extends ImageAction {
         public DrawFilledOvalActions(String name, ImageIcon imageIcon, String desc, Integer mnemonic) {
             super(name, imageIcon, desc, mnemonic);
@@ -209,6 +230,12 @@ public class DrawActions{
         }
     }
 
+    /**
+     * Action to draw a Line
+     * </p>
+     * 
+     * @see DrawLine
+     */
     public class DrawLineActions extends ImageAction {
         public DrawLineActions(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -230,6 +257,13 @@ public class DrawActions{
 
     }
 
+    /**
+     * Action to set the width for drawing hollow shapes;
+     * It direclty alter the predefined Data Field drawWidth using 
+     *  user friendly GUI being the JSlider
+     * </p>
+     * 
+     */
     public class SetWidth extends ImageAction{
         public SetWidth(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -252,6 +286,13 @@ public class DrawActions{
         
     }
 
+    /**
+     * Action to set the color for the drawings
+     * and directly alters the Data Field drawColor;
+     * currently using a Color Chooser to implement
+     * </p>
+     * 
+     */
     public class SetColour extends ImageAction{
         public SetColour(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -266,32 +307,4 @@ public class DrawActions{
             }
         }
     }
-
-    // /**
-    //  * Opens a color chooser dialog to set the drawing color.
-    //  */
-    // public void chooseColor() {
-    //     Color initialColor = drawColour;  // Start with the current drawing color
-    //     Color chosenColor = JColorChooser.showDialog(null, "Choose Color", initialColor);
-    //     if (chosenColor != null) {
-    //         drawColour = chosenColor;  // Update the drawColour used by all drawing actions
-    //     }
-    // }
-
-    // /**
-    //  * Opens a JSlider dialog to set the drawing line width.
-    //  */
-    // public void chooseLineWidth() {
-    //     JSlider slider = new JSlider(JSlider.HORIZONTAL, 1, 20, drawWidth);
-    //     slider.setMajorTickSpacing(5);
-    //     slider.setMinorTickSpacing(1);
-    //     slider.setPaintTicks(true);
-    //     slider.setPaintLabels(true);
-
-    //     int result = JOptionPane.showConfirmDialog(null, slider, "Choose Line Width",
-    //                                                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-    //     if (result == JOptionPane.OK_OPTION) {
-    //         drawWidth = slider.getValue();  // Update the drawWidth used by all drawing actions
-    //     }
-    // }
 }
