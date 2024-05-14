@@ -70,7 +70,7 @@ public class MacroRecordingActions {
                 target.getImage().isRecording = true;
             } catch (Exception ex) {
                 if (!target.getImage().hasImage()) {
-                    JOptionPane.showMessageDialog(null, "Please open an image before starting a macro recording",
+                    JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"),
                             "No Image Open",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
