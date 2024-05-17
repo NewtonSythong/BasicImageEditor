@@ -22,6 +22,7 @@ import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class MacroRecordingActions {
@@ -63,6 +64,7 @@ public class MacroRecordingActions {
 
         MacroRecordAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
         }
 
         public void actionPerformed(ActionEvent e) {
@@ -81,8 +83,9 @@ public class MacroRecordingActions {
     public class MacroStopAction extends ImageAction {
 
         MacroStopAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
+
         }
 
         @Override
@@ -111,6 +114,8 @@ public class MacroRecordingActions {
     public class MacroOpenAction extends ImageAction {
         MacroOpenAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
+
         }
 
         public void actionPerformed(ActionEvent e) {

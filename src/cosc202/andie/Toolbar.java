@@ -34,11 +34,11 @@ public class Toolbar {
      * @param tBar the toolbar to set up.
      * @return the set up toolbar.
      */
-    public static JToolBar setToolBar(JToolBar tBar, ArrayList<Action> fileActionsIn, ArrayList<Action> editActionsIn, ArrayList<Action> imageActionsIn, ArrayList<Action> macroActionsIn) {
-        ArrayList<Action> fileActions = fileActionsIn;
-        ArrayList<Action> EditActions = editActionsIn;
-        ArrayList<Action> imageActions = imageActionsIn;
-        ArrayList<Action> macroActions = macroActionsIn;
+    public static JToolBar setToolBar(JToolBar tBar) {
+        ArrayList<Action> fileActions = new FileActions().actions;
+        ArrayList<Action> EditActions = new EditActions().actions;
+        ArrayList<Action> imageActions = new ImageActions().actions;
+        ArrayList<Action> macroActions = new MacroRecordingActions().actions;
 
         actions.add(0, fileActions.get(0));
         actions.add(1, fileActions.get(1));
@@ -121,60 +121,71 @@ public class Toolbar {
 
         JButton openFile = new JButton("");
         openFile.setAction(actions.get(0));
+        openFile.setToolTipText(" " + actions.get(0).getValue("AcceleratorKey"));
+
         openFile.setIcon(OpenFileIcon);
         openFile.setText("");
         tBar.add(openFile);
 
         JButton saveFile = new JButton("");
         saveFile.setAction(actions.get(1));
+        saveFile.setToolTipText(" " + actions.get(1).getValue("AcceleratorKey"));
         saveFile.setIcon(saveFileIcon);
         saveFile.setText("");
         tBar.add(saveFile);
 
         JButton undoOp = new JButton("");
         undoOp.setAction(actions.get(2));
+        saveFile.setToolTipText(" " + actions.get(2).getValue("AcceleratorKey"));
         undoOp.setIcon(undoOpIcon);
         undoOp.setText("");
         tBar.add(undoOp);
 
         JButton redoOp = new JButton("");
         redoOp.setAction(actions.get(3));
+        redoOp.setToolTipText(" " + actions.get(3).getValue("AcceleratorKey"));
         redoOp.setIcon(redoOpIcon);
         redoOp.setText("");
         tBar.add(redoOp);
 
         JButton resizeBigger = new JButton("");
         resizeBigger.setAction(actions.get(4));
+        resizeBigger.setToolTipText(" " + actions.get(4).getValue("AcceleratorKey"));
         resizeBigger.setIcon(resizeBiggerIcon);
         resizeBigger.setText("");
         tBar.add(resizeBigger);
 
         JButton resizeSmaller = new JButton("");
         resizeSmaller.setAction(actions.get(5));
+        resizeSmaller.setToolTipText(" " + actions.get(5).getValue("AcceleratorKey"));
         resizeSmaller.setIcon(resizeSmallerIcon);
         resizeSmaller.setText("");
         tBar.add(resizeSmaller);
 
         JButton exitFile = new JButton("");
         exitFile.setAction(actions.get(6));
+        exitFile.setToolTipText(" " + actions.get(6).getValue("AcceleratorKey"));
         exitFile.setIcon(exitAppIcon);
         exitFile.setText("");
         tBar.add(exitFile);
 
         JButton recordMacro = new JButton("");
         recordMacro.setAction(actions.get(7));
+        recordMacro.setToolTipText(" " + actions.get(7).getValue("AcceleratorKey"));
         recordMacro.setIcon(macroRecordIcon);
         recordMacro.setText("");
         tBar.add(recordMacro);
 
         JButton macroStop = new JButton("");
         macroStop.setAction(actions.get(8));
+        macroStop.setToolTipText(" " + actions.get(8).getValue("AcceleratorKey"));
         macroStop.setIcon(macroStopIcon);
         macroStop.setText("");
         tBar.add(macroStop);
 
         JButton macroOpen = new JButton("");
         macroOpen.setAction(actions.get(9));
+        macroOpen.setToolTipText(" " + actions.get(8).getValue("AcceleratorKey"));
         macroOpen.setIcon(macroOpenIcon);
         macroOpen.setText("");
         tBar.add(macroOpen);

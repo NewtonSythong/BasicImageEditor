@@ -14,6 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 /**
  * <p>
@@ -65,6 +66,7 @@ public class FileActions {
         actions.add(new FileExportAction(bundle.getString("Export"), null, "Export the image",
                 Integer.valueOf(KeyEvent.VK_E)));
         actions.add(new FileExitAction(bundle.getString("Exit"), null, "Exit the program", Integer.valueOf(0)));
+
     }
 
     /**
@@ -122,6 +124,7 @@ public class FileActions {
          */
         FileOpenAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
         }
 
         /**
@@ -138,7 +141,6 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             int choice = -1; // Choice will either be 0 (wanting to open new file) or 1 (Not wanting to open)
-            System.out.println("Image Open: " + imageOpen);
             if (imageOpen == true) {
                 choice = JOptionPane.showConfirmDialog(null,
                         bundle.getString("OpenWithoutSaving"),
@@ -162,7 +164,6 @@ public class FileActions {
                             return;
                         } else {
                             target.getImage().open(imageFilepath);
-                            System.out.println("Image Opened, setting true");
                             imageOpen = true;
                         }
                     } catch (Exception ex) {
@@ -198,6 +199,7 @@ public class FileActions {
          */
         FileSaveAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
         }
 
         /**
@@ -216,7 +218,7 @@ public class FileActions {
             try {
                 target.getImage().save();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
+                JOptionPane.showMessageDialog(null, bundle.getString("NoImageToSave"));
             }
         }
 
@@ -244,6 +246,7 @@ public class FileActions {
          */
         FileSaveAsAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
         }
 
         /**
@@ -261,7 +264,6 @@ public class FileActions {
         public void actionPerformed(ActionEvent e) {
             try {
                 if (!imageOpen) {
-                    System.out.println("No image to save");
                     throw new Exception(bundle.getString("NoImageToSave"));
                 }
                 JFileChooser fileChooser = new JFileChooser();
@@ -271,6 +273,7 @@ public class FileActions {
 
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().saveAs(imageFilepath);
+                    imageOpen = false;
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -299,6 +302,7 @@ public class FileActions {
          */
         FileExportAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
         }
 
         /**
@@ -326,8 +330,7 @@ public class FileActions {
                     target.getImage().export(imageFilepath);
                 }
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex);
-
+                JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
 
@@ -355,6 +358,7 @@ public class FileActions {
             super(name, icon);
             putValue(SHORT_DESCRIPTION, desc);
             putValue(MNEMONIC_KEY, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
         }
 
         /**

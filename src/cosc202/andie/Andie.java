@@ -127,16 +127,17 @@ public class Andie {
         
         // Toolbar
         JToolBar toolBar = new JToolBar();
-        Toolbar.setToolBar(toolBar, fileActions.actions, editActions.actions, imageActions.actions, macroMenu.actions);
+        Toolbar.setToolBar(toolBar);
+
 
         frame.setJMenuBar(menuBar);
         frame.add(toolBar, BorderLayout.NORTH);
         frame.pack();
         frame.setVisible(true);
         frame.requestFocusInWindow();
-        KeyboardShortcuts k1 = new KeyboardShortcuts();
-        KeyAdapter c = k1.getKeyAdapter();
-        frame.addKeyListener(c);
+        // KeyboardShortcuts k1 = new KeyboardShortcuts();
+        // KeyAdapter c = k1.getKeyAdapter();
+        // frame.addKeyListener(c);
 
     }
 
