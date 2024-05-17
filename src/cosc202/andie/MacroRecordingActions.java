@@ -45,7 +45,7 @@ public class MacroRecordingActions {
                 new MacroStopAction(bundle.getString("Stop"), null, "stop a macro recording",
                         Integer.valueOf(KeyEvent.VK_U)));
         actions.add(
-                new MacroOpenAction(bundle.getString("Open"), null, "Open a macro recording onto an image",
+                new MacroOpenAction(bundle.getString("Open"), null, "Open a macro recording onto an image, shortcut",
                         Integer.valueOf(KeyEvent.VK_P)));
     }
 
@@ -53,7 +53,7 @@ public class MacroRecordingActions {
         JMenu macroMenu = new JMenu(bundle.getString("Macros"));
 
         for (Action action : actions) {
-            macroMenu.add(new JMenuItem(action));
+                macroMenu.add(new JMenuItem(action));
         }
 
         return macroMenu;

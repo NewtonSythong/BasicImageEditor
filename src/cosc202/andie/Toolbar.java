@@ -161,8 +161,23 @@ public class Toolbar {
         exitFile.setText("");
         tBar.add(exitFile);
 
-        // JButton recordMacro = new JButton("");
-        // recordMacro
+        JButton recordMacro = new JButton("");
+        recordMacro.setAction(actions.get(7));
+        recordMacro.setIcon(macroRecordIcon);
+        recordMacro.setText("");
+        tBar.add(recordMacro);
+
+        JButton macroStop = new JButton("");
+        macroStop.setAction(actions.get(8));
+        macroStop.setIcon(macroStopIcon);
+        macroStop.setText("");
+        tBar.add(macroStop);
+
+        JButton macroOpen = new JButton("");
+        macroOpen.setAction(actions.get(9));
+        macroOpen.setIcon(macroOpenIcon);
+        macroOpen.setText("");
+        tBar.add(macroOpen);
 
         return tBar;
     }
