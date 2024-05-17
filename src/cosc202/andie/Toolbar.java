@@ -38,6 +38,7 @@ public class Toolbar {
         ArrayList<Action> fileActions = new FileActions().actions;
         ArrayList<Action> EditActions = new EditActions().actions;
         ArrayList<Action> imageActions = new ImageActions().actions;
+        ArrayList<Action> macroActions = new MacroRecordingActions().actions;
 
         actions.add(0, fileActions.get(0));
         actions.add(1, fileActions.get(1));
@@ -46,6 +47,9 @@ public class Toolbar {
         actions.add(4, imageActions.get(4));
         actions.add(5, imageActions.get(5));
         actions.add(6, fileActions.get(4));
+        actions.add(7, macroActions.get(0));
+        actions.add(8, macroActions.get(1));
+        actions.add(9, macroActions.get(2));
 
         Image openFileImage;
         Image saveFileImage;
@@ -54,7 +58,10 @@ public class Toolbar {
         Image resizeBiggerImage;
         Image resizeSmallerImage;
         Image exitAppImage;
-
+        Image macroRecordImage;
+        Image macroStopImage;
+        Image macroOpenImage;
+    
         ImageIcon OpenFileIcon = new ImageIcon();
         ImageIcon saveFileIcon = new ImageIcon();
         ImageIcon undoOpIcon = new ImageIcon();
@@ -62,6 +69,9 @@ public class Toolbar {
         ImageIcon resizeBiggerIcon = new ImageIcon();
         ImageIcon resizeSmallerIcon = new ImageIcon();
         ImageIcon exitAppIcon = new ImageIcon();
+        ImageIcon macroRecordIcon = new ImageIcon();
+        ImageIcon macroStopIcon = new ImageIcon();
+        ImageIcon macroOpenIcon = new ImageIcon();
 
         try {
             openFileImage = ImageIO.read(Toolbar.class.getClassLoader().getResource("open-file-folder-icon.jpg"));
@@ -91,6 +101,19 @@ public class Toolbar {
             exitAppImage = ImageIO.read(Toolbar.class.getClassLoader().getResource("exit-icon.png"));
             exitAppImage = exitAppImage.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
             exitAppIcon = new ImageIcon(exitAppImage);
+
+            macroRecordImage = ImageIO.read(Toolbar.class.getClassLoader().getResource("macro-record-icon.png"));
+            macroRecordImage = macroRecordImage.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+            macroRecordIcon = new ImageIcon(macroRecordImage);
+
+            macroStopImage = ImageIO.read(Toolbar.class.getClassLoader().getResource("macro-stop-icon.png"));
+            macroStopImage = macroStopImage.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+            macroStopIcon = new ImageIcon(macroStopImage);
+
+            macroOpenImage = ImageIO.read(Toolbar.class.getClassLoader().getResource("macro-open-icon.png"));
+            macroOpenImage = macroOpenImage.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+            macroOpenIcon = new ImageIcon(macroOpenImage);
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -137,6 +160,24 @@ public class Toolbar {
         exitFile.setIcon(exitAppIcon);
         exitFile.setText("");
         tBar.add(exitFile);
+
+        JButton recordMacro = new JButton("");
+        recordMacro.setAction(actions.get(7));
+        recordMacro.setIcon(macroRecordIcon);
+        recordMacro.setText("");
+        tBar.add(recordMacro);
+
+        JButton macroStop = new JButton("");
+        macroStop.setAction(actions.get(8));
+        macroStop.setIcon(macroStopIcon);
+        macroStop.setText("");
+        tBar.add(macroStop);
+
+        JButton macroOpen = new JButton("");
+        macroOpen.setAction(actions.get(9));
+        macroOpen.setIcon(macroOpenIcon);
+        macroOpen.setText("");
+        tBar.add(macroOpen);
 
         return tBar;
     }

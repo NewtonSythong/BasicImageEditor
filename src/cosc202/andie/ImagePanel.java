@@ -29,7 +29,6 @@ public class ImagePanel extends JPanel {
     /**
      * Variables used for mouse actions
      */
-    public static int inX, inY, width, height;
     private static Point startPoint;
     private static Point endPoint;
         
@@ -203,6 +202,7 @@ public class ImagePanel extends JPanel {
     */
     private void setupMouseHandlers() {
         MouseAdapter mouseHandler = new MouseAdapter() {
+
             //private Point startPoint;  // Starting point of the selection rectangle.
             @Override
             public void mousePressed(MouseEvent e) {
@@ -212,13 +212,23 @@ public class ImagePanel extends JPanel {
 
             @Override
             public void mouseDragged(MouseEvent e) {
-                inX = Math.min(startPoint.x, e.getX());  // Calculate top-left corner X.
-                inY = Math.min(startPoint.y, e.getY());  // Calculate top-left corner Y.
-                width = Math.abs(e.getX() - startPoint.x);  // Calculate width of the rectangle.
-                height = Math.abs(e.getY() - startPoint.y);  // Calculate height of the rectangle.
-                selectionRect.setBounds(inX, inY, width, height);  // Update the selection rectangle dimensions.
+               // Scale the initial and current points according to the current zoom level
+                int scaledStartX = (int) (startPoint.x * scale);
+                int scaledStartY = (int) (startPoint.y * scale);
+                int scaledCurrentX = (int) (e.getX());
+                int scaledCurrentY = (int) (e.getY());
+
+                // Calculate the top-left corner and dimensions of the rectangle
+                int width = (int) (Math.abs(scaledCurrentX - scaledStartX)/scale);
+                int height = (int) (Math.abs(scaledCurrentY - scaledStartY)/scale);
+                int inX = Math.min(startPoint.x, e.getX());  // Calculate top-left corner X.
+                int inY = Math.min(startPoint.y, e.getY());  // Calculate top-left corner Y.
+                System.out.println(scale);
+                // Update the selection rectangle dimensions
+                selectionRect.setBounds(inX, inY, width, height);
                 repaint();  // Repaint to update the visual appearance of the rectangle.
             }
+
             @Override
             public void mouseReleased(MouseEvent e) {
                 endPoint = e.getPoint();

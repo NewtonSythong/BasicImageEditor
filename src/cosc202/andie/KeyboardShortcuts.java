@@ -38,6 +38,12 @@ public class KeyboardShortcuts {
             @Override
             public void keyPressed(KeyEvent e) {
                 int key = e.getKeyCode();
+                int modifier = e.getModifiersEx();
+                System.out.println(modifier);
+
+                boolean cntrlPressed = (modifier & KeyEvent.CTRL_DOWN_MASK) != 0;
+                
+                
                 switch (key) {
                     // File actions shortcuts
                     case KeyEvent.VK_O:
@@ -83,6 +89,7 @@ public class KeyboardShortcuts {
                         break;
                 }
             }
+            
         };
     }
 
