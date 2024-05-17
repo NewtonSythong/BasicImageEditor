@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
@@ -13,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author Jenny Kim
  * 
  */
-public class EmbossFilter implements ImageOperation {
+public class EmbossFilter implements ImageOperation, Serializable {
 
     int direction;
 

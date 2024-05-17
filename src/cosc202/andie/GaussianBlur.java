@@ -1,6 +1,8 @@
 package cosc202.andie;
 
 import java.awt.image.*;
+import java.io.Serializable;
+
 import javax.swing.*;
 import java.util.ResourceBundle;
 
@@ -18,7 +20,7 @@ import java.util.ResourceBundle;
  * @author Jenny Kim
  * @version 1.0
  */
-public class GaussianBlur implements ImageOperation {
+public class GaussianBlur implements ImageOperation, Serializable {
 
     /**
      * The size of the filter to apply

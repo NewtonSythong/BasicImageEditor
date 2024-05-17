@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
@@ -10,7 +11,7 @@ import javax.swing.JOptionPane;
  * 
  * @author Jenny Kim
  */
-public class SobelFilter implements ImageOperation {
+public class SobelFilter implements ImageOperation, Serializable {
 
     int direction;
 
