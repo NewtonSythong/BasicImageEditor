@@ -138,6 +138,7 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             int choice = -1; // Choice will either be 0 (wanting to open new file) or 1 (Not wanting to open)
+            System.out.println("Image Open: " + imageOpen);
             if (imageOpen == true) {
                 choice = JOptionPane.showConfirmDialog(null,
                         bundle.getString("OpenWithoutSaving"),
@@ -161,6 +162,7 @@ public class FileActions {
                             return;
                         } else {
                             target.getImage().open(imageFilepath);
+                            System.out.println("Image Opened, setting true");
                             imageOpen = true;
                         }
                     } catch (Exception ex) {
@@ -214,7 +216,7 @@ public class FileActions {
             try {
                 target.getImage().save();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, bundle.getString("NoImageToSave"));
+                JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
 
@@ -259,6 +261,7 @@ public class FileActions {
         public void actionPerformed(ActionEvent e) {
             try {
                 if (!imageOpen) {
+                    System.out.println("No image to save");
                     throw new Exception(bundle.getString("NoImageToSave"));
                 }
                 JFileChooser fileChooser = new JFileChooser();
@@ -268,7 +271,6 @@ public class FileActions {
 
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().saveAs(imageFilepath);
-                    imageOpen = false;
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -324,7 +326,8 @@ public class FileActions {
                     target.getImage().export(imageFilepath);
                 }
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
+                JOptionPane.showMessageDialog(null, ex);
+
             }
         }
 

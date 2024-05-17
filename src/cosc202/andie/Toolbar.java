@@ -34,8 +34,8 @@ public class Toolbar {
      * @param tBar the toolbar to set up.
      * @return the set up toolbar.
      */
-    public static JToolBar setToolBar(JToolBar tBar) {
-        ArrayList<Action> fileActions = new FileActions().actions;
+    public static JToolBar setToolBar(JToolBar tBar, ArrayList<Action> fileActionsIn, ArrayList<Action> editActionsIn, ArrayList<Action> imageActionsIn, ArrayList<Action> macroActionsIn) { // add actions as parameter
+        ArrayList<Action> fileActions = fileActionsIn;
         ArrayList<Action> EditActions = new EditActions().actions;
         ArrayList<Action> imageActions = new ImageActions().actions;
         ArrayList<Action> macroActions = new MacroRecordingActions().actions;

@@ -127,8 +127,7 @@ public class Andie {
         
         // Toolbar
         JToolBar toolBar = new JToolBar();
-        Toolbar.setToolBar(toolBar);
-
+        Toolbar.setToolBar(toolBar, fileActions.actions, editActions.actions, imageActions.actions, macroMenu.actions);
 
         frame.setJMenuBar(menuBar);
         frame.add(toolBar, BorderLayout.NORTH);
