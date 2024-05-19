@@ -16,7 +16,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.SpinnerNumberModel;
+import java.awt.Toolkit;
+
 
 /**
  * <p>
@@ -146,11 +149,10 @@ public class FilterActions {
          */
 
         MeanFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-
             super(name, icon, desc, mnemonic);
-
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic,  ActionEvent.CTRL_MASK));
         }
-
+//Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()
         /**
          * 
          * <p>
@@ -246,9 +248,8 @@ public class FilterActions {
          * 
          */
         SoftBlurAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-
             super(name, icon, desc, mnemonic);
-
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
         }
 
         public void actionPerformed(ActionEvent e) {
@@ -299,9 +300,8 @@ public class FilterActions {
          * 
          */
         SharpenFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-
             super(name, icon, desc, mnemonic);
-
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
         }
 
         public void actionPerformed(ActionEvent e) {
@@ -354,7 +354,7 @@ public class FilterActions {
         GaussianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
 
             super(name, icon, desc, mnemonic);
-
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
         }
 
         public void actionPerformed(ActionEvent e) {
@@ -423,7 +423,7 @@ public class FilterActions {
         MedianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
 
             super(name, icon, desc, mnemonic);
-
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
         }
 
         public void actionPerformed(ActionEvent e) {
@@ -471,6 +471,7 @@ public class FilterActions {
          */
         BlockAveragingAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
         }
 
         /**
@@ -527,8 +528,8 @@ public class FilterActions {
          * @param mnemonic the mnemonic for the action.
          */
         ScatterFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
 
         }
 
@@ -582,6 +583,7 @@ public class FilterActions {
         EmbossFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
 
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
 
         }
 
@@ -628,7 +630,7 @@ public class FilterActions {
         SobelFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
 
             super(name, icon, desc, mnemonic);
-
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
         }
 
         public void actionPerformed(ActionEvent e) {
