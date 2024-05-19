@@ -648,7 +648,7 @@ public class FilterActions {
                 direction = directionModel.getNumber().intValue();
             }
 
-            target.getImage().apply(new EmbossFilter(direction));
+            target.getImage().apply(new SobelFilter(direction));
             target.repaint();
             target.getParent().revalidate();
 
