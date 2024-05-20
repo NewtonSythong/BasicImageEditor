@@ -135,9 +135,6 @@ public class Andie {
         frame.pack();
         frame.setVisible(true);
         frame.requestFocusInWindow();
-        // KeyboardShortcuts k1 = new KeyboardShortcuts();
-        // KeyAdapter c = k1.getKeyAdapter();
-        // frame.addKeyListener(c);
 
     }
 
