@@ -99,7 +99,7 @@ public class Toolbar {
 
             JButton openFile = new JButton("");
             openFile.setAction(actions.get(0));
-            openFile.setToolTipText(" " + actions.get(0).getValue("AcceleratorKey"));
+            openFile.setToolTipText("Open Image");
 
             openFile.setIcon(OpenFileIcon);
             openFile.setText("");
@@ -107,63 +107,63 @@ public class Toolbar {
 
             JButton saveFile = new JButton("");
             saveFile.setAction(actions.get(1));
-            saveFile.setToolTipText(" " + actions.get(1).getValue("AcceleratorKey"));
+            saveFile.setToolTipText("Save Image");
             saveFile.setIcon(saveFileIcon);
             saveFile.setText("");
             tBar.add(saveFile);
 
             JButton undoOp = new JButton("");
             undoOp.setAction(actions.get(2));
-            saveFile.setToolTipText(" " + actions.get(2).getValue("AcceleratorKey"));
+            saveFile.setToolTipText("Undo");
             undoOp.setIcon(undoOpIcon);
             undoOp.setText("");
             tBar.add(undoOp);
 
             JButton redoOp = new JButton("");
             redoOp.setAction(actions.get(3));
-            redoOp.setToolTipText(" " + actions.get(3).getValue("AcceleratorKey"));
+            redoOp.setToolTipText("Redo");
             redoOp.setIcon(redoOpIcon);
             redoOp.setText("");
             tBar.add(redoOp);
 
             JButton resizeBigger = new JButton("");
             resizeBigger.setAction(actions.get(4));
-            resizeBigger.setToolTipText(" " + actions.get(4).getValue("AcceleratorKey"));
+            resizeBigger.setToolTipText("Make Image Bigger");
             resizeBigger.setIcon(resizeBiggerIcon);
             resizeBigger.setText("");
             tBar.add(resizeBigger);
 
             JButton resizeSmaller = new JButton("");
             resizeSmaller.setAction(actions.get(5));
-            resizeSmaller.setToolTipText(" " + actions.get(5).getValue("AcceleratorKey"));
+            resizeSmaller.setToolTipText("Make Image Smaller");
             resizeSmaller.setIcon(resizeSmallerIcon);
             resizeSmaller.setText("");
             tBar.add(resizeSmaller);
 
             JButton recordMacro = new JButton("");
             recordMacro.setAction(actions.get(7));
-            recordMacro.setToolTipText(" " + actions.get(7).getValue("AcceleratorKey"));
+            recordMacro.setToolTipText("Record");
             recordMacro.setIcon(macroRecordIcon);
             recordMacro.setText("");
             tBar.add(recordMacro);
 
             JButton macroStop = new JButton("");
             macroStop.setAction(actions.get(8));
-            macroStop.setToolTipText(" " + actions.get(8).getValue("AcceleratorKey"));
+            macroStop.setToolTipText("Stop Recording");
             macroStop.setIcon(macroStopIcon);
             macroStop.setText("");
             tBar.add(macroStop);
 
             JButton macroOpen = new JButton("");
             macroOpen.setAction(actions.get(9));
-            macroOpen.setToolTipText(" " + actions.get(8).getValue("AcceleratorKey"));
+            macroOpen.setToolTipText("Open Macro");
             macroOpen.setIcon(macroOpenIcon);
             macroOpen.setText("");
             tBar.add(macroOpen);
 
             JButton exitFile = new JButton("");
             exitFile.setAction(actions.get(6));
-            exitFile.setToolTipText(" " + actions.get(6).getValue("AcceleratorKey"));
+            exitFile.setToolTipText("Exit Application");
             exitFile.setIcon(exitAppIcon);
             exitFile.setText("");
             tBar.add(exitFile);
