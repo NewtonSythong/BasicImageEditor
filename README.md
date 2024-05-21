@@ -16,7 +16,7 @@
 - Other Error avoidance/prevention - Cam & Jenny
 ### Part 2
  - Extended Filters - Jenny
- - Filters with Negative Results - Katrina 
+ - Filters with Negative Results - Jenny
  - Emboss and Edge Detection - Jenny
  - Brightness adjustment - Katrina 
  - Contrast adjustment - Katrina 
