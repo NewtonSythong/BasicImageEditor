@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class EmbossFilter implements ImageOperation, Serializable {
 
-    int direction;
+    private  int direction;
 
     /**
      * Constructs an EmbossFilter with a default direction of 1.
@@ -44,31 +44,6 @@ public class EmbossFilter implements ImageOperation, Serializable {
 
                 float[][] kernels = {
                         {
-                                0, 0, 0,
-                                1, 0, -1,
-                                0, 0, 0
-                        },
-                        {
-                                1, 0, 0,
-                                0, 0, 0,
-                                0, 0, -1
-                        },
-                        {
-                                0, 1, 0,
-                                0, 0, 0,
-                                0, -1, 0
-                        },
-                        {
-                                0, 0, 1,
-                                0, 0, 0,
-                                -1, 0, 0
-                        },
-                        {
-                                0, 0, 0,
-                                -1, 0, 1,
-                                0, 0, 0
-                        },
-                        {
                                 -1, 0, 0,
                                 0, 0, 0,
                                 0, 0, 1
@@ -82,6 +57,36 @@ public class EmbossFilter implements ImageOperation, Serializable {
                                 0, 0, -1,
                                 0, 0, 0,
                                 1, 0, 0
+                        },
+                        {
+                                0, 0, 0,
+                                -1, 0, 1,
+                                0, 0, 0
+                        },
+                        {
+                                0, 0, 0,
+                                0, 0, 0,
+                                0, 0, 0
+                        },
+                        {
+                                0, 0, 0,
+                                1, 0, -1,
+                                0, 0, 0
+                        },
+                        {
+                                0, 0, 1,
+                                0, 0, 0,
+                                -1, 0, 0
+                        },
+                        {
+                                0, 1, 0,
+                                0, 0, 0,
+                                0, -1, 0
+                        },
+                        {
+                                1, 0, 0,
+                                0, 0, 0,
+                                0, 0, -1
                         }
                 };
 
