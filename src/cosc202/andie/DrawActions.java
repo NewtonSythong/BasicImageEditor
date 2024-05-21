@@ -26,6 +26,7 @@ import java.awt.*;
  * @version 1.0
  */
 public class DrawActions{
+    
 
     /**
      * A list of actions for the Tools menu.
@@ -93,15 +94,16 @@ public class DrawActions{
     }
 
         public void actionPerformed(ActionEvent e) {
+            
             if (target.getImage().hasImage() == false) {
                 // There is not an image crop, so display error message.
-                JOptionPane.showMessageDialog(null, "No image detected for cropping");
+                JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
                 return;
             }
             // Check if there is a selected region.
             if (ImagePanel.selectionRect == null) {
                 // Trying to crop when there is no region selected. Give the user an error.
-                JOptionPane.showMessageDialog(null, "Please select a region to crop");
+                JOptionPane.showMessageDialog(null, bundle.getString("SelectRegionCrop"));
                 return;
             }
 
@@ -129,13 +131,13 @@ public class DrawActions{
         public void actionPerformed(ActionEvent e){
             if(target.getImage().hasImage() == false){
                 // There is not an image to draw on, so display error message.
-                JOptionPane.showMessageDialog(null, "No image detected for drawing");
+                JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
                 return;
             }
             //Getting the Rectangle from ImagePanel (selection) 
             Rectangle recto = ImagePanel.getRect(); 
             if(recto == null){
-                JOptionPane.showMessageDialog(null, "Please select an area to draw a Rectangle");
+                JOptionPane.showMessageDialog(null, bundle.getString("SelectRegionShape"));
                 return;
             }
             boolean fill = false;
@@ -163,13 +165,13 @@ public class DrawActions{
         public void actionPerformed(ActionEvent e){
             if(target.getImage().hasImage() == false){
                 // There is not an image to draw on, so display error message.
-                JOptionPane.showMessageDialog(null, "No image detected for drawing");
+                JOptionPane.showMessageDialog(null, bundle.getString("NoImageSelected"));
                 return;
             }
             //Getting the Rectangle from ImagePanel (selection) 
             Rectangle recto = ImagePanel.getRect(); 
             if(recto == null){
-                JOptionPane.showMessageDialog(null, "Please select an area to draw a Rectangle");
+                JOptionPane.showMessageDialog(null, bundle.getString("SelectRegionShape"));
                 return;
             }
             boolean fill = true;
@@ -194,7 +196,7 @@ public class DrawActions{
         public void actionPerformed(ActionEvent e){
             Rectangle rect = ImagePanel.getRect();
             if (rect == null || rect.width == 0 || rect.height == 0) {
-                JOptionPane.showMessageDialog(null, "Please select an area to draw an oval");
+                JOptionPane.showMessageDialog(null, bundle.getString("SelectRegionShape"));
                 return;
             }
             boolean fill = false;
@@ -220,7 +222,7 @@ public class DrawActions{
         public void actionPerformed(ActionEvent e){
             Rectangle rect = ImagePanel.getRect();
             if (rect == null || rect.width == 0 || rect.height == 0) {
-                JOptionPane.showMessageDialog(null, "Please select an area to draw an oval");
+                JOptionPane.showMessageDialog(null, bundle.getString("SelectRegionShape"));
                 return;
             }
             boolean fill = true;
@@ -246,7 +248,7 @@ public class DrawActions{
             Point startPoint = ImagePanel.getStartPoint();//new Point(ImagePanel.inX, ImagePanel.inY); // Method to get start point from ImagePanel
             Point endPoint = ImagePanel.getEndPoint(); // Method to get end point from ImagePanel
             if (startPoint == null || endPoint == null) {
-                JOptionPane.showMessageDialog(null, "Please select start and end points for the line.");
+                JOptionPane.showMessageDialog(null, bundle.getString("SelectLinePoints"));
                 return;
             }            
             DrawLine drawLine = new DrawLine(startPoint, endPoint, drawColour, drawWidth);
@@ -277,7 +279,7 @@ public class DrawActions{
             slider.setPaintTicks(true);
             slider.setPaintLabels(true);
 
-            int result = JOptionPane.showConfirmDialog(null, slider, "Choose Line Width",
+            int result = JOptionPane.showConfirmDialog(null, slider, bundle.getString("SelectLineWidth"),
                                                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
             if (result == JOptionPane.OK_OPTION) {
                 drawWidth = slider.getValue();  // Update the drawWidth used by all drawing actions
@@ -301,7 +303,7 @@ public class DrawActions{
         @Override
         public void actionPerformed(ActionEvent e){
             Color initialColor = drawColour;  // Start with the current drawing color
-            Color chosenColor = JColorChooser.showDialog(null, "Choose Color", initialColor);
+            Color chosenColor = JColorChooser.showDialog(null, bundle.getString("SelectLineColor"), initialColor);
             if (chosenColor != null) {
                 drawColour = chosenColor;  // Update the drawColour used by all drawing actions
             }
