@@ -662,7 +662,7 @@ public class FilterActions {
                 return;
             }
 
-            Object[] options = { "Horizontal", "Vertical" };
+            Object[] options = { "←→", "↑↓" };
             int direction = JOptionPane.showOptionDialog(null, "Choose direction of the Sobel effect:", "Sobel Filter",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             direction++;
