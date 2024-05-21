@@ -114,7 +114,7 @@ public class Toolbar {
 
             JButton undoOp = new JButton("");
             undoOp.setAction(actions.get(2));
-            saveFile.setToolTipText("Undo");
+            undoOp.setToolTipText("Undo");
             undoOp.setIcon(undoOpIcon);
             undoOp.setText("");
             tBar.add(undoOp);
@@ -142,14 +142,14 @@ public class Toolbar {
 
             JButton recordMacro = new JButton("");
             recordMacro.setAction(actions.get(7));
-            recordMacro.setToolTipText("Record");
+            recordMacro.setToolTipText("Record Macro");
             recordMacro.setIcon(macroRecordIcon);
             recordMacro.setText("");
             tBar.add(recordMacro);
 
             JButton macroStop = new JButton("");
             macroStop.setAction(actions.get(8));
-            macroStop.setToolTipText("Stop Recording");
+            macroStop.setToolTipText("Stop Recording Macro");
             macroStop.setIcon(macroStopIcon);
             macroStop.setText("");
             tBar.add(macroStop);
