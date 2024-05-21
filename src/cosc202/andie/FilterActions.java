@@ -70,7 +70,7 @@ public class FilterActions {
         actions.add(new MedianFilterAction(bundle.getString("MedianFilter"), null, "Apply a median filter",
                 Integer.valueOf(KeyEvent.VK_D)));
         actions.add(new SoftBlurAction(bundle.getString("SoftBlur"), null, "Apply a soft blur",
-                Integer.valueOf(KeyEvent.VK_B)));
+                Integer.valueOf(KeyEvent.VK_F)));
         actions.add(new GaussianFilterAction(bundle.getString("GaussianBlur"), null, "Apply a Gaussian filter",
                 Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new SharpenFilterAction(bundle.getString("SharpenFilter"), null, "Apply a sharpen filter",
