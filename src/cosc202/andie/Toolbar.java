@@ -98,10 +98,6 @@ public class Toolbar {
             resizeSmallerImage = resizeSmallerImage.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
             resizeSmallerIcon = new ImageIcon(resizeSmallerImage);
 
-            exitAppImage = ImageIO.read(Toolbar.class.getClassLoader().getResource("exit-icon.png"));
-            exitAppImage = exitAppImage.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
-            exitAppIcon = new ImageIcon(exitAppImage);
-
             macroRecordImage = ImageIO.read(Toolbar.class.getClassLoader().getResource("macro-record-icon.png"));
             macroRecordImage = macroRecordImage.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
             macroRecordIcon = new ImageIcon(macroRecordImage);
@@ -114,6 +110,9 @@ public class Toolbar {
             macroOpenImage = macroOpenImage.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
             macroOpenIcon = new ImageIcon(macroOpenImage);
 
+            exitAppImage = ImageIO.read(Toolbar.class.getClassLoader().getResource("exit-icon.png"));
+            exitAppImage = exitAppImage.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+            exitAppIcon = new ImageIcon(exitAppImage);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -162,13 +161,6 @@ public class Toolbar {
         resizeSmaller.setText("");
         tBar.add(resizeSmaller);
 
-        JButton exitFile = new JButton("");
-        exitFile.setAction(actions.get(6));
-        exitFile.setToolTipText(" " + actions.get(6).getValue("AcceleratorKey"));
-        exitFile.setIcon(exitAppIcon);
-        exitFile.setText("");
-        tBar.add(exitFile);
-
         JButton recordMacro = new JButton("");
         recordMacro.setAction(actions.get(7));
         recordMacro.setToolTipText(" " + actions.get(7).getValue("AcceleratorKey"));
@@ -189,6 +181,13 @@ public class Toolbar {
         macroOpen.setIcon(macroOpenIcon);
         macroOpen.setText("");
         tBar.add(macroOpen);
+
+        JButton exitFile = new JButton("");
+        exitFile.setAction(actions.get(6));
+        exitFile.setToolTipText(" " + actions.get(6).getValue("AcceleratorKey"));
+        exitFile.setIcon(exitAppIcon);
+        exitFile.setText("");
+        tBar.add(exitFile);
 
         return tBar;
     }
