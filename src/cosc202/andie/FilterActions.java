@@ -1,6 +1,8 @@
 package cosc202.andie;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -18,6 +20,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.JButton;
 
 /**
  * <p>
@@ -563,6 +566,9 @@ public class FilterActions {
     }
 
     public class EmbossFilterAction extends ImageAction {
+
+        private int direction = 0;
+
         /**
          * Create a new emboss filter action.
          * 
@@ -588,25 +594,40 @@ public class FilterActions {
 
         public void actionPerformed(ActionEvent e) {
 
-            int direction = 1;
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.setLayout(new GridLayout(3, 3));
+            String[] directions = { "↖", "↑", "↗", "←", "", "→", "↙", "↓", "↘" };
 
-            SpinnerNumberModel directionModel = new SpinnerNumberModel(1, 1, 8, 1);
-            JSpinner directionSpinner = new JSpinner(directionModel);
-            int option = JOptionPane.showOptionDialog(null, directionSpinner, "Enter direction (1 - 8): ",
+            for (int i = 0; i < directions.length; i++) {
+                int dir = i;
+
+                String directionSymbol = directions[i];
+                if (directionSymbol.equals("")) {
+                    buttonPanel.add(new JLabel());
+                } else {
+                    JButton button = new JButton(directionSymbol);
+                    button.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            direction = dir;
+                        }
+                    });
+                    buttonPanel.add(button);
+                }
+            }
+            
+
+            int option = JOptionPane.showOptionDialog(null, buttonPanel, "Choose direction",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
 
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                direction = directionModel.getNumber().intValue();
+                target.getImage().apply(new EmbossFilter(direction + 1));
+                target.repaint();
+                target.getParent().revalidate();
             }
-
-            target.getImage().apply(new EmbossFilter(direction));
-            target.repaint();
-            target.getParent().revalidate();
-
         }
-
     }
 
     /**
