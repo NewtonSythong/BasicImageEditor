@@ -1,7 +1,15 @@
 package cosc202.andie;
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JPanel;
 /**
  * <p>
  * UI display element for {@link EditableImage}s.
@@ -223,7 +231,6 @@ public class ImagePanel extends JPanel {
                 int height = (int) (Math.abs(scaledCurrentY - scaledStartY)/scale);
                 int inX = Math.min(startPoint.x, e.getX());  // Calculate top-left corner X.
                 int inY = Math.min(startPoint.y, e.getY());  // Calculate top-left corner Y.
-                System.out.println(scale);
                 // Update the selection rectangle dimensions
                 selectionRect.setBounds(inX, inY, width, height);
                 repaint();  // Repaint to update the visual appearance of the rectangle.
