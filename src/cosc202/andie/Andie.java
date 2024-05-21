@@ -2,7 +2,6 @@ package cosc202.andie;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
-import java.awt.event.KeyAdapter;
 import java.util.Locale;
 import java.util.prefs.Preferences;
 
