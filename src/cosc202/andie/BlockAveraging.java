@@ -16,22 +16,25 @@ import javax.swing.JOptionPane;
  */
 public class BlockAveraging implements ImageOperation {
 
-    private int blockSize;
+    private int blockHeight;
+    private int blockWidth;
 
     /**
      * Constructor for BlockAveraging
      * 
      * @param blockSize The size of the block to average
      */
-    BlockAveraging(int blockSize) {
-        this.blockSize = blockSize;
+    BlockAveraging(int blockheight, int blockWidth) {
+        this.blockHeight = blockheight;
+        this.blockWidth = blockWidth;
+
     }
 
     /**
      * Constructor for BlockAveraging with default block size of 2
      */
     BlockAveraging() {
-        this(2);
+        this(2, 2);
     }
 
     /**
@@ -46,18 +49,16 @@ public class BlockAveraging implements ImageOperation {
             if (input != null) {
                 int width = input.getWidth();
                 int height = input.getHeight();
-                System.out.println(height);
-                System.out.println(width);
 
                 BufferedImage output = new BufferedImage(width, height, input.getType());
 
-                for (int y = 0; y < height; y += blockSize) {
-                    for (int x = 0; x < width; x += blockSize) {
+                for (int y = 0; y < height; y += blockHeight) {
+                    for (int x = 0; x < width; x += blockWidth) {
                         int[] rgb = new int[3];
                         int count = 0;
                         Arrays.fill(rgb, 0);
-                        for (int j = 0; j < blockSize && y + j < height; j++) {
-                            for (int i = 0; i < blockSize && x + i < width; i++) {
+                        for (int j = 0; j < blockHeight && y + j < height; j++) {
+                            for (int i = 0; i < blockWidth && x + i < width; i++) {
                                 int pixel = input.getRGB(x + i, y + j);
                                 rgb[0] += (pixel >> 16) & 0xff; // red
                                 rgb[1] += (pixel >> 8) & 0xff;  // green
@@ -69,8 +70,8 @@ public class BlockAveraging implements ImageOperation {
                         int avgGreen = rgb[1] / count;
                         int avgBlue = rgb[2] / count;
                 
-                        for (int j = 0; j < blockSize && y + j < height; j++) {
-                            for (int i = 0; i < blockSize && x + i < width; i++) {
+                        for (int j = 0; j < blockHeight && y + j < height; j++) {
+                            for (int i = 0; i < blockWidth && x + i < width; i++) {
                                 int alpha = (input.getRGB(x + i, y + j) >> 24) & 0xff; // original alpha
                                 int avgColor = (alpha << 24) | (avgRed << 16) | (avgGreen << 8) | avgBlue;
                                 output.setRGB(x + i, y + j, avgColor);

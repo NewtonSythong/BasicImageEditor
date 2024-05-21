@@ -502,7 +502,7 @@ public class FilterActions {
                 blockWidth = Integer.parseInt(widthBox.getText());
             }
 
-            target.getImage().apply(new BlockAveraging(blockHeight * blockWidth));
+            target.getImage().apply(new BlockAveraging(blockHeight, blockWidth));
             target.repaint();
             target.getParent().revalidate();
 
