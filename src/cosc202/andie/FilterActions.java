@@ -71,15 +71,15 @@ public class FilterActions {
         actions.add(new MeanFilterAction(bundle.getString("MeanFilter"), null, "Apply a mean filter",
                 Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new MedianFilterAction(bundle.getString("MedianFilter"), null, "Apply a median filter",
-                Integer.valueOf(KeyEvent.VK_M)));
+                Integer.valueOf(KeyEvent.VK_D)));
         actions.add(new SoftBlurAction(bundle.getString("SoftBlur"), null, "Apply a soft blur",
-                Integer.valueOf(KeyEvent.VK_B)));
+                Integer.valueOf(KeyEvent.VK_F)));
         actions.add(new GaussianFilterAction(bundle.getString("GaussianBlur"), null, "Apply a Gaussian filter",
-                Integer.valueOf(KeyEvent.VK_G)));
+                Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new SharpenFilterAction(bundle.getString("SharpenFilter"), null, "Apply a sharpen filter",
-                Integer.valueOf(KeyEvent.VK_S)));
+                Integer.valueOf(KeyEvent.VK_H)));
         actions.add(new BlockAveragingAction(bundle.getString("BlockAverage"), null, "Apply a block average",
-                Integer.valueOf(KeyEvent.VK_A)));
+                Integer.valueOf(KeyEvent.VK_V)));
         actions.add(new ScatterFilterAction(bundle.getString("ScatterFilter"), null, "Apply a Scatter filter",
                 Integer.valueOf(KeyEvent.VK_T)));
         actions.add(new EmbossFilterAction(bundle.getString("EmbossFilter"), null, "Apply an Emboss filter",

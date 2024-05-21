@@ -64,8 +64,8 @@ public class FileActions {
         actions.add(
                 new FileSaveAsAction(bundle.getString("SaveAs"), null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
         actions.add(new FileExportAction(bundle.getString("Export"), null, "Export the image",
-                Integer.valueOf(KeyEvent.VK_E)));
-        actions.add(new FileExitAction(bundle.getString("Exit"), null, "Exit the program", Integer.valueOf(0)));
+                Integer.valueOf(KeyEvent.VK_X)));
+        actions.add(new FileExitAction(bundle.getString("Exit"), null, "Exit the program", Integer.valueOf(KeyEvent.VK_Q)));
 
     }
 

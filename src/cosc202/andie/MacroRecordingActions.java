@@ -1,18 +1,19 @@
 package cosc202.andie;
 
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import javax.swing.Action;
-import javax.swing.ImageIcon;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
+import java.awt.event.KeyEvent;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
+
+import javax.swing.Action;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import java.awt.event.KeyEvent;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -43,7 +44,7 @@ public class MacroRecordingActions {
         actions = new ArrayList<Action>();
         actions.add(
                 new MacroRecordAction(bundle.getString("Record"), null, "Start a macro recording",
-                        Integer.valueOf(KeyEvent.VK_Z)));
+                        Integer.valueOf(KeyEvent.VK_R)));
         actions.add(
                 new MacroStopAction(bundle.getString("Stop"), null, "stop a macro recording",
                         Integer.valueOf(KeyEvent.VK_U)));

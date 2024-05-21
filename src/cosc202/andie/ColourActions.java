@@ -61,7 +61,7 @@ public class ColourActions {
         actions.add(new ConvertToGreyAction(bundle.getString("Greyscale"), null, "Convert to greyscale",
                 Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new InvertColourAction(bundle.getString("Invert"), null, "Invert image colours",
-                Integer.valueOf(KeyEvent.VK_I)));
+                Integer.valueOf(KeyEvent.VK_N)));
         actions.add(new CycleColourAction(bundle.getString("Cycle"), null, "Cycle between different colour channels",
                 Integer.valueOf(KeyEvent.VK_C)));
         actions.add(new BrightnessContrastAction(bundle.getString("BrightnessContrast"), null, "Change the brightness and or contrast of the image",

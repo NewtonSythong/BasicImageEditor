@@ -53,7 +53,7 @@ public class DrawActions{
         Locale.setDefault(new Locale(prefs.get("language","en"), prefs.get("country","NZ")));
         this.bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
         if (this.bundle == null){
-            throw new RuntimeException ("Resource bundle not found, kefe kefe kefe");
+            throw new RuntimeException ("Resource bundle not found");
         }
         actions = new ArrayList<Action>();
         actions.add(new RegionCropAction(bundle.getString("CropRegion"), null,"Crops selected region", null));
@@ -129,7 +129,7 @@ public class DrawActions{
         public void actionPerformed(ActionEvent e){
             if(target.getImage().hasImage() == false){
                 // There is not an image to draw on, so display error message.
-                JOptionPane.showMessageDialog(null, "No image detected for drawing mate");
+                JOptionPane.showMessageDialog(null, "No image detected for drawing");
                 return;
             }
             //Getting the Rectangle from ImagePanel (selection) 
@@ -163,7 +163,7 @@ public class DrawActions{
         public void actionPerformed(ActionEvent e){
             if(target.getImage().hasImage() == false){
                 // There is not an image to draw on, so display error message.
-                JOptionPane.showMessageDialog(null, "No image detected for drawing mate");
+                JOptionPane.showMessageDialog(null, "No image detected for drawing");
                 return;
             }
             //Getting the Rectangle from ImagePanel (selection) 
