@@ -41,18 +41,18 @@ public class SobelFilter implements ImageOperation, Serializable {
             if (input != null) {
                 float[][] kernels = {
                         {
-                                -(1 / 2f), 0, 1 / 2,
+                                -1 / 2.0f, 0, 1 / 2.0f,
                                 -1, 0, 1,
-                                -(1 / 2), 0, 1 / 2
+                                -1 / 2.0f, 0, 1 / 2.0f
                         },
                         {
-                                -(1 / 2), -1, -(1 / 2),
+                                -1 / 2.0f, -1, -1 / 2.0f,
                                 0, 0, 0,
-                                1 / 2, 1, 1 / 2
+                                1 / 2.0f, 1, 1 / 2.0f
                         }
                 };
 
-                BufferedImage output = ConvolutionNew.apply(input, kernels[direction], 1, 127);
+                BufferedImage output = ConvolutionNew.apply(input, kernels[direction-1], 1, 127);
                 return output;
             } else
                 throw new NullPointerException();

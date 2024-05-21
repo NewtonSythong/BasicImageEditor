@@ -1,11 +1,8 @@
 package cosc202.andie;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
-import java.awt.image.Kernel;
-import java.awt.image.ConvolveOp;
 
 /**
  * This class implements a convolution operation on an image.

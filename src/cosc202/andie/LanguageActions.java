@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
-
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
