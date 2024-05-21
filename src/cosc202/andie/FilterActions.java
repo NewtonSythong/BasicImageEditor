@@ -18,8 +18,6 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SpinnerNumberModel;
-import java.awt.Toolkit;
-
 
 /**
  * <p>
@@ -150,9 +148,10 @@ public class FilterActions {
 
         MeanFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic,  ActionEvent.CTRL_MASK));
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(mnemonic, ActionEvent.CTRL_MASK));
         }
-//Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()
+
+        // Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()
         /**
          * 
          * <p>
@@ -610,100 +609,25 @@ public class FilterActions {
 
     }
 
-    // public class SobelFilterAction extends ImageAction {
-    // /**
-    // * Create a new sobel filter action.
-    // *
-    // * </p>
-    // *
-    // *
-    // *
-    // * @param name The name of the action (ignored if null).
-    // *
-    // * @param icon An icon to use to represent the action (ignored if null).
-    // *
-    // * @param desc A brief description of the action (ignored if null).
-    // *
-    // * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-    // *
-    // */
-    // SobelFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic)
-    // {
-
-    // super(name, icon, desc, mnemonic);
-
-    // }
-
-    // public void actionPerformed(ActionEvent e) {
-
-    // int direction = 1;
-
-    // SpinnerNumberModel directionModel = new SpinnerNumberModel(1, 1, 2, 1);
-    // JSpinner directionSpinner = new JSpinner(directionModel);
-    // int option = JOptionPane.showOptionDialog(null, directionSpinner, "Enter
-    // direction (1 or 2): ",
-    // JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
-    // null);
-
-    // if (option == JOptionPane.CANCEL_OPTION) {
-    // return;
-    // } else if (option == JOptionPane.OK_OPTION) {
-    // direction = directionModel.getNumber().intValue();
-    // }
-
-    // target.getImage().apply(new EmbossFilter(direction));
-    // target.repaint();
-    // target.getParent().revalidate();
-
-    // }
-
-    // }
-
-    // public class SobelFilterAction extends ImageAction {
-    // /**
-    // * Create a new sobel filter action.
-    // *
-    // * @param name The name of the action (ignored if null).
-    // * @param icon An icon to use to represent the action (ignored if null).
-    // * @param desc A brief description of the action (ignored if null).
-    // * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-    // */
-    // SobelFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic)
-    // {
-    // super(name, icon, desc, mnemonic);
-    // }
-
-    // @Override
-    // public void actionPerformed(ActionEvent e) {
-    // Object[] options = { "Horizontal", "Vertical" };
-    // int direction = JOptionPane.showOptionDialog(null, "Choose direction of the
-    // Sobel effect:", "Sobel Filter",
-    // JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,
-    // options[0]);
-
-    // if (direction == JOptionPane.CLOSED_OPTION) {
-    // return;
-    // }
-
-    // int sobelDirection = direction + 1;
-
-    // target.getImage().apply(new SobelFilter(sobelDirection));
-    // target.repaint();
-    // target.getParent().revalidate();
-    // }
-    // }
-
     /**
      * Action to apply a Sobel filter to an image with user-selected direction.
      */
     public class SobelFilterAction extends ImageAction {
         /**
-         * Constructor for SobelFilterAction.
+         * Create a new sobel filter action.
          *
-         * @param name     The name of the action.
-         * @param icon     An icon to represent the action.
-         * @param desc     A brief description of the action.
-         * @param mnemonic A mnemonic key for shortcut.
+         * </p>
+         *
+         *
+         *
+         * @param name     The name of the action (ignored if null).
+         *
+         * @param icon     An icon to use to represent the action (ignored if null).
+         *
+         * @param desc     A brief description of the action (ignored if null).
+         *
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         *
          */
         SobelFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -730,7 +654,6 @@ public class FilterActions {
             target.repaint();
             target.getParent().revalidate();
 
-         
         }
     }
 }
