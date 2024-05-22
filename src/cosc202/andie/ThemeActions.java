@@ -51,9 +51,6 @@ public class ThemeActions {
         Preferences prefs = Preferences.userNodeForPackage(Andie.class);        
         Locale.setDefault(new Locale(prefs.get("language", "en"), prefs.get("country", "NZ")));
 
-        //Preferences prefers = Preferences.userNodeForPackage(ThemeActions.class);
-        //currentTheme = prefers.get(PREFS_KEY_LOOK_AND_FEEL, defaultLookFeel);
-
         this.bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
         if (this.bundle == null) {
             throw new RuntimeException("Resource bundle not found!");
@@ -108,12 +105,12 @@ public class ThemeActions {
 
         /**
          * <p>
-         * Callback for when the convert-to-grey action is triggered.
+         * Callback for when the change UI action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the ConvertToGreyAction is triggered.
-         * It changes the image to greyscale.
+         * This method is called whenever the ThemeAction is triggered.
+         * It changes the UI
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -151,7 +148,7 @@ public class ThemeActions {
     public class NimbusAction extends ImageAction {
         /**
          * <p>
-         * Create a new action to change UI to Metal theme action
+         * Create a new action to change UI to Nimbus theme action
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -165,12 +162,12 @@ public class ThemeActions {
 
         /**
          * <p>
-         * Callback for when the convert-to-grey action is triggered.
+         * Callback for when the change UI action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the ConvertToGreyAction is triggered.
-         * It changes the image to greyscale.
+         * This method is called whenever the ThemeAction is triggered.
+         * It changes the UI
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -208,7 +205,7 @@ public class ThemeActions {
 
         /**
          * <p>
-         * Create a new action to change UI to Metal theme action
+         * Create a new action to change UI to Motif theme action
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -222,12 +219,12 @@ public class ThemeActions {
 
         /**
          * <p>
-         * Callback for when the convert-to-grey action is triggered.
+         * Callback for when the change UI action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the ConvertToGreyAction is triggered.
-         * It changes the image to greyscale.
+         * This method is called whenever the ThemeAction is triggered.
+         * It changes the UI
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -265,7 +262,7 @@ public class ThemeActions {
 
         /**
          * <p>
-         * Create a new action to change UI to Metal theme action
+         * Create a new action to change UI to Windows theme action
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -279,12 +276,12 @@ public class ThemeActions {
 
         /**
          * <p>
-         * Callback for when the convert-to-grey action is triggered.
+         * Callback for when the change UI action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the ConvertToGreyAction is triggered.
-         * It changes the image to greyscale.
+         * This method is called whenever the ThemeAction is triggered.
+         * It changes the UI
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -336,12 +333,12 @@ public class ThemeActions {
 
         /**
          * <p>
-         * Callback for when the convert-to-grey action is triggered.
+         * Callback for when the change UI action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the ConvertToGreyAction is triggered.
-         * It changes the image to greyscale.
+         * This method is called whenever the ThemeAction is triggered.
+         * It changes the UI
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -392,12 +389,12 @@ public class ThemeActions {
 
         /**
          * <p>
-         * Callback for when the convert-to-grey action is triggered.
+         * Callback for when the change UI action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the ConvertToGreyAction is triggered.
-         * It changes the image to greyscale.
+         * This method is called whenever the ThemeAction is triggered.
+         * It changes the UI
          * </p>
          * 
          * @param e The event triggering this callback.
