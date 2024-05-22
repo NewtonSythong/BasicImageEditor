@@ -9,6 +9,7 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
+import java.util.ResourceBundle;
 
 /**
  * This class represents a toolbar for an application.
@@ -35,6 +36,8 @@ public class Toolbar {
      * @return the set up toolbar.
      */
     public static JToolBar setToolBar(JToolBar tBar) {
+        ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+
         // Arraylists which hold all the actions from the actions class arraylists.
         ArrayList<Action> fileActions = new FileActions().actions;
         ArrayList<Action> EditActions = new EditActions().actions;
@@ -99,7 +102,7 @@ public class Toolbar {
 
             JButton openFile = new JButton("");
             openFile.setAction(actions.get(0));
-            openFile.setToolTipText("Open Image");
+            openFile.setToolTipText(bundle.getString("Open"));
 
             openFile.setIcon(OpenFileIcon);
             openFile.setText("");
@@ -107,63 +110,63 @@ public class Toolbar {
 
             JButton saveFile = new JButton("");
             saveFile.setAction(actions.get(1));
-            saveFile.setToolTipText("Save Image");
+            saveFile.setToolTipText(bundle.getString("Save"));
             saveFile.setIcon(saveFileIcon);
             saveFile.setText("");
             tBar.add(saveFile);
 
             JButton undoOp = new JButton("");
             undoOp.setAction(actions.get(2));
-            undoOp.setToolTipText("Undo");
+            undoOp.setToolTipText(bundle.getString("Undo"));
             undoOp.setIcon(undoOpIcon);
             undoOp.setText("");
             tBar.add(undoOp);
 
             JButton redoOp = new JButton("");
             redoOp.setAction(actions.get(3));
-            redoOp.setToolTipText("Redo");
+            redoOp.setToolTipText(bundle.getString("Redo"));
             redoOp.setIcon(redoOpIcon);
             redoOp.setText("");
             tBar.add(redoOp);
 
             JButton resizeBigger = new JButton("");
             resizeBigger.setAction(actions.get(4));
-            resizeBigger.setToolTipText("Make Image Bigger");
+            resizeBigger.setToolTipText(bundle.getString("ResizeBigger"));
             resizeBigger.setIcon(resizeBiggerIcon);
             resizeBigger.setText("");
             tBar.add(resizeBigger);
 
             JButton resizeSmaller = new JButton("");
             resizeSmaller.setAction(actions.get(5));
-            resizeSmaller.setToolTipText("Make Image Smaller");
+            resizeSmaller.setToolTipText(bundle.getString("ResizeSmaller"));
             resizeSmaller.setIcon(resizeSmallerIcon);
             resizeSmaller.setText("");
             tBar.add(resizeSmaller);
 
             JButton recordMacro = new JButton("");
             recordMacro.setAction(actions.get(7));
-            recordMacro.setToolTipText("Record Macro");
+            recordMacro.setToolTipText(bundle.getString("Record"));
             recordMacro.setIcon(macroRecordIcon);
             recordMacro.setText("");
             tBar.add(recordMacro);
 
             JButton macroStop = new JButton("");
             macroStop.setAction(actions.get(8));
-            macroStop.setToolTipText("Stop Recording Macro");
+            macroStop.setToolTipText(bundle.getString("Stop"));
             macroStop.setIcon(macroStopIcon);
             macroStop.setText("");
             tBar.add(macroStop);
 
             JButton macroOpen = new JButton("");
             macroOpen.setAction(actions.get(9));
-            macroOpen.setToolTipText("Open Macro");
+            macroOpen.setToolTipText(bundle.getString("OpenMacro"));
             macroOpen.setIcon(macroOpenIcon);
             macroOpen.setText("");
             tBar.add(macroOpen);
 
             JButton exitFile = new JButton("");
             exitFile.setAction(actions.get(6));
-            exitFile.setToolTipText("Exit Application");
+            exitFile.setToolTipText(bundle.getString("Exit"));
             exitFile.setIcon(exitAppIcon);
             exitFile.setText("");
             tBar.add(exitFile);
