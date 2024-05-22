@@ -35,7 +35,7 @@
 ## How was code tested 
 For the image inversion action the output was tested against a online image inversion and was continually refined until they looked identical. Throughout the project, code was tested with the use of println statements to see the output. Alongside the use of print statements a large portion of testing was performed through trial and error of running the ANDIE program and seeing the outcome of using different parts of the GUI.
 
-## Known Bugs
+## Known Issues
 - Currently, the application restarts when the language is changed, so any image that is open or edited is lost
 - When selecting a region of the image, areas beyond the image are able to be selected
 - Keyboard shortcuts are not the conventional shortcuts 
