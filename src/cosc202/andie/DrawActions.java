@@ -144,8 +144,6 @@ public class DrawActions{
             target.repaint();
             
         }
-        
-        
     }
 
     /**
@@ -204,7 +202,6 @@ public class DrawActions{
         }
     }
 
-
     /**
      * Action to draw a Filled Oval
      * </p>
@@ -248,13 +245,13 @@ public class DrawActions{
             if (startPoint == null || endPoint == null) {
                 JOptionPane.showMessageDialog(Andie.getFrame(), bundle.getString("SelectLinePoints"));
                 return;
-            }            
+            }    
+
             DrawLine drawLine = new DrawLine(startPoint, endPoint, drawColour, drawWidth);
             target.getImage().apply(drawLine);
             target.repaint();
 
         }
-
     }
 
     /**
@@ -283,7 +280,6 @@ public class DrawActions{
                 drawWidth = slider.getValue();  // Update the drawWidth used by all drawing actions
             }
         }
-        
     }
 
     /**

@@ -36,7 +36,8 @@
 For the image inversion action the output was tested against a online image inversion and was continually refined until they looked identical. Throughout the project, code was tested with the use of println statements to see the output. Alongside the use of print statements a large portion of testing was performed through trial and error of running the ANDIE program and seeing the outcome of using different parts of the GUI.
 
 ## Known Bugs
-Currently there are no known bugs.
+- Currently, the application restarts when the language is changed, so any image that is open or edited is lost
+- When selecting a region of the image, areas beyond the image are able to be selected
 
 ## Brief User Guide 
 Once the user has ran the application from within the Gradle projects a new window will appear. This is the ANDIE GUI (Graphical User Interface). Within this GUI there are 10 options in the menu.
