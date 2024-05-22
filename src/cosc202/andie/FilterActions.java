@@ -191,7 +191,7 @@ public class FilterActions {
 
             JSpinner radiusSpinner = new JSpinner(radiusModel);
 
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("SelectRadius"),
 
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
@@ -371,7 +371,7 @@ public class FilterActions {
 
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("SelectRadius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
             // Check the return value from the dialog box.
 
@@ -440,7 +440,7 @@ public class FilterActions {
 
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("SelectRadius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -490,12 +490,12 @@ public class FilterActions {
             JTextField widthBox = new JTextField("", 15);
             JTextField heightBox = new JTextField("", 15);
             JPanel panel = new JPanel();
-            panel.add(new JLabel("Block Height"));
+            panel.add(new JLabel(bundle.getString("BlockHeight")));
             panel.add((heightBox));
-            panel.add(new JLabel("Block Width"));
+            panel.add(new JLabel(bundle.getString("BlockWidth")));
             panel.add(widthBox);
 
-            int option = JOptionPane.showOptionDialog(null, panel, "Enter block height and width",
+            int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("SelectWidthHeight"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             if (option == JOptionPane.OK_CANCEL_OPTION) {
@@ -549,7 +549,7 @@ public class FilterActions {
 
             SpinnerNumberModel chooseRadius = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(chooseRadius);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter radius (1 - 10): ",
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("SelectRadius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -614,11 +614,9 @@ public class FilterActions {
                     buttonPanel.add(button);
                 }
             }
-            
 
             int option = JOptionPane.showOptionDialog(null, buttonPanel, "Choose direction",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
 
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
@@ -634,6 +632,9 @@ public class FilterActions {
      * Action to apply a Sobel filter to an image with user-selected direction.
      */
     public class SobelFilterAction extends ImageAction {
+
+        int direction;
+
         /**
          * Create a new sobel filter action.
          *
@@ -657,24 +658,34 @@ public class FilterActions {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (target == null || target.getImage() == null) {
-                JOptionPane.showMessageDialog(null, "Image not loaded.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+
+            JPanel buttonPanel = new JPanel();
+            String[] directions = { "←→", "↑↓" };
+
+            for (int i = 0; i < directions.length; i++) {
+                int dir = i;
+
+                String directionSymbol = directions[i];
+
+                JButton button = new JButton(directionSymbol);
+                button.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        direction = dir;
+                    }
+                });
+                buttonPanel.add(button);
             }
 
-            Object[] options = { "←→", "↑↓" };
-            int direction = JOptionPane.showOptionDialog(null, "Choose direction of the Sobel effect:", "Sobel Filter",
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            direction++;
+            int option = JOptionPane.showOptionDialog(null, buttonPanel, "Choose direction",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
-            if (direction == JOptionPane.CLOSED_OPTION) {
+            if (option == JOptionPane.CANCEL_OPTION) {
                 return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                target.getImage().apply(new SobelFilter(direction + 1));
+                target.repaint();
+                target.getParent().revalidate();
             }
-
-            target.getImage().apply(new SobelFilter(direction));
-            target.repaint();
-            target.getParent().revalidate();
-
         }
     }
 }

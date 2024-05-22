@@ -112,8 +112,6 @@ public class DrawActions{
             ImagePanel.selectionRect = null;
             target.repaint();
             target.getParent().revalidate();
-            target.repaint();
-            target.getParent().revalidate();
         }
     }
     
