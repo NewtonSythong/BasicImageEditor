@@ -38,6 +38,7 @@ For the image inversion action the output was tested against a online image inve
 ## Known Bugs
 - Currently, the application restarts when the language is changed, so any image that is open or edited is lost
 - When selecting a region of the image, areas beyond the image are able to be selected
+- Keyboard shortcuts are not the conventional shortcuts 
 
 ## Brief User Guide 
 Once the user has ran the application from within the Gradle projects a new window will appear. This is the ANDIE GUI (Graphical User Interface). Within this GUI there are 10 options in the menu.
