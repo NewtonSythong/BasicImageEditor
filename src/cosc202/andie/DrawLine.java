@@ -3,6 +3,8 @@ package cosc202.andie;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Shape;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.awt.BasicStroke;
 
@@ -30,10 +32,10 @@ import java.awt.BasicStroke;
  */
 public class DrawLine implements ImageOperation{
 
-    private Point startPoint;
-    private Point endPoint;
+
     private Color color;
     private int drawWidth;
+    private Shape shape;
 
     /**
      * Constructor to create a DrawLine operation.
@@ -42,10 +44,10 @@ public class DrawLine implements ImageOperation{
      * @param color Color of the line.
      */
     public DrawLine (Point startPoint, Point endPoint, Color color, int drawWidth){
-        this.startPoint = startPoint;
-        this.endPoint = endPoint;
+
         this.color = color;
         this.drawWidth = drawWidth;
+        this.shape = new Line2D.Float(startPoint, endPoint);
     }
 
 
@@ -56,9 +58,10 @@ public class DrawLine implements ImageOperation{
      */
     public BufferedImage apply(BufferedImage image){
         Graphics2D g2d = image.createGraphics();
-        g2d.setStroke(new BasicStroke(drawWidth));
         g2d.setColor(color);
-        g2d.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+        g2d.setStroke(new BasicStroke(drawWidth));
+        g2d.drawImage(image, 0, 0, null);
+        g2d.draw(shape);
         g2d.dispose();
         return image;
     }
