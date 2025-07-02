@@ -43,7 +43,19 @@ For the image inversion action the output was tested against a online image inve
 - Keyboard shortcuts are not the conventional shortcuts 
 - The application restarts when the language is changed, so any image that is open or edited is lost
 
+## How to Build and Run the Application
+
+1. **Open a terminal** in the project root directory (where the `build.gradle` file is located).
+2. **Build the project** by running:
+`gradle build`
+3. **Run the application** with:
+`gradle run`
+or, if you are using Windows:
+`gradlew run`
+4. The ANDIE GUI window should appear, ready for use.
+
 ## Brief User Guide 
+
 Once the user has ran the application from within the Gradle projects a new window will appear. This is the ANDIE GUI (Graphical User Interface). Within this GUI there are 10 options in the menu.
 As ANDIE is a Non-destructive image editor we suggest the user to open a file of type '.png'. Once opened a file the user has complete freedom with how they decide to experience ANDIE. Each menu bar represents a different set of features such as View, Filters, Colour and Image. If the user applies a unwanted feature then the edit menu bar is helpful as it has the ability to undo and redo actions. If the image has reached its desired state then the user should 'save as' if wanting to save as an operations file 'ops' or export if wanting to create a copy of exsisting image without the change history.
 
